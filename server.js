@@ -9,6 +9,8 @@ connectDB();
 
 // Init Middleware
 app.use(express.json({ extended: false }));
+
+//log requests during development:
 app.use('/', (req, res, next) => {
   console.log(`${req.method} request on ${req.url}`);
   next();
@@ -19,9 +21,10 @@ app.use('/api/test', require('./routes/api/test'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
-  // Set static folder
+  // Set static folder(public folder)
   app.use(express.static('client/build'));
 
+  // Loads the static index.html file on all request not goint to our defined apis
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
