@@ -9,6 +9,7 @@ const App = () => (
     <Fragment>
       <h1>App</h1>
       <p>Added folder structure and this paragraph to test if deployed</p>
+      <p>This is Franks paragraph</p>
     </Fragment>
   </Provider>
 );
