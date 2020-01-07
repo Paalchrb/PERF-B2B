@@ -10,6 +10,7 @@ const App = () => (
       <h1>App</h1>
       <p>Added folder structure and this paragraph to test if deployed</p>
       <p> dette er en test</p>
+      <p>This is Franks paragraph</p>
       <h2>Espen was here!</h2>
     </Fragment>
   </Provider>
