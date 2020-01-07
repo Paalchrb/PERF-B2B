@@ -12,6 +12,7 @@ const App = () => (
       <p> dette er en test</p>
       <p>This is Franks paragraph</p>
       <h2>Espen was here!</h2>
+      <p>hello new paragraph</p>
     </Fragment>
   </Provider>
 );
