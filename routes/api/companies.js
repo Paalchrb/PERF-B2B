@@ -7,7 +7,6 @@ const Company = require('../../models/Company');
 // @route   POST api/companies
 // @desc    Register company
 // @access  Public
-
 router.post(
   '/',
   [
