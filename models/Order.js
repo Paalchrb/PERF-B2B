@@ -38,7 +38,7 @@ const OrderSchema = new mongoose.Schema({
   },
   sellerContact: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Company'
+    ref: 'User'
   }
 });
 
