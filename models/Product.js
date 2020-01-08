@@ -34,8 +34,6 @@ const ProductSchema = new mongoose.Schema({
   productExternalUrl: {
     type: String
   }
-
-
 });
 
-module.exports = Product = mongoose.model('product', ProductSchema);
+module.exports = Product = mongoose.model('Product', ProductSchema);
