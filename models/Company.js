@@ -65,10 +65,10 @@ const CompanySchema = new mongoose.Schema({
 		}
 	},
 	products: [{
-		productId: {
-			type: String,
+		createdAt: {
+			type: Date,
 			required: true,
-			unique: true
+			default: Date.now
 		},
 		productName: {
 			type: String,
@@ -90,7 +90,8 @@ const CompanySchema = new mongoose.Schema({
 		},
 		active: {
 			type: Boolean,
-			required: true
+			required: true,
+			default: true
 		},
 		productSubhead: {
 			type: String
