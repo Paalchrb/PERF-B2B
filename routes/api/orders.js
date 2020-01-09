@@ -3,60 +3,81 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 const Order = require('../../models/Order');
+const User = require('../../models/Order');
+const Company = require('../../models/Order');
 
 // @route   POST api/orders
 // @desc    Create order
 // @access  Private
-
 router.post(
   '/', 
-  // [ auth, 
+  [ auth, 
     [
       check('orgNum', 'Organization number is required')
         .not()
         .isEmpty(),
       check('orgNum', 'Organization number has to be 9 characters')
         .isLength(9)
-    // ]
+    ]
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    const buyer = await Company.findById(req.user.companyId);
+    const buyerContact = await User.findById(req.user.userId);
+    
+    const {
+      sellerId,
+      productId,
+      quantity
+    } = req.body;
+    
+    const seller = await Company.findById(sellerId);
+    const product = seller.products.filter(product => product.id === productID);
 
-    // const {
-      
-    // } = req.body;
+    const orderLineTotal = product.productPrice * quantity;
+    const orderLineVat = orderLineNetTotal * product.productVat;
+    const orderLineNetTotal = orderLineVat + orderLineTotal;
 
     try {
-      
-      const order = new Order({
-        orderDate,
-        orderNumber,
+      const order = new Order({   
         orderLine: {
-          productName,
-          productVat,
+          productId: productId,
+          productName: product.productName,
+          productPrice: product.productPrice,
+          productVat: product.productVat,
           quantity,
-          orderLineTotal
+          orderLineNetTotal
         },
         buyer: {
-          companyId,
-          orgNum,
-          companyName,
-          address
+          companyId: buyer.companyId,
+          orgNum: buyer.orgNum,
+          companyName: buyer.companyName,
+          address: {
+            street: buyer.address.street,
+            zipCode: buyer.address.zipCode,
+            city: buyer.address.city,
+            country: buyer.address.country
+          }
         },
-        seller: {
-          companyId,
-          orgNum,
-          companyName,
-          address
+        seller: { 
+          companyId: seller.companyId,
+          orgNum: seller.orgNum,
+          companyName: seller.companyName,
+          address: {
+            street: seller.address.street,
+            zipCode: seller.address.zipCode,
+            city: seller.address.city,
+            country: seller.address.country
+          }
         },
-        sellerContact: {
-          firstName,
-          lastName,
-          userPhone,
-          userEmail
+        buyerContact: {
+          firstName: user.userContact.firstName,
+          lastName: user.userContact.lastName,
+          userEmail: user.userContact.userEmail,
+          userPhone: user.userContact.userPhone,
         }
       });
 
