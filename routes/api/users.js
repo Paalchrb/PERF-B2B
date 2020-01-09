@@ -34,7 +34,7 @@ router.post(
     } = req.body;
 
     try {
-      let user = await User.findOne({ "userContact.userEmail": userEmail });
+      let user = await User.findOne({ 'userContact.userEmail': userEmail });
 
       if (user) {
         return res
