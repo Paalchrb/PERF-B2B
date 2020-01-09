@@ -33,10 +33,6 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         required: true
       },
-      orderLineTotal: {
-        type: Number,
-        required: true
-      },
       orderLineNetTotal: {
         type: Number,
         required: true

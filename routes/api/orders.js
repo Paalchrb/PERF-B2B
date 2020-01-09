@@ -28,24 +28,24 @@ router.post(
     
     const seller = await Company.findById(sellerId);
     const product = seller.products.filter(product => product.id === productId);
-    console.log(product);
+
+    
 
     const orderLineTotal =+product[0].productPrice * +quantity;
-    const orderLineVat = +orderLineTotal * +product.productVat;
+    const orderLineVat = +orderLineTotal * +product[0].productVat;
     const orderLineNetTotal = +orderLineVat + +orderLineTotal;
-
     try {
       const order = new Order({   
         orderLine: {
           productId: productId,
-          productName: product.productName,
-          productPrice: product.productPrice,
-          productVat: product.productVat,
+          productName: product[0].productName,
+          productPrice: product[0].productPrice,
+          productVat: product[0].productVat,
           quantity,
-          orderLineTotal
+          orderLineNetTotal
         },
         buyer: {
-          companyId: buyer.companyId,
+          companyId: buyer._id,
           orgNum: buyer.orgNum,
           companyName: buyer.companyName,
           address: {
@@ -56,7 +56,7 @@ router.post(
           }
         },
         seller: { 
-          companyId: seller.companyId,
+          companyId: seller._id,
           orgNum: seller.orgNum,
           companyName: seller.companyName,
           address: {
