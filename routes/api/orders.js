@@ -11,15 +11,7 @@ const Company = require('../../models/Order');
 // @access  Private
 router.post(
   '/', 
-  [ auth, 
-    [
-      check('orgNum', 'Organization number is required')
-        .not()
-        .isEmpty(),
-      check('orgNum', 'Organization number has to be 9 characters')
-        .isLength(9)
-    ]
-  ],
+  auth,
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -38,7 +30,7 @@ router.post(
     const product = seller.products.filter(product => product.id === productId);
 
     const orderLineTotal = product.productPrice * quantity;
-    const orderLineVat = orderLineNetTotal * product.productVat;
+    const orderLineVat = orderLineTotal * product.productVat;
     const orderLineNetTotal = orderLineVat + orderLineTotal;
 
     try {
