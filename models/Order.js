@@ -6,125 +6,39 @@ const OrderSchema = new mongoose.Schema({
     default: Date.now,
     required: true
   },
-  //Has to be a counter
   orderNumber: {
     type: String,
-    //required: true
+    required: true
   },
-  orderLine: [
-    {
-      productId: {
-        type: String,
-        required: true
-      },
-      productName: {
-        type: String,
-        required: true
-      },
-      productPrice: {
-        type: Number,
-        required: true
-      },
-      productVat: {
-        type: Number,
-        required: true
-      },
-      quantity: {
-        type: Number,
-        required: true
-      },
-      orderLineNetTotal: {
-        type: Number,
-        required: true
-      }
-    }
-  ],
-  buyer: {
-    companyId: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    orgNum: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    companyName: {
+  orderLine: {
+    productName: {
       type: String,
       required: true
     },
-    address: {
-      street: {
-        type: String,
-        required: true,
-      },
-      zipCode: {
-        type: String,
-        required: true,
-      },
-      city: {
-        type: String,
-        required: true,
-      },
-      country: {
-        type: String,
-        required: true,
-      }
+    productVat: {
+      type: Number,
+      required: true
+    },
+    quantity: {
+      type: Number,
+      required: true
+    },
+    orderLineTotal: {
+      type: Number,
+      required: true
     }
+  },
+  buyer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Company'
   },
   seller: {
-    companyId: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    orgNum: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    companyName: {
-      type: String,
-      required: true
-    },
-    address: {
-      street: {
-        type: String,
-        required: true,
-      },
-      zipCode: {
-        type: String,
-        required: true,
-      },
-      city: {
-        type: String,
-        required: true,
-      },
-      country: {
-        type: String,
-        required: true,
-      }
-    }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Company'
   },
-  buyerContact: {
-    firstName: {
-			type: String,
-			required: true
-    },
-		lastName: {
-			type: String,
-			required: true
-		},
-		userEmail: {
-			type: String,
-			required: true,
-			unique: true
-		},
-		userPhone: {
-			type: String,
-			required: true
-		}
+  sellerContact: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 });
 
