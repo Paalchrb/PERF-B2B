@@ -81,6 +81,10 @@ const CompanySchema = new mongoose.Schema({
 			productImage: {
 				type: String
 			},
+			productPrice: {
+				type: Number,
+				required: true
+			},
 			productVat: {
 				type: Number,
 				required: true

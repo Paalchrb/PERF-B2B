@@ -3,8 +3,8 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 const Order = require('../../models/Order');
-const User = require('../../models/Order');
-const Company = require('../../models/Order');
+const User = require('../../models/User');
+const Company = require('../../models/Company');
 
 // @route   POST api/orders
 // @desc    Create order
@@ -18,7 +18,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     const buyer = await Company.findById(req.user.companyId);
-    const buyerContact = await User.findById(req.user.userId);
+    const contactPerson = await User.findById(req.user.id);
     
     const {
       sellerId,
@@ -28,10 +28,11 @@ router.post(
     
     const seller = await Company.findById(sellerId);
     const product = seller.products.filter(product => product.id === productId);
+    console.log(product);
 
-    const orderLineTotal = product.productPrice * quantity;
-    const orderLineVat = orderLineTotal * product.productVat;
-    const orderLineNetTotal = orderLineVat + orderLineTotal;
+    const orderLineTotal =+product[0].productPrice * +quantity;
+    const orderLineVat = +orderLineTotal * +product.productVat;
+    const orderLineNetTotal = +orderLineVat + +orderLineTotal;
 
     try {
       const order = new Order({   
@@ -41,7 +42,7 @@ router.post(
           productPrice: product.productPrice,
           productVat: product.productVat,
           quantity,
-          orderLineNetTotal
+          orderLineTotal
         },
         buyer: {
           companyId: buyer.companyId,
@@ -66,10 +67,10 @@ router.post(
           }
         },
         buyerContact: {
-          firstName: user.userContact.firstName,
-          lastName: user.userContact.lastName,
-          userEmail: user.userContact.userEmail,
-          userPhone: user.userContact.userPhone,
+          firstName: contactPerson.userContact.firstName,
+          lastName: contactPerson.userContact.lastName,
+          userEmail: contactPerson.userContact.userEmail,
+          userPhone: contactPerson.userContact.userPhone,
         }
       });
 
@@ -77,7 +78,7 @@ router.post(
 
       res.status(201).json(order);
     } catch (error) {
-      console.error(err.message);
+      console.error(error.message);
       res.status(500).send('Server error');
     }   
   }
