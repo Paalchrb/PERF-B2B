@@ -17,7 +17,6 @@ app.use('/', (req, res, next) => {
 })
 
 // Define Routes
-app.use('/api/orders', require('./routes/api/orders'));
 app.use('/api/companies', require('./routes/api/companies'));
 app.use('/api/orders', require('./routes/api/orders'));
 app.use('/api/users', require('./routes/api/users'));
