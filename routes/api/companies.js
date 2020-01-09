@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
-
 // MongoDB models
 const Company = require('../../models/Company');
+
 
 // @route   POST api/companies
 // @desc    Register company
@@ -16,12 +16,34 @@ router.post(
       .not()
       .isEmpty(),
     check('orgNum', 'Organization number has to be 9 characters')
-      .isLength(9)
+      .isLength(9),
+      check('companyName', 'Company name is required')
+        .not()
+        .isEmpty(),
+      check('strees', 'Street adress is required')
+        .not()
+        .isEmpty(),
+      check('zipCode', 'Zip code is required')
+        .not()
+        .isEmpty(),
+      check('city', 'City is required')
+        .not()
+        .isEmpty(),
+      check('country', 'Country is required')
+        .not()
+        .isEmpty(),
+      check('companyEmail', 'Company email is required')
+        .isEmail(),
+      check('companyPhone', 'Company phone number is required')
+        .not()
+        .isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res
+        .status(400)
+        .json({ errors: errors.array() });
     }
 
     const { 
@@ -37,6 +59,7 @@ router.post(
 
     try {
       let company = await Company.findOne({ orgNum });
+
       if (company) {
         return res
           .status(400)
@@ -57,9 +80,7 @@ router.post(
           companyPhone
         }
       });
-      console.log(company);
-
-
+     
       await company.save();
 
       return res
@@ -72,7 +93,8 @@ router.post(
         .send('Server error');
     }
   }
-)
+);
+
 
 // @route   GET api/companies
 // @desc    Get all companies
@@ -87,7 +109,7 @@ router.get(
         .status(200)
         .json(companies);
     } catch (error) {
-      console.error(err.message);
+      console.error(error.message);
       return res
         .status(500)
         .send('Server error');
@@ -97,39 +119,57 @@ router.get(
 
 
 // @route    GET api/companies/me
-// @desc     Get company by companyId
+// @desc     Get company by auth token
 // @access   Private
 router.get('/me', auth, async (req, res) => {
   try {
     const company = await Company.findById(req.user.companyId);
 
-    if (!company) return res.status(400).json({ msg: 'Company not found' });
+    if (!company) {
+      return res
+        .status(400)
+        .json({ msg: 'Company not found' });
+    }
 
-    res.json(company);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+    return res
+      .status(200)
+      .json(company);
+  } catch (error) {
+    console.error(error.message);
+    return res
+      .status(500)
+      .send('Server Error');
   }
 });
-
 
 
 // @route    GET api/companies/:_id
 // @desc     Get company by companyId
 // @access   Public
+router.get(
+  '/:_id', 
+  async (req, res) => {
+    try {
+      const company = await Company.findById(req.params._id);
 
-router.get('/:_id', async (req, res) => {
-  try {
-    const company = await Company.findById(req.params._id);
+      if (!company) {
+        return res
+          .status(400)
+          .json({ msg: 'Company not found' });
+      }
 
-    if (!company) return res.status(400).json({ msg: 'Company not found' });
-
-    res.json(company);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+      return res
+        .status(200)
+        .json(company);
+    } catch (error) {
+      console.error(error.message);
+      return res
+        .status(500)
+        .send('Server Error');
+    }
   }
-});
+);
+
 
 // @route   POST api/companies/products
 // @desc    Add new product
@@ -140,6 +180,12 @@ router.post(
     auth,
     [
       check('productName', 'Product name is required')
+        .not()
+        .isEmpty(),
+      check('productPrice', 'Price is required')
+        .not()
+        .isEmpty(),
+      check('productVat', 'Vat class is required')
         .not()
         .isEmpty()
     ]
@@ -158,7 +204,6 @@ router.post(
       productImage,
       productPrice,
       productVat,
-      active,
       productSubhead,
       productInfoUpload,
       productExternalUrl
@@ -170,7 +215,6 @@ router.post(
       productImage,
       productPrice,
       productVat,
-      active,
       productSubhead,
       productInfoUpload,
       productExternalUrl
@@ -186,14 +230,13 @@ router.post(
       return res
         .status(201)
         .json(company);
-    } catch (err) {
-      console.error(err.message);
+    } catch (error) {
+      console.error(error.message);
       return res
         .status(500)
         .send('Server Error');
     }
   }
 );
-
 
 module.exports = router;

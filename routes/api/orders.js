@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
+//MongoDB models
 const Order = require('../../models/Order');
 const User = require('../../models/User');
 const Company = require('../../models/Company');
@@ -121,8 +122,8 @@ router.get(
           .status(400)
           .json({ msg: 'No orders found' });
       };
-    } catch (err) {
-      console.error(err.message);
+    } catch (error) {
+      console.error(error.message);
       return res
         .status(500)
         .send('Server Error');
@@ -150,8 +151,8 @@ router.get(
       return res
         .status(200)
         .json(order);
-    } catch (err) {
-      console.error(err.message);
+    } catch (error) {
+      console.error(error.message);
       return res
         .status(500)
         .send('Server Error');
