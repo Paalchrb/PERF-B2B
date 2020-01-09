@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
-
+const auth = require('../../middleware/auth');
+// MongoDB models
 const Company = require('../../models/Company');
 
 // @route   POST api/companies
@@ -60,10 +61,35 @@ router.post(
 
       await company.save();
 
-      res.status(201).json(company);
+      return res
+        .status(201)
+        .json(company);
     } catch(error) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      return res
+        .status(500)
+        .send('Server error');
+    }
+  }
+)
+
+// @route   GET api/companies
+// @desc    Get all companies
+// @access  Public
+router.get(
+  '/',
+  async (req, res) => {
+    try {
+      const companies = await Company.find();
+  
+      return res
+        .status(200)
+        .json(companies);
+    } catch (error) {
+      console.error(err.message);
+      return res
+        .status(500)
+        .send('Server error');
     }
   }
 )
@@ -113,6 +139,69 @@ router.get('/:me', auth, async (req, res) => {
   }
 });
 
+// @route   POST api/companies/products
+// @desc    Add new product
+// @access  Private
+router.post(
+  '/products',
+  [
+    auth,
+    [
+      check('productName', 'Product name is required')
+        .not()
+        .isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ errors: errors.array() });
+    }
+
+    const {
+      productName,
+      productDescription,
+      productImage,
+      productPrice,
+      productVat,
+      active,
+      productSubhead,
+      productInfoUpload,
+      productExternalUrl
+    } = req.body;
+
+    const newProduct= {
+      productName,
+      productDescription,
+      productImage,
+      productPrice,
+      productVat,
+      active,
+      productSubhead,
+      productInfoUpload,
+      productExternalUrl
+    };
+
+    try {
+      const company = await Company.findById(req.user.companyId);
+
+      company.products.unshift(newProduct);
+
+      await company.save();
+
+      return res
+        .status(201)
+        .json(company);
+    } catch (err) {
+      console.error(err.message);
+      return res
+        .status(500)
+        .send('Server Error');
+    }
+  }
+);
 
 
 module.exports = router;
