@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-
+const auth = require('../../middleware/auth');
 const Order = require('../../models/Order');
 
 // @route   POST api/orders
@@ -69,5 +69,41 @@ router.post(
     }   
   }
 );
+
+
+
+// @route    GET api/orders/me
+// @desc     Get order by companyId
+// @access   Private
+router.get('/me', auth, async (req, res) => {
+  try {
+    const order = await Order.find(req.user.companyId);
+
+    if (!order) return res.status(400).json({ msg: 'Order list not found' });
+
+    res.json(order);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+// @route    GET api/orders/:orderId
+// @desc     Get specific order by orderId
+// @access   Private
+
+router.get('/:orderId', auth, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.orderId);
+
+    if (!order) return res.status(400).json({ msg: 'Order not found' });
+
+    res.json(order);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;

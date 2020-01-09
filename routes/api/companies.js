@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
-const auth = require('../../middleware/auth');
+
 // MongoDB models
 const Company = require('../../models/Company');
 
@@ -95,46 +95,37 @@ router.get(
 )
 
 
-// @route    GET api/companies/:companyId
-// @desc     Get profile by companyId
-// @access   Public
-
-router.get('/:companyId', async (req, res) => {
+// @route    GET api/companies/me
+// @desc     Get company by companyId
+// @access   Private
+router.get('/me', auth, async (req, res) => {
   try {
-    const company = await Company.findOne({
-      Company: req.params.companyId
-    });
+    const company = await Company.findById(req.user.companyId);
 
     if (!company) return res.status(400).json({ msg: 'Company not found' });
 
     res.json(company);
   } catch (err) {
     console.error(err.message);
-    if (err.kind == '_id') {
-      return res.status(400).json({ msg: 'Company not found' });
-    }
     res.status(500).send('Server Error');
   }
 });
 
 
-// @route    GET api/companies/:me
-// @desc     Get profile by companyId
-// @access   Private
-router.get('/:me', auth, async (req, res) => {
+
+// @route    GET api/companies/:_id
+// @desc     Get company by companyId
+// @access   Public
+
+router.get('/:_id', async (req, res) => {
   try {
-    const company = await Company.findOne({
-      Company: req.params.me
-    });
+    const company = await Company.findById(req.params._id);
 
     if (!company) return res.status(400).json({ msg: 'Company not found' });
 
     res.json(company);
   } catch (err) {
     console.error(err.message);
-    if (err.kind == '_id') {
-      return res.status(400).json({ msg: 'Company not found' });
-    }
     res.status(500).send('Server Error');
   }
 });
