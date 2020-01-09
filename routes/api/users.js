@@ -3,13 +3,11 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
-
 const User = require('../../models/User');
 
 // @route   POST api/users
 // @desc    Register user
 // @access  Public
-
 router.post(
   '/',
   [
@@ -20,7 +18,9 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res
+        .status(400)
+        .json({ errors: errors.array() });
     }
 
     const { 
@@ -34,7 +34,7 @@ router.post(
     } = req.body;
 
     try {
-      let user = await User.findOne({ userEmail });
+      let user = await User.findOne({ 'userContact.userEmail': userEmail });
 
       if (user) {
         return res
@@ -42,10 +42,10 @@ router.post(
           .json({ errors: [{ msg: 'User already exists' }] });
       }
 
-      if (password != password2) {
+      if (password !== password2) {
         return res
-        .status(400)
-        .json({ errors: [{ msg: 'Passwords do not match' }] });
+          .status(400)
+          .json({ errors: [{ msg: 'Passwords do not match' }] });
       }
 
       user = new User({
@@ -66,7 +66,7 @@ router.post(
 
       res.status(201).json(user);
     } catch(error) {
-      console.error(err.message);
+      console.error(error.message);
       res.status(500).send('Server error');
     }
   }
