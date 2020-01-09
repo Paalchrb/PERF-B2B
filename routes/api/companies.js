@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
-const auth = require('../../middleware/auth');
 // MongoDB models
 const Company = require('../../models/Company');
 
@@ -37,7 +36,6 @@ router.post(
 
     try {
       let company = await Company.findOne({ orgNum });
-
       if (company) {
         return res
           .status(400)
@@ -58,6 +56,8 @@ router.post(
           companyPhone
         }
       });
+      console.log(company);
+
 
       await company.save();
 
@@ -65,7 +65,7 @@ router.post(
         .status(201)
         .json(company);
     } catch(error) {
-      console.error(err.message);
+      console.error(error.message);
       return res
         .status(500)
         .send('Server error');
