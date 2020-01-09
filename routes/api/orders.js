@@ -35,7 +35,7 @@ router.post(
     } = req.body;
     
     const seller = await Company.findById(sellerId);
-    const product = seller.products.filter(product => product.id === productID);
+    const product = seller.products.filter(product => product.id === productId);
 
     const orderLineTotal = product.productPrice * quantity;
     const orderLineVat = orderLineNetTotal * product.productVat;
@@ -98,11 +98,16 @@ router.post(
 // @access   Private
 router.get('/me', auth, async (req, res) => {
   try {
-    const order = await Order.find(req.user.companyId);
+    const salesOrders = await Order.find({'seller.companyId':req.user.companyId});
 
-    if (!order) return res.status(400).json({ msg: 'Order list not found' });
+    const procurementOrders = await Order.find({'buyer.companyId':req.user.companyId});
 
-    res.json(order);
+    if (salesOrders || procurementOrders) {
+      return res.json(salesOrders = {}, procurementOrders = {})
+    } else {
+      return res.status(400).json({ msg: 'Order list not found' }
+    )};
+
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -128,3 +133,6 @@ router.get('/:orderId', auth, async (req, res) => {
 });
 
 module.exports = router;
+
+
+
