@@ -17,8 +17,10 @@ app.use('/', (req, res, next) => {
 })
 
 // Define Routes
-app.use('/api/test', require('./routes/api/test'));
-app.use('/api/company', require('./routes/api/company'));
+app.use('/api/companies', require('./routes/api/companies'));
+app.use('/api/orders', require('./routes/api/orders'));
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
