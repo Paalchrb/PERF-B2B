@@ -12,7 +12,7 @@ export const getMyCompany = () => async dispatch => {
   try {
     let config = {
       headers: {
-        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxNzg4OGEwMzk4NTgyZTlhOGVlOTAxIiwiY29tcGFueUlkIjoiNWUxNzNiY2MyODBmMzYwNWZiMTg2YTMzIn0sImlhdCI6MTU3ODY1NjA0NiwiZXhwIjoxNTgyMjU2MDQ2fQ.CMiliMpt1j0UEmm9Zu-7qi3yPQizp-MYs_g7N7JcSN4',
+        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxNzNlYzdiODJhMTgyMmYxNzA4MWQ2IiwiY29tcGFueUlkIjoiNWUxNzNiZmYyODBmMzYwNWZiMTg2YTM0In0sImlhdCI6MTU3ODY1ODc1OCwiZXhwIjoxNTgyMjU4NzU4fQ.8Yw0sgEumvy5GvB5-U8Pe_5-Tdk2HWM1pafN09M-HKk',
       }
     }
     
@@ -36,7 +36,18 @@ export const getMyCompany = () => async dispatch => {
 //get company recent products
 export const getRecentProducts = () => async dispatch => {
   try {
-    const res = {} //need api to my recent products
+    let config = {
+      headers: {
+        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxNzNlYzdiODJhMTgyMmYxNzA4MWQ2IiwiY29tcGFueUlkIjoiNWUxNzNiZmYyODBmMzYwNWZiMTg2YTM0In0sImlhdCI6MTU3ODY1ODc1OCwiZXhwIjoxNTgyMjU4NzU4fQ.8Yw0sgEumvy5GvB5-U8Pe_5-Tdk2HWM1pafN09M-HKk',
+      }
+    }
+    const res = await axios('api/orders/me', config);
+    const products = res.data.procurementOrders
+      .map(order => order.orderLine
+        .map(line => line.productId)
+      )
+      .flat();
+    console.log(products);
     dispatch({
       type: GET_PRODUCTS,
       payload: res

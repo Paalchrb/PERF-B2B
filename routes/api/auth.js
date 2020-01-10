@@ -51,7 +51,7 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      let user = await User.findOne({ 'userContact.userEmail': email });
+      let user = await User.findOne({ 'userContact.userEmail': email }); //Find a way to remove password (with select?)
 
       if (!user) {
         return res
