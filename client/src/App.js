@@ -5,6 +5,7 @@ import Login from './components/auth/Login';
 import Navbar from './components/layout/Navbar';
 import LandingPage from './components/layout/LandingPage';
 import Dashboard from './components/dashboard/Dashoard';
+import Order from './components/order/Order';
 
 //redux:
 import { Provider } from 'react-redux'; //all Components wrapped in Provider will have access to store(state)
