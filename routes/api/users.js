@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-
+//MongoDB models
 const User = require('../../models/User');
+
 
 // @route   POST api/users
 // @desc    Register user
@@ -12,6 +13,17 @@ router.post(
   '/',
   [
     check('userEmail', 'Email is required')
+      .not()
+      .isEmpty(),
+    check('password', 'Please enter a password with 6 or more characters')
+      .isLength({ min: 6 }),
+    check('userPhone', 'Phone number is required')
+      .not()
+      .isEmpty(),
+    check('firstName', 'First name is required')
+      .not()
+      .isEmpty(),
+    check('lastName', 'Last name is required')
       .not()
       .isEmpty(),
   ],
@@ -58,16 +70,20 @@ router.post(
         companyId
       });
 
+      //crypt password
       const salt = await bcrypt.genSalt(10);
-
       user.password = await bcrypt.hash(password, salt);
 
       await user.save();
 
-      res.status(201).json(user);
+      return res
+        .status(201)
+        .json(user);
     } catch(error) {
       console.error(error.message);
-      res.status(500).send('Server error');
+      return res
+        .status(500)
+        .send('Server error');
     }
   }
 )

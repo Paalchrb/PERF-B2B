@@ -1,3 +1,18 @@
+/*****************************************************************************
+ * Middleware for authorizing users & allow access to private api routes.
+ * 
+ * Token must be passed to API route in header with prop name x-auth-token
+ * 
+ * Decoded payload is assigned to req.user and kan be accessed in any private API 
+ * route. req.user has this format:
+ * req.user = {
+ *    id: <userid>,
+ *    companyId: <companyId>
+ * }
+ * 
+ * To apply middleware pass it as second argument in your API route
+ ****************************************************************************/
+
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
