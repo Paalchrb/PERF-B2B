@@ -38,6 +38,33 @@ const CompanySchema = new mongoose.Schema({
 			required: true,
 		} 
 	},
+	recentProducts: [
+		{
+			productId: {
+				type: String,
+				required: true
+			},
+			sellerId: {
+				type: String,
+				required: true
+			}
+		}
+	],
+	recentOrders: {
+		type: [String],
+	},
+	favoriteProducts: [
+		{
+			productId: {
+				type: String,
+				required: true
+			},
+			sellerId: {
+				type: String,
+				required: true
+			}
+		}
+	],
 	accountNumber: {
 		type: String
 	},
