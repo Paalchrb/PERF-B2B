@@ -10,8 +10,9 @@ const Dashboard = ({
   getRecentProducts
 }) => {
   useEffect(() => {
-    getMyCompany();
-  }, [getMyCompany]);
+    //getMyCompany();
+    getRecentProducts();
+  }, [/* getMyCompany */ , getRecentProducts]);
 
   return (
     <Fragment>
