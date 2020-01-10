@@ -46,6 +46,18 @@ export default function(state = initialState, action) {
           products: null,
           loading: false
         }
+      case GET_FAV_PRODUCTS:
+        return {
+          ...state,
+          products: payload,
+          loading: false
+        }
+      case FAV_PRODUCTS_ERROR:
+        return {
+          ...state,
+          products: null,
+          error: payload
+        }
     default:
       return state;
   }
