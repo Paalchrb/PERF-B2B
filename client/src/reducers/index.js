@@ -7,6 +7,6 @@ import dashboard from './dashboard';
 export default combineReducers({
   //export reducers here
   alert,
-  auth
+  auth,
   dashboard,
 });
