@@ -87,7 +87,7 @@ router.post(
 
 
 // @route    GET api/orders/me
-// @desc     Get order by companyId
+// @desc     Get orders by companyId
 // @access   Private
 router.get('/me', auth, async (req, res) => {
   try {
