@@ -9,7 +9,7 @@ import navbar from './navbar';
 export default combineReducers({
   //export reducers here
   alert,
-  auth
+  auth,
   dashboard,
   order,
   navbar

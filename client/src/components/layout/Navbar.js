@@ -1,13 +1,9 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setSearchField } from '../../actions/navbar';
 
-
-
-import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (

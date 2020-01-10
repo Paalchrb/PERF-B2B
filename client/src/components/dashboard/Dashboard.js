@@ -12,7 +12,7 @@ const Dashboard = ({
   useEffect(() => {
     //getMyCompany();
     getRecentProducts();
-  }, [/* getMyCompany */ , getRecentProducts]);
+  }, [/* getMyCompany, */  getRecentProducts]);
 
   return (
     <Fragment>
