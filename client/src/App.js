@@ -4,9 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/auth/Login';
 import Navbar from './components/layout/Navbar';
 import LandingPage from './components/layout/LandingPage';
-import Dashboard from './components/dashboard/Dashoard';
+import Dashboard from './components/dashboard/Dashboard';
 import Order from './components/order/Order';
-
 //redux:
 import { Provider } from 'react-redux'; //all Components wrapped in Provider will have access to store(state)
 import store from './store';
@@ -14,17 +13,15 @@ import store from './store';
 const App = () => (
   <Provider store={store}>
     <Router>
-      <Navbar/>
+      <Navbar />
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route path='/login' component={Login} />
         <Route path=''/dashboard' component={Dashboard} />
         <Route path='/ord'er' component={Order} />
       </Switch>
-
     </Router>
   </Provider>
 );
-  
 
 export default App;
