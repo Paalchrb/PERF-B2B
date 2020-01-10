@@ -1,3 +1,11 @@
+import React from 'react'
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setSearchField } from '../../actions/navbar';
+
+
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -5,6 +13,10 @@ const Navbar = () => {
   return (
     <div>
       navbar
+      <input 
+        type='text'
+        onChange={setSearchField}
+      ></input>
       <Link to='/'>
         Landingpage
       </Link>
@@ -18,10 +30,24 @@ const Navbar = () => {
   )
 }
 
-export default Navbar;
+Navbar.propTypes = {
+  setSearchField: PropTypes.func.isRequired,
 
+}
 
+const mapStateToProps = state => ({
+  setSearchField: state.searchField,
+});
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+  onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+}
+}
 
+export default connect(
+  mapStateToProps, 
+  mapDispatchToProps
+  )(Navbar);
 
 

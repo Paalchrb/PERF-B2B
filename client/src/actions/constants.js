@@ -10,3 +10,6 @@ export const COMPANY_ERROR = 'COMPANY_ERROR';
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const PRODUCT_ERROR = 'PRODUCT_ERROR';
 export const LOGOUT = 'LOGOUT ';
+export const GET_ORDER= 'GET_ORDER';
+export const ORDER_ERROR= 'ORDER_ERROR';
+export const CHANGE_SEARCH_FIELD= 'CHANGE_SEARCH_FIELD';
