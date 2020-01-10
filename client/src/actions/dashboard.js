@@ -14,7 +14,7 @@ export const getMyCompany = () => async dispatch => {
   try {
     let config = {
       headers: {
-        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxNzNlYzdiODJhMTgyMmYxNzA4MWQ2IiwiY29tcGFueUlkIjoiNWUxNzNiZmYyODBmMzYwNWZiMTg2YTM0In0sImlhdCI6MTU3ODY1ODc1OCwiZXhwIjoxNTgyMjU4NzU4fQ.8Yw0sgEumvy5GvB5-U8Pe_5-Tdk2HWM1pafN09M-HKk',
+        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxNzNlYzdiODJhMTgyMmYxNzA4MWQ2IiwiY29tcGFueUlkIjoiNWUxNzNiZmYyODBmMzYwNWZiMTg2YTM0In0sImlhdCI6MTU3ODY4Nzg5OSwiZXhwIjoxNTgyMjg3ODk5fQ.IMC7GoDJ001lUbD3wfveMDQL4A0YYeBYve7-HLa4agI',
       }
     }
     
@@ -40,19 +40,45 @@ export const getRecentProducts = () => async dispatch => {
   try {
     let config = {
       headers: {
-        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxNzNlYzdiODJhMTgyMmYxNzA4MWQ2IiwiY29tcGFueUlkIjoiNWUxNzNiZmYyODBmMzYwNWZiMTg2YTM0In0sImlhdCI6MTU3ODY1ODc1OCwiZXhwIjoxNTgyMjU4NzU4fQ.8Yw0sgEumvy5GvB5-U8Pe_5-Tdk2HWM1pafN09M-HKk',
+        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxNzNlYzdiODJhMTgyMmYxNzA4MWQ2IiwiY29tcGFueUlkIjoiNWUxNzNiZmYyODBmMzYwNWZiMTg2YTM0In0sImlhdCI6MTU3ODY4Nzg5OSwiZXhwIjoxNTgyMjg3ODk5fQ.IMC7GoDJ001lUbD3wfveMDQL4A0YYeBYve7-HLa4agI',
       }
     }
     const res = await axios('api/companies/me', config);
-    const recProductsIds = res.data.recentProducts;
+    const recentProductsIds = res.data.recentProducts;
      
     dispatch({
       type: GET_RECENT_PRODUCTS,
-      payload: res
+      payload: recentProductsIds
     })
   } catch (error) {
     dispatch({
       type: RECENT_PRODUCTS_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status
+      }
+    });
+  }
+};
+
+//get company favorite products
+export const getFavoriteProducts = () => async dispatch => {
+  try {
+    let config = {
+      headers: {
+        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxNzNlYzdiODJhMTgyMmYxNzA4MWQ2IiwiY29tcGFueUlkIjoiNWUxNzNiZmYyODBmMzYwNWZiMTg2YTM0In0sImlhdCI6MTU3ODY4Nzg5OSwiZXhwIjoxNTgyMjg3ODk5fQ.IMC7GoDJ001lUbD3wfveMDQL4A0YYeBYve7-HLa4agI',
+      }
+    }
+    const res = await axios('api/companies/me', config);
+    const favoriteProductsIds = res.data.favoriteProducts;
+
+    dispatch({
+      type: GET_FAV_PRODUCTS,
+      payload: favoriteProductsIds
+    })
+  } catch (error) {
+    dispatch({
+      type: FAV_PRODUCTS_ERROR,
       payload: {
         msg: error.response.statusText,
         status: error.response.status

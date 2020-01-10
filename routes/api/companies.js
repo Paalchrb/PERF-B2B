@@ -244,7 +244,7 @@ router.post(
 // @desc    Add product to favorites
 // @access  Private
 router.post(
-  '/products/favourites',
+  '/products/favorites',
   [
     auth,
     [
@@ -267,7 +267,7 @@ router.post(
     const { productId, sellerId } = req.body;
 
     try {
-      const company = await Company.findById(req.user.id);
+      const company = await Company.findById(req.user.companyId);
 
       const newFavourite = {
         productId,
