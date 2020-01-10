@@ -1,8 +1,10 @@
 import {
   GET_COMPANY,
   COMPANY_ERROR,
-  GET_PRODUCTS,
-  PRODUCT_ERROR
+  GET_FAV_PRODUCTS,
+  FAV_PRODUCTS_ERROR,
+  GET_RECENT_PRODUCTS,
+  RECENT_PRODUCTS_ERROR
 } from '../actions/constants';
 
 const initialState = {
@@ -31,13 +33,13 @@ export default function(state = initialState, action) {
         company: null,
         loading: false
       }
-    case GET_PRODUCTS:
+    case GET_RECENT_PRODUCTS:
       return {
         ...state,
         products: payload,
         loading: false
       }
-      case PRODUCT_ERROR:
+      case RECENT_PRODUCTS_ERROR:
         return {
           ...state,
           error: payload,

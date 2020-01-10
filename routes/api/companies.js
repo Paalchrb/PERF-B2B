@@ -239,4 +239,103 @@ router.post(
   }
 );
 
+
+// @route   POST api/companies/products/favorites
+// @desc    Add product to favorites
+// @access  Private
+router.post(
+  '/products/favourites',
+  [
+    auth,
+    [
+      check('productId', 'Product id must be provided')
+        .not()
+        .isEmpty(),
+      check('sellerId', 'Seller id must be provided')
+        .not()
+        .isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ errors: errors.array() });
+    }
+
+    const { productId, sellerId } = req.body;
+
+    try {
+      const company = await Company.findById(req.user.id);
+
+      const newFavourite = {
+        productId,
+        sellerId
+      }
+
+      company.favoriteProducts.unshift(newFavourite);
+
+      company.save();
+
+      return res
+        .status(201)
+        .json(company);
+    } catch (error) {
+      console.error(error.message);
+      return res
+        .status(500)
+        .send('Server Error');
+    }
+  }  
+);
+
+
+// @route   GET api/companies/products/favorites
+// @desc    Get favourite products
+// @access  Private
+router.get(
+  '/products/favourites',
+  auth,
+  async (req, res) => {
+    try {
+      const company = await Company.findById(req.user.id);
+      const favProducts = company.favouriteProducts;
+
+      return res
+        .status(200)
+        .json(favProducts)
+    } catch (error) {
+      console.error(error.message);
+      return res
+        .status(500)
+        .send('Server Error');
+    }
+  }
+);
+
+
+// @route   GET api/companies/products/recent
+// @desc    Get recently bought products
+// @access  Private
+router.get(
+  '/products/recent',
+  auth,
+  async (req, res) => {
+    try {
+      const company = await Company.findById(req.user.id);
+      const recProducts = company.favouriteProducts;
+
+      return res
+        .status(200)
+        .json(recProducts);
+    } catch (error) {
+      console.error(error.message);
+      return res
+        .status(500)
+        .send('Server Error');
+    }
+  }
+);
+
 module.exports = router;
