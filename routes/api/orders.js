@@ -87,8 +87,23 @@ router.post(
         }
       });
 
-      await order.save();
+      buyer.recentOrders.unshift(order._id);
 
+      if (buyer.recentOrders.length > 4) {
+        buyer.recentOrders = buyer.recentOrders.slice(5);
+      }
+      
+      buyer.recentProducts.unshift({
+        productId,
+        sellerId
+      });
+      
+      if (buyer.recentProducts.length > 4) {
+        buyer.recentProducts = buyer.recentProducts.slice(5);
+      }
+      
+      await order.save();
+      
       return res
         .status(201)
         .json(order);
@@ -160,5 +175,33 @@ router.get(
   }
 );
 
-module.exports = router;
 
+// @route   GET api/orders/recent
+// @desc    Get recent procurement orders
+// @access  Private
+router.get(
+  '/products/recent',
+  auth,
+  async (req, res) => {
+    try {
+      const company = await Company.findById(req.user.id);
+      const orderIds = company.recentOrders;
+      const queryIds = orderIds.map(id => new mongoose.Types.ObjectId(id));
+
+      const recOrders = Order.find({ 
+        '_id': { $in: queryIds }
+      });
+
+      return res
+        .status(200)
+        .json(recOrders);
+    } catch (error) {
+      console.error(error.message);
+      return res
+        .status(500)
+        .send('Server Error');
+    }
+  }
+);
+
+module.exports = router;
