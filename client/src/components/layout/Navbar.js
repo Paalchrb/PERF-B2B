@@ -1,4 +1,3 @@
-import React from 'react';
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -63,6 +62,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
   onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
   }
+}
 }
 
 export default connect(

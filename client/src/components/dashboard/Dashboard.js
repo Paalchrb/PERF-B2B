@@ -18,7 +18,6 @@ const Dashboard = ({
   useEffect(() => {
     //getMyCompany();
     getRecentProducts();
-  }, [/* getMyCompany, */  getRecentProducts]);
   }, [/* getMyCompany, */ getRecentProducts]);
     (async function() {
       await getMyCompany();
@@ -26,7 +25,7 @@ const Dashboard = ({
       await getFavoriteProducts();
       /* await getRecentOrders(); */
     })();
-  }, [getMyCompany, getRecentProducts, getFavoriteProducts /* getRecentOrders */]);
+  }, [getMyCompany, getRecentProducts, getFavoriteProducts /* getRecentOrders */];
 
   return (
     <Fragment>
