@@ -52,7 +52,7 @@ router.post(
           productPrice: product.productPrice,
           productVat: product.productVat,
           quantity,
-          orderLineNetTotal
+          // orderLineNetTotal
         },
         buyer: {
           companyId: buyer._id,
