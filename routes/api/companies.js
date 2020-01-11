@@ -20,7 +20,7 @@ router.post(
       check('companyName', 'Company name is required')
         .not()
         .isEmpty(),
-      check('strees', 'Street adress is required')
+      check('street', 'Street adress is required')
         .not()
         .isEmpty(),
       check('zipCode', 'Zip code is required')
