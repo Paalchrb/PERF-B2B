@@ -171,75 +171,6 @@ router.get(
 );
 
 
-// @route   POST api/companies/products
-// @desc    Add new product
-// @access  Private
-router.post(
-  '/products',
-  [
-    auth,
-    [
-      check('productName', 'Product name is required')
-        .not()
-        .isEmpty(),
-      check('productPrice', 'Price is required')
-        .not()
-        .isEmpty(),
-      check('productVat', 'Vat class is required')
-        .not()
-        .isEmpty()
-    ]
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res
-        .status(400)
-        .json({ errors: errors.array() });
-    }
-
-    const {
-      productName,
-      productDescription,
-      productImage,
-      productPrice,
-      productVat,
-      productSubhead,
-      productInfoUpload,
-      productExternalUrl
-    } = req.body;
-
-    const newProduct= {
-      productName,
-      productDescription,
-      productImage,
-      productPrice,
-      productVat,
-      productSubhead,
-      productInfoUpload,
-      productExternalUrl
-    };
-
-    try {
-      const company = await Company.findById(req.user.companyId);
-
-      company.products.unshift(newProduct);
-
-      await company.save();
-
-      return res
-        .status(201)
-        .json(company);
-    } catch (error) {
-      console.error(error.message);
-      return res
-        .status(500)
-        .send('Server Error');
-    }
-  }
-);
-
-
 // @route   POST api/companies/products/favorites
 // @desc    Add product to favorites
 // @access  Private
@@ -251,9 +182,6 @@ router.post(
       check('productId', 'Product id must be provided')
         .not()
         .isEmpty(),
-      check('sellerId', 'Seller id must be provided')
-        .not()
-        .isEmpty()
     ]
   ],
   async (req, res) => {
@@ -264,23 +192,18 @@ router.post(
         .json({ errors: errors.array() });
     }
 
-    const { productId, sellerId } = req.body;
+    const { productId } = req.body;
 
     try {
       const company = await Company.findById(req.user.companyId);
 
-      const newFavourite = {
-        productId,
-        sellerId
-      }
-
-      company.favoriteProducts.unshift(newFavourite);
+      company.favoriteProducts.unshift(productId);
 
       company.save();
 
       return res
         .status(201)
-        .json(company);
+        .json(company.favoriteProducts);
     } catch (error) {
       console.error(error.message);
       return res
@@ -291,51 +214,8 @@ router.post(
 );
 
 
-// @route   GET api/companies/products/favorites
-// @desc    Get favourite products
-// @access  Private
-router.get(
-  '/products/favourites',
-  auth,
-  async (req, res) => {
-    try {
-      const company = await Company.findById(req.user.id);
-      const favProducts = company.favouriteProducts;
-
-      return res
-        .status(200)
-        .json(favProducts)
-    } catch (error) {
-      console.error(error.message);
-      return res
-        .status(500)
-        .send('Server Error');
-    }
-  }
-);
+// route to unfavorite item **
 
 
-// @route   GET api/companies/products/recent
-// @desc    Get recently bought products
-// @access  Private
-router.get(
-  '/products/recent',
-  auth,
-  async (req, res) => {
-    try {
-      const company = await Company.findById(req.user.id);
-      const recProducts = company.favouriteProducts;
-
-      return res
-        .status(200)
-        .json(recProducts);
-    } catch (error) {
-      console.error(error.message);
-      return res
-        .status(500)
-        .send('Server Error');
-    }
-  }
-);
 
 module.exports = router;

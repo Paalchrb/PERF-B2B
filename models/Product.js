@@ -29,6 +29,10 @@ const ProductSchema = new mongoose.Schema({
   },
   productExternalUrl: {
     type: String
+  },
+  companyId: {
+    type: String,
+    required: true
   }
 });
 

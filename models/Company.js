@@ -38,33 +38,15 @@ const CompanySchema = new mongoose.Schema({
 			required: true,
 		} 
 	},
-	recentProducts: [
-		{
-			productId: {
-				type: String,
-				required: true
-			},
-			sellerId: {
-				type: String,
-				required: true
-			}
-		}
-	],
+	recentProducts: {
+			type: [String],
+	},
 	recentOrders: {
 		type: [String],
 	},
-	favoriteProducts: [
-		{
-			productId: {
-				type: String,
-				required: true
-			},
-			sellerId: {
-				type: String,
-				required: true
-			}
-		}
-	],
+	favoriteProducts: {
+		type: [String]
+	},
 	accountNumber: {
 		type: String
 	},
@@ -90,48 +72,7 @@ const CompanySchema = new mongoose.Schema({
 		instagram: {
 			type: String
 		}
-	},
-	products: [
-		{
-			createdAt: {
-				type: Date,
-				required: true,
-				default: Date.now
-			},
-			productName: {
-				type: String,
-				required: true
-			},
-			productDescription: {
-				type: String
-			},
-			productImage: {
-				type: String
-			},
-			productPrice: {
-				type: Number,
-				required: true
-			},
-			productVat: {
-				type: Number,
-				required: true
-			},
-			active: {
-				type: Boolean,
-				required: true,
-				default: true
-			},
-			productSubhead: {
-				type: String
-			},
-			productInfoUpload:{
-				type: String
-			},
-			productExternalUrl: {
-				type: String
-			}
-		}
-	]
+	}
 });
 
 module.exports = Company = mongoose.model('Company', CompanySchema);

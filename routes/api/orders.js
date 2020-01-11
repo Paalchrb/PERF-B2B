@@ -6,6 +6,7 @@ const auth = require('../../middleware/auth');
 const Order = require('../../models/Order');
 const User = require('../../models/User');
 const Company = require('../../models/Company');
+const Product = require('../../models/Product');
 
 
 // @route   POST api/orders
@@ -41,11 +42,7 @@ router.post(
     const buyer = await Company.findById(req.user.companyId);
     const contactPerson = await User.findById(req.user.id);
     const seller = await Company.findById(sellerId);
-    const product = seller.products.filter(product => product.id === productId)[0];
-
-    const orderLineTotal =+product.productPrice * +quantity;
-    const orderLineVat = +orderLineTotal * +product.productVat;
-    const orderLineNetTotal = +orderLineVat + +orderLineTotal;
+    const product = await Product.findById(productId);
 
     try {
       const order = new Order({   
@@ -93,10 +90,7 @@ router.post(
         buyer.recentOrders = buyer.recentOrders.slice(5);
       }
       
-      buyer.recentProducts.unshift({
-        productId,
-        sellerId
-      });
+      buyer.recentProducts.unshift(productId);
       
       if (buyer.recentProducts.length > 4) {
         buyer.recentProducts = buyer.recentProducts.slice(5);
