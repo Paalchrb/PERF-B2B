@@ -7,15 +7,13 @@ import { logout } from '../../actions/auth';
 
 
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Navbar = ({ auth: { isAuthenticated, loading }, logout, setSearchField }) => {
 const authLinks = (
   <ul>
     <li>
       <Link to='/' onClick={logout}>Logout</Link>
     </li>
-    <li>
-      <Link to='/'>Landingpage</Link>
-    </li>
+    
     <li>
       <Link to='/dashboard'>Dashboard</Link>
     </li>
@@ -33,14 +31,23 @@ const guestLinks = (
   </ul>
 );
 
+const searchFieldChange = function(event) {
+  setSearchField(event.target.value);
+}
+
   return (
     <div>
       navbar
       <input 
         type='text'
-        onChange={setSearchField}
+        onChange={event => searchFieldChange(event)}
       >
       </input>
+      <ul>
+        <li>
+          <Link to='/'>Landingpage</Link>
+        </li>
+      </ul>
       { !loading && (<Fragment>{ isAuthenticated ? authLinks: guestLinks }</Fragment>)}
     </div>
   )
@@ -59,15 +66,9 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
-  }
-}
-
 export default connect(
   mapStateToProps,
-  { logout }
+  { logout, setSearchField }
   )(Navbar);
 
 
