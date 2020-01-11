@@ -46,6 +46,8 @@ router.post(
       productExternalUrl,
     } = req.body;
 
+    const productNetPrice = +productPrice * (1 + +productVat);
+
     try {
       const product = new Product({
         productName,
@@ -53,6 +55,7 @@ router.post(
         productImage,
         productPrice,
         productVat,
+        productNetPrice,
         productSubhead,
         productInfoUpload,
         productExternalUrl,

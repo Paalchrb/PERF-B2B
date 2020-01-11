@@ -43,6 +43,7 @@ router.post(
     const contactPerson = await User.findById(req.user.id);
     const seller = await Company.findById(sellerId);
     const product = await Product.findById(productId);
+    const orderLineNetTotal = (+product.productPrice * (1 + +product.productVat)) * quantity; 
 
     try {
       const order = new Order({   
@@ -52,7 +53,7 @@ router.post(
           productPrice: product.productPrice,
           productVat: product.productVat,
           quantity,
-          // orderLineNetTotal
+          orderLineNetTotal
         },
         buyer: {
           companyId: buyer._id,
