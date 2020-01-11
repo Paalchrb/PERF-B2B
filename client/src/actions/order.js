@@ -11,11 +11,11 @@ export const getMyOrder = () => async dispatch => {
   try {
     let config = {
       headers: {
-        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxNzg4OGEwMzk4NTgyZTlhOGVlOTAxIiwiY29tcGFueUlkIjoiNWUxNzNiY2MyODBmMzYwNWZiMTg2YTMzIn0sImlhdCI6MTU3ODY1NjA0NiwiZXhwIjoxNTgyMjU2MDQ2fQ.CMiliMpt1j0UEmm9Zu-7qi3yPQizp-MYs_g7N7JcSN4',
+        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxOWQ5NDZmOTExYTUxYjE1NDVlZTRlIiwiY29tcGFueUlkIjoiNWUxOWQ2ZjJmOTExYTUxYjE1NDVlZTRjIn0sImlhdCI6MTU3ODc3NTAyNywiZXhwIjoxNTgyMzc1MDI3fQ.p7f-59xoGg5zMhmHg61lrnLwDpcyQ_DNrTtaizHYBXM',
       }
     }
     
-    const res = await axios('/api/orders/5e1748315e47de32c0c16c89', config);
+    const res = await axios('/api/orders/5e1a2392c9ef3b0b2f4d2310', config);
  
     dispatch({
       type: GET_ORDER,
