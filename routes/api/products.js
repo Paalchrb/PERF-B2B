@@ -11,7 +11,7 @@ const Product = require('../../models/Product');
 // @desc    Add new product
 // @access  Private
 router.post(
-  '/products',
+  '/',
   [
     auth,
     [
