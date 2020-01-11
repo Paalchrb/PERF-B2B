@@ -19,7 +19,8 @@ const ProductSchema = new mongoose.Schema({
   },
   active: {
     type: Boolean,
-    required: true
+    required: true,
+    default: true
   },
   productSubhead: {
     type: String
