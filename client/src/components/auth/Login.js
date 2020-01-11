@@ -17,11 +17,11 @@ const Login = ({ setAlert, login, isAuthenticated }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    if(!isAuthenticated) {
-      setAlert('Login failed', 'danger'); //danger is AlertType, should correspond with a css-class
-    } else {
+    // if(!isAuthenticated) {
+    //   setAlert('Login failed', 'danger'); //danger is AlertType, should correspond with a css-class
+    // } else {
     login(email, password);
-    } 
+    // } 
   };
 
   //Redirect if logged in
