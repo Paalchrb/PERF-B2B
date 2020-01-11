@@ -14,7 +14,7 @@ export const getMyCompany = () => async dispatch => {
   try {
     let config = {
       headers: {
-        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxNzNlYzdiODJhMTgyMmYxNzA4MWQ2IiwiY29tcGFueUlkIjoiNWUxNzNiZmYyODBmMzYwNWZiMTg2YTM0In0sImlhdCI6MTU3ODY4Nzg5OSwiZXhwIjoxNTgyMjg3ODk5fQ.IMC7GoDJ001lUbD3wfveMDQL4A0YYeBYve7-HLa4agI',
+        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxOWQ1MWNhMjNiYjYwYWNmZDFiM2ZkIiwiY29tcGFueUlkIjoiNWUxOWQ0ZWRhMjNiYjYwYWNmZDFiM2ZjIn0sImlhdCI6MTU3ODc1MTUxOCwiZXhwIjoxNTgyMzUxNTE4fQ.6C3c9ll7sYDRL5vIJPOrJnd93I12lkYkbitbr4APtBY',
       }
     }
     
@@ -40,7 +40,7 @@ export const getRecentProducts = () => async dispatch => {
   try {
     let config = {
       headers: {
-        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxNzNlYzdiODJhMTgyMmYxNzA4MWQ2IiwiY29tcGFueUlkIjoiNWUxNzNiZmYyODBmMzYwNWZiMTg2YTM0In0sImlhdCI6MTU3ODY4Nzg5OSwiZXhwIjoxNTgyMjg3ODk5fQ.IMC7GoDJ001lUbD3wfveMDQL4A0YYeBYve7-HLa4agI',
+        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxOWQ1MWNhMjNiYjYwYWNmZDFiM2ZkIiwiY29tcGFueUlkIjoiNWUxOWQ0ZWRhMjNiYjYwYWNmZDFiM2ZjIn0sImlhdCI6MTU3ODc1MTUxOCwiZXhwIjoxNTgyMzUxNTE4fQ.6C3c9ll7sYDRL5vIJPOrJnd93I12lkYkbitbr4APtBY',
       }
     }
     const res = await axios('api/companies/me', config);
@@ -62,19 +62,29 @@ export const getRecentProducts = () => async dispatch => {
 };
 
 //get company favorite products
-export const getFavoriteProducts = () => async dispatch => {
+export const getFavoriteProducts = (favoriteIds) => async dispatch => {
   try {
     let config = {
       headers: {
-        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxNzNlYzdiODJhMTgyMmYxNzA4MWQ2IiwiY29tcGFueUlkIjoiNWUxNzNiZmYyODBmMzYwNWZiMTg2YTM0In0sImlhdCI6MTU3ODY4Nzg5OSwiZXhwIjoxNTgyMjg3ODk5fQ.IMC7GoDJ001lUbD3wfveMDQL4A0YYeBYve7-HLa4agI',
+        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxOWQ1MWNhMjNiYjYwYWNmZDFiM2ZkIiwiY29tcGFueUlkIjoiNWUxOWQ0ZWRhMjNiYjYwYWNmZDFiM2ZjIn0sImlhdCI6MTU3ODc1MTUxOCwiZXhwIjoxNTgyMzUxNTE4fQ.6C3c9ll7sYDRL5vIJPOrJnd93I12lkYkbitbr4APtBY',
+        'Content-Type': 'application/json'
       }
     }
-    const res = await axios('api/companies/me', config);
-    const favoriteProductsIds = res.data.favoriteProducts;
+    
+    const body = {
+      favoriteIds
+    }
+/* 
+    const res = await axios(
+      'api/companies/favorite-products',
+      body,
+      config
+    );
+    const favoriteProducts = res.data; */
 
     dispatch({
       type: GET_FAV_PRODUCTS,
-      payload: favoriteProductsIds
+      payload: favoriteIds
     })
   } catch (error) {
     dispatch({

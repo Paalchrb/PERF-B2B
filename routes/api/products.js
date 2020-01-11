@@ -59,7 +59,6 @@ router.post(
         companyId
       });
 
-
       await product.save();
 
       return res
@@ -75,21 +74,57 @@ router.post(
 );
 
 
+// @route   GET api/products/
+// @desc    Get all products
+// @access  Public
+router.get(
+  '/',
+  async (req, res) => {
+    try {
+      const products = await Product.find();
+
+      if (products.length === 0) {
+        return res
+          .status(404)
+          .json({
+            msg: 'No products found'
+          })
+      }
+
+      return res
+        .status(200)
+        .json(products);
+    } catch (error) {
+      console.error(error.message);
+      return res
+        .status(500)
+        .send('Server Error');
+    }
+  }
+);
+
 
 // @route   GET api/products/favorites
 // @desc    Get favourite products
 // @access  Private
 router.get(
-  '/products/favourites',
+  '/favorites',
   auth,
   async (req, res) => {
-
-
-    const favoriteIds = req.body.favouriteProducts;
-
+    const { favoriteIds } = req.body;
+    console.log(favoriteIds)
     try {
+      const favProducts = await Product.collection.find( { _id : { $in : favoriteIds } } );
 
-      // TO DO: Query all product with ID from array.
+      console.log(favProducts);
+
+      if (favProducts.length === 0) {
+        return res
+          .status(404)
+          .json({
+            msg: 'No favorite products found'
+          })
+      }
 
       return res
         .status(200)
@@ -108,7 +143,7 @@ router.get(
 // @desc    Get recently bought products
 // @access  Private
 router.get(
-  '/products/recent',
+  '/recent',
   auth,
   async (req, res) => {
 
@@ -116,9 +151,15 @@ router.get(
     const recentIds = req.body.recentProducts;
 
     try {
+      const recProducts = Product.collection.find( { _id : { $in : recentIds } } );
 
-      // TO DO: Query all product with ID from array.
-
+      if (recProducts.length === 0) {
+        return res
+          .status(404)
+          .json({
+            msg: 'No recent products found'
+          })
+      }
       return res
         .status(200)
         .json(recProducts)

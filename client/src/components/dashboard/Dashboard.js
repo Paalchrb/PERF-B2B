@@ -10,19 +10,26 @@ import {
 } from '../../actions/dashboard';
 
 const Dashboard = ({
-  company,
+/*   dashboard: {
+    company: {
+      favoriteProducts = []
+    } = {}
+  } = {}, */
+  dashboard,
   getMyCompany,
   getRecentProducts,
   getFavoriteProducts
 }) => {
+  console.log(dashboard);
   useEffect(() => {
     (async function() {
       await getMyCompany();
       await getRecentProducts();
-      await getFavoriteProducts();
+      await getFavoriteProducts(/* favoriteProducts */);
       /* await getRecentOrders(); */
     })();
-  }, [getMyCompany, getRecentProducts, getFavoriteProducts /* getRecentOrders */]);
+  }, [getMyCompany, getRecentProducts, getFavoriteProducts, /* favoriteProducts */ /* getRecentOrders */]);
+
 
   return (
     <Fragment>

@@ -171,11 +171,11 @@ router.get(
 );
 
 
-// @route   POST api/companies/products/favorites
+// @route   POST api/companies/favorite-products
 // @desc    Add product to favorites
 // @access  Private
 router.post(
-  '/products/favorites',
+  '/favorite-products',
   [
     auth,
     [
@@ -214,8 +214,7 @@ router.post(
 );
 
 
-// route to unfavorite item **
-
+// Strecth @TODO: route to unfavorite item **
 
 
 module.exports = router;
