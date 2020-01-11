@@ -37,6 +37,34 @@ const OrderSchema = new mongoose.Schema({
     //   required: true
     // }
   }],
+  orderLine: [
+    {
+      productId: {
+        type: String,
+        required: true
+      },
+      productName: {
+        type: String,
+        required: true
+      },
+      productPrice: {
+        type: Number,
+        required: true
+      },
+      productVat: {
+        type: Number,
+        required: true
+      },
+      quantity: {
+        type: Number,
+        required: true
+      },
+      // orderLineNetTotal: {
+      //   type: Number,
+      //   required: true
+      // }
+    }
+  ],
   buyer: {
     companyId: {
       type: String,
