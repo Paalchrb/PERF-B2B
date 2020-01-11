@@ -6,12 +6,11 @@ const { check, validationResult } = require('express-validator');
 const Product = require('../../models/Product');
 
 
-
 // @route   POST api/products
 // @desc    Add new product
 // @access  Private
 router.post(
-  '/products',
+  '/',
   [
     auth,
     [
@@ -131,3 +130,5 @@ router.get(
     }
   }
 );
+
+module.exports = router;
