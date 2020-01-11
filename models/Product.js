@@ -17,6 +17,9 @@ const ProductSchema = new mongoose.Schema({
   productVat: {
     type: Number
   },
+  productNetPrice: {
+    type: Number
+  },
   active: {
     type: Boolean,
     required: true,
