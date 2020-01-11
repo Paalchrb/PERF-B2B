@@ -12,6 +12,7 @@ import { Provider } from 'react-redux'; //all Components wrapped in Provider wil
 import store from './store';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 
 if(localStorage.token) {
@@ -31,8 +32,8 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route path='/login' component={Login} />
-        <Route path='/dashboard' component={Dashboard} />
-        <Route path='/order' component={Order} />
+        <PrivateRoute path='/dashboard' component={Dashboard} />
+        <PrivateRoute path='/order' component={Order} />
       </Switch>
     </Router>
   </Provider>

@@ -96,7 +96,7 @@ router.post(
       if (buyer.recentProducts.length > 4) {
         buyer.recentProducts = buyer.recentProducts.slice(5);
       }
-      
+
       await order.save();
       
       return res
@@ -121,7 +121,7 @@ router.get(
   async (req, res) => {
     try {
       const salesOrders = await Order.find({ 'seller.companyId': req.user.companyId });
-      const procurementOrders = await Order.find({ 'buyer.companyId':req.user.companyId });
+      const procurementOrders = await Order.find({ 'buyer.companyId': req.user.companyId });
 
       if (salesOrders || procurementOrders) {
         return res
