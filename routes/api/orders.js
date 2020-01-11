@@ -6,6 +6,7 @@ const auth = require('../../middleware/auth');
 const Order = require('../../models/Order');
 const User = require('../../models/User');
 const Company = require('../../models/Company');
+const Product = require('../../models/Product');
 
 
 // @route   POST api/orders
@@ -41,11 +42,7 @@ router.post(
     const buyer = await Company.findById(req.user.companyId);
     const contactPerson = await User.findById(req.user.id);
     const seller = await Company.findById(sellerId);
-    const product = seller.products.filter(product => product.id === productId)[0];
-
-    const orderLineTotal =+product.productPrice * +quantity;
-    const orderLineVat = +orderLineTotal * +product.productVat;
-    const orderLineNetTotal = +orderLineVat + +orderLineTotal;
+    const product = await Product.findById(productId);
 
     try {
       const order = new Order({   
@@ -87,8 +84,20 @@ router.post(
         }
       });
 
-      await order.save();
+      buyer.recentOrders.unshift(order._id);
 
+      if (buyer.recentOrders.length > 4) {
+        buyer.recentOrders = buyer.recentOrders.slice(5);
+      }
+      
+      buyer.recentProducts.unshift(productId);
+      
+      if (buyer.recentProducts.length > 4) {
+        buyer.recentProducts = buyer.recentProducts.slice(5);
+      }
+      
+      await order.save();
+      
       return res
         .status(201)
         .json(order);
@@ -160,5 +169,33 @@ router.get(
   }
 );
 
-module.exports = router;
 
+// @route   GET api/orders/recent
+// @desc    Get recent procurement orders
+// @access  Private
+router.get(
+  '/products/recent',
+  auth,
+  async (req, res) => {
+    try {
+      const company = await Company.findById(req.user.id);
+      const orderIds = company.recentOrders;
+      const queryIds = orderIds.map(id => new mongoose.Types.ObjectId(id));
+
+      const recOrders = Order.find({ 
+        '_id': { $in: queryIds }
+      });
+
+      return res
+        .status(200)
+        .json(recOrders);
+    } catch (error) {
+      console.error(error.message);
+      return res
+        .status(500)
+        .send('Server Error');
+    }
+  }
+);
+
+module.exports = router;

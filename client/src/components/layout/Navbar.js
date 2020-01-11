@@ -6,6 +6,7 @@ import { setSearchField } from '../../actions/navbar';
 import { logout } from '../../actions/auth';
 
 
+
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 const authLinks = (
   <ul>
@@ -45,6 +46,7 @@ const guestLinks = (
   )
 }
 
+
 Navbar.propTypes = {
   setSearchField: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
@@ -64,7 +66,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   { logout }
   )(Navbar);
 

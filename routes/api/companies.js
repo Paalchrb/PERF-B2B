@@ -171,23 +171,17 @@ router.get(
 );
 
 
-// @route   POST api/companies/products
-// @desc    Add new product
+// @route   POST api/companies/products/favorites
+// @desc    Add product to favorites
 // @access  Private
 router.post(
-  '/products',
+  '/products/favorites',
   [
     auth,
     [
-      check('productName', 'Product name is required')
+      check('productId', 'Product id must be provided')
         .not()
         .isEmpty(),
-      check('productPrice', 'Price is required')
-        .not()
-        .isEmpty(),
-      check('productVat', 'Vat class is required')
-        .not()
-        .isEmpty()
     ]
   ],
   async (req, res) => {
@@ -198,45 +192,30 @@ router.post(
         .json({ errors: errors.array() });
     }
 
-    const {
-      productName,
-      productDescription,
-      productImage,
-      productPrice,
-      productVat,
-      productSubhead,
-      productInfoUpload,
-      productExternalUrl
-    } = req.body;
-
-    const newProduct= {
-      productName,
-      productDescription,
-      productImage,
-      productPrice,
-      productVat,
-      productSubhead,
-      productInfoUpload,
-      productExternalUrl
-    };
+    const { productId } = req.body;
 
     try {
       const company = await Company.findById(req.user.companyId);
 
-      company.products.unshift(newProduct);
+      company.favoriteProducts.unshift(productId);
 
-      await company.save();
+      company.save();
 
       return res
         .status(201)
-        .json(company);
+        .json(company.favoriteProducts);
     } catch (error) {
       console.error(error.message);
       return res
         .status(500)
         .send('Server Error');
     }
-  }
+  }  
 );
+
+
+// route to unfavorite item **
+
+
 
 module.exports = router;
