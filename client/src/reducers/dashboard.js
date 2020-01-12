@@ -4,7 +4,9 @@ import {
   GET_FAV_PRODUCTS,
   FAV_PRODUCTS_ERROR,
   GET_RECENT_PRODUCTS,
-  RECENT_PRODUCTS_ERROR
+  RECENT_PRODUCTS_ERROR,
+  GET_RECENT_ORDERS,
+  RECENT_ORDERS_ERROR
 } from '../actions/constants';
 
 const initialState = {
@@ -56,7 +58,21 @@ export default function(state = initialState, action) {
         return {
           ...state,
           products: null,
-          error: payload
+          error: payload,
+          loading: false
+        }
+      case GET_RECENT_ORDERS:
+        return {
+          ...state,
+          orders: payload,
+          loading: false
+        }
+      case RECENT_ORDERS_ERROR:
+        return {
+          ...state,
+          orders: [],
+          error: payload,
+          loading: false
         }
     default:
       return state;

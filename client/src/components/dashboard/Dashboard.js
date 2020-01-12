@@ -10,11 +10,6 @@ import {
 } from '../../actions/dashboard';
 
 const Dashboard = ({
-/*   dashboard: {
-    company: {
-      favoriteProducts = []
-    } = {}
-  } = {}, */
   dashboard,
   getMyCompany,
   getRecentProducts,
@@ -25,11 +20,10 @@ const Dashboard = ({
     (async function() {
       await getMyCompany();
       await getRecentProducts();
-      await getFavoriteProducts(/* favoriteProducts */);
+      await getFavoriteProducts();
       /* await getRecentOrders(); */
     })();
-  }, [getMyCompany, getRecentProducts, getFavoriteProducts, /* favoriteProducts */ /* getRecentOrders */]);
-
+  }, [getMyCompany, getRecentProducts, getFavoriteProducts]);
 
   return (
     <Fragment>

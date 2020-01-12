@@ -4,6 +4,8 @@ const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 // MongoDB models
 const Product = require('../../models/Product');
+const Company = require('../../models/Company');
+
 
 
 // @route   POST api/products
@@ -111,10 +113,10 @@ router.get(
   '/favorites',
   auth,
   async (req, res) => {
-    const { favoriteIds } = req.body;
-    console.log(favoriteIds)
     try {
-      const favProducts = await Product.collection.find( { _id : { $in : favoriteIds } } );
+      const company = await Company.findById(req.user.companyId);
+      const favIds = company.favoriteProducts;
+      const favProducts = await Product.collection.find( { _id : { $in : favIds } } );
 
       console.log(favProducts);
 
