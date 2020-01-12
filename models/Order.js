@@ -11,6 +11,32 @@ const OrderSchema = new mongoose.Schema({
     type: String,
     //required: true
   },
+  orderLine: [{
+    productId: {
+      type: String,
+      required: true
+    },
+    productName: {
+      type: String,
+      required: true
+    },
+    productPrice: {
+      type: Number,
+      required: true
+    },
+    productVat: {
+      type: Number,
+      required: true
+    },
+    quantity: {
+      type: Number,
+      required: true
+    },
+    // orderLineNetTotal: {
+    //   type: Number,
+    //   required: true
+    // }
+  }],
   orderLine: [
     {
       productId: {
@@ -34,21 +60,18 @@ const OrderSchema = new mongoose.Schema({
         required: true
       },
       orderLineNetTotal: {
-        type: Number,
-        required: true
+        type: Number
       }
     }
   ],
   buyer: {
     companyId: {
       type: String,
-      required: true,
-      unique: true
+      required: true
     },
     orgNum: {
       type: String,
-      required: true,
-      unique: true
+      required: true
     },
     companyName: {
       type: String,
@@ -57,19 +80,19 @@ const OrderSchema = new mongoose.Schema({
     address: {
       street: {
         type: String,
-        required: true,
+        required: true
       },
       zipCode: {
         type: String,
-        required: true,
+        required: true
       },
       city: {
         type: String,
-        required: true,
+        required: true
       },
       country: {
         type: String,
-        required: true,
+        required: true
       }
     }
   },
@@ -109,22 +132,22 @@ const OrderSchema = new mongoose.Schema({
   },
   buyerContact: {
     firstName: {
-			type: String,
-			required: true
+      type: String,
+      required: true
     },
-		lastName: {
-			type: String,
-			required: true
-		},
-		userEmail: {
-			type: String,
-			required: true,
-			unique: true
-		},
-		userPhone: {
-			type: String,
-			required: true
-		}
+    lastName: {
+      type: String,
+      required: true
+    },
+    userEmail: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    userPhone: {
+      type: String,
+      required: true
+    }
   }
 });
 
