@@ -3,27 +3,31 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { 
-  getMyCompany, 
+  getCurrentCompany, 
   getRecentProducts,
-   /* getRecentOrders */ 
-  getFavoriteProducts
+  getRecentOrders,
+  getFavoriteProducts,
 } from '../../actions/dashboard';
 
 const Dashboard = ({
+  auth: {
+    token,
+    isAuthenticated
+  },
   dashboard,
-  getMyCompany,
+  getCurrentCompany,
   getRecentProducts,
-  getFavoriteProducts
+  getFavoriteProducts,
+  getRecentOrders
 }) => {
-  console.log(dashboard);
   useEffect(() => {
     (async function() {
-      await getMyCompany();
-      await getRecentProducts();
-      await getFavoriteProducts();
-      /* await getRecentOrders(); */
+      await getCurrentCompany(token);
+      await getRecentProducts(token);
+      await getFavoriteProducts(token);
+      await getRecentOrders(token);
     })();
-  }, [getMyCompany, getRecentProducts, getFavoriteProducts]);
+  }, [getCurrentCompany, getRecentProducts, getFavoriteProducts, getRecentOrders, isAuthenticated, token]);
 
   return (
     <Fragment>
@@ -34,22 +38,23 @@ const Dashboard = ({
 };
 
 Dashboard.propTypes = {
-  getMyCompany: PropTypes.func.isRequired,
+  getCurrentCompany: PropTypes.func.isRequired,
   getRecentProducts: PropTypes.func.isRequired,
-  /* getRecentOrders: PropTypes.func.isRequired, */
-  dashboard: PropTypes.object.isRequired,
+  getRecentOrders: PropTypes.func.isRequired,
   getFavoriteProducts: PropTypes.func.isRequired,
+  dashboard: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   dashboard: state.dashboard,
+  auth: state.auth
 });
 
 const mapDispatchToProps = {
-  getMyCompany,
+  getCurrentCompany,
   getRecentProducts,
   getFavoriteProducts,
-  /* getRecentOrders */
+  getRecentOrders 
 }
 
 export default connect(

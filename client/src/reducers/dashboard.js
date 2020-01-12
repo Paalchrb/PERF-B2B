@@ -6,14 +6,14 @@ import {
   GET_RECENT_PRODUCTS,
   RECENT_PRODUCTS_ERROR,
   GET_RECENT_ORDERS,
-  RECENT_ORDERS_ERROR
+  RECENT_ORDERS_ERROR,
 } from '../actions/constants';
 
 const initialState = {
 	company: null,
-  user: null,
-  products: [],
-  orders: [],
+  recentProducts: [],
+  favoriteProducts: [],
+  recentOrders: [],
   loading: true,
 	error: {}
 };
@@ -38,39 +38,40 @@ export default function(state = initialState, action) {
     case GET_RECENT_PRODUCTS:
       return {
         ...state,
-        products: payload,
+        recentProducts: payload,
         loading: false
       }
       case RECENT_PRODUCTS_ERROR:
         return {
           ...state,
           error: payload,
-          products: null,
+          recentProducts: [],
           loading: false
         }
       case GET_FAV_PRODUCTS:
         return {
           ...state,
-          products: payload,
-          loading: false
+          favoriteProducts: payload,
+          loading: false,
         }
       case FAV_PRODUCTS_ERROR:
         return {
           ...state,
-          products: null,
+          favoriteProducts: [],
           error: payload,
           loading: false
         }
       case GET_RECENT_ORDERS:
         return {
           ...state,
-          orders: payload,
-          loading: false
+          recentOrders: payload,
+          loading: false,
+          error: null
         }
       case RECENT_ORDERS_ERROR:
         return {
           ...state,
-          orders: [],
+          recentOrders: [],
           error: payload,
           loading: false
         }

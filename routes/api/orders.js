@@ -171,25 +171,22 @@ router.get(
 );
 
 
-// @route   GET api/orders/recent
+// @route   GET api/orders/procurement/recent
 // @desc    Get recent procurement orders
 // @access  Private
 router.get(
-  '/products/recent',
+  '/procurement/recent',
   auth,
   async (req, res) => {
     try {
-      const company = await Company.findById(req.user.id);
+      const company = await Company.findById(req.user.companyId);
       const orderIds = company.recentOrders;
-      const queryIds = orderIds.map(id => new mongoose.Types.ObjectId(id));
 
-      const recOrders = Order.find({ 
-        '_id': { $in: queryIds }
-      });
+      const recentOrders = await Order.find( { '_id': { $in: orderIds } } );
 
       return res
         .status(200)
-        .json(recOrders);
+        .json(recentOrders);
     } catch (error) {
       console.error(error.message);
       return res

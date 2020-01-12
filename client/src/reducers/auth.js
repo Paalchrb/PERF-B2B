@@ -16,7 +16,7 @@ export default function(state = initialState, action) {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: payload //Includes user AND company, and will this create a problem?
+        user: payload 
       }
     case LOGIN_SUCCESS:
       localStorage.setItem('token', payload.token);

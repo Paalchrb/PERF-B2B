@@ -88,14 +88,6 @@ router.get(
     try {
       const products = await Product.find();
 
-      if (products.length === 0) {
-        return res
-          .status(404)
-          .json({
-            msg: 'No products found'
-          })
-      }
-
       return res
         .status(200)
         .json(products);
@@ -119,17 +111,8 @@ router.get(
     try {
       const company = await Company.findById(req.user.companyId);
       const favIds = company.favoriteProducts;
-      const favProducts = await Product.collection.find( { _id : { $in : favIds } } );
-
-      console.log(favProducts);
-
-      if (favProducts.length === 0) {
-        return res
-          .status(404)
-          .json({
-            msg: 'No favorite products found'
-          })
-      }
+      
+      const favProducts = await Product.find( { _id : { $in : favIds } } );
 
       return res
         .status(200)
@@ -151,20 +134,12 @@ router.get(
   '/recent',
   auth,
   async (req, res) => {
-
-
-    const recentIds = req.body.recentProducts;
-
     try {
-      const recProducts = Product.collection.find( { _id : { $in : recentIds } } );
+      const company = await Company.findById(req.user.companyId);
+      const recentIds = company.recentProducts;
+      
+      const recProducts = await Product.find( { _id : { $in : recentIds } } );
 
-      if (recProducts.length === 0) {
-        return res
-          .status(404)
-          .json({
-            msg: 'No recent products found'
-          })
-      }
       return res
         .status(200)
         .json(recProducts)

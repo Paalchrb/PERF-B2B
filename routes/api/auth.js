@@ -7,7 +7,6 @@ const config = require('config');
 const { check, validationResult } = require('express-validator');
 // MongoDB models
 const User = require('../../models/User');
-const Company = require('../../models/Company');
 
 
 // @route    GET api/auth
@@ -16,10 +15,9 @@ const Company = require('../../models/Company');
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
-    const company = await Company.findById(req.user.companyId);
     return res
       .status(200)
-      .json({user, company});
+      .json(user);
   } catch (error) {
     console.error(error.message);
     return res

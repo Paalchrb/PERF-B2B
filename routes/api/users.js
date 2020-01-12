@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const auth = require('../../middleware/auth');
 //MongoDB models
 const User = require('../../models/User');
 
@@ -86,6 +87,35 @@ router.post(
         .send('Server error');
     }
   }
-)
+);
+
+
+// @route   GET api/users/me
+// @desc    Get current user
+// @access  Private
+router.get(
+  '/me', 
+  auth, 
+  async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id);
+  
+      if (!user) {
+        return res
+          .status(404)
+          .json({ errors: [{ msg: 'User not found' }] });
+      }
+
+      return res
+        .status(200)
+        .json(user);
+    } catch(error) {
+      console.error(error.message);
+      return res
+        .status(500)
+        .send('Server error');
+    }
+  }
+);
 
 module.exports = router;

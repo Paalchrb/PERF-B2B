@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/auth/Login';
@@ -7,6 +7,7 @@ import LandingPage from './components/layout/LandingPage';
 import Dashboard from './components/dashboard/Dashboard';
 import Order from './components/order/Order';
 import Alert from './components/layout/Alert';
+import NotFound from './components/layout/NotFound';
 //redux:
 import { Provider } from 'react-redux'; //all Components wrapped in Provider will have access to store(state)
 import store from './store';
@@ -34,6 +35,7 @@ const App = () => {
         <Route path='/login' component={Login} />
         <PrivateRoute path='/dashboard' component={Dashboard} />
         <PrivateRoute path='/order' component={Order} />
+        <Route path='/' component={NotFound} />
       </Switch>
     </Router>
   </Provider>
