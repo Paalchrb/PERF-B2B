@@ -3,9 +3,9 @@ import React, { Fragment } from 'react';
 const DashboardFavoriteProducts = ({
   products, 
 }) => {
-  const productsMarkup = products.map(product => (
+  // const productsMarkup = products.map(product => (
     
-  ));
+  // ));
 
   return (
     <div className='product-card'>
