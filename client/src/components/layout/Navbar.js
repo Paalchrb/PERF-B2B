@@ -46,11 +46,11 @@ const searchFieldChange = function(event) {
       
       <div id='search-container'>
         
-        <i id='search-icon' className='fas fa-search' id='search'></i>
+        <i id='search-icon' className='fas fa-search'></i>
         <input 
           type='text'
           onChange={event => searchFieldChange(event)}
-        >
+          id='search'>
         </input>
       </div>
       <div className='top-right-nav'>
