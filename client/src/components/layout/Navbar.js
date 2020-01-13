@@ -7,7 +7,7 @@ import { logout } from '../../actions/auth';
 
 
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout, setSearchField }) => {
+const Navbar = ({ auth: { isAuthenticated, loading }, logout, setSearchField, submitSearch }) => {
 const authLinks = (
   <ul>
     <li>
@@ -47,7 +47,7 @@ const searchFieldChange = function(event) {
         <input
         type='button'
         value='Button'
-        onSubmit={() => this.props.submitSearch}
+        onClick={() => submitSearch()}
         >
         </input>
       </form>
@@ -71,6 +71,7 @@ Navbar.propTypes = {
 }
 
 const mapStateToProps = state => ({
+  submitSearch: state.searchField,
   setSearchField: state.searchField,
   auth: state.auth
 });
