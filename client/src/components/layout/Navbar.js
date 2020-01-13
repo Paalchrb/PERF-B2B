@@ -16,6 +16,9 @@ const authLinks = (
     <li>
       <Link to='/' onClick={logout}>Logout</Link>
     </li>
+    <li>
+      <Link to='shopcart'>Shopping cart</Link>
+    </li>
   </ul>
 );
 
@@ -54,10 +57,10 @@ const searchFieldChange = function(event) {
         </input>
       </div>
       <div className='top-right-nav'>
-      <i class="fas fa-user" id="top-right-icon"></i>
-        <i class="fas fa-cog" id="top-right-icon"></i>
-        <i class="fas fa-shopping-cart" id="top-right-icon"></i>
-        <i class="fas fa-sign-out-alt" id="top-right-icon"></i>
+        <i className="fas fa-user" id="top-right-icon"></i>
+        <i className="fas fa-cog" id="top-right-icon"></i>
+        <i className="fas fa-shopping-cart" id="top-right-icon"></i>
+        <i className="fas fa-sign-out-alt" id="top-right-icon"></i>
       </div>
       
       { !loading && (

@@ -143,14 +143,62 @@ router.get('/me', auth, async (req, res) => {
 });
 
 
-// @route    GET api/companies/:_id
+
+
+// @route   POST api/companies/favorite-products
+// @desc    Add product to favorites
+// @access  Private
+router.post(
+  '/favorite-products',
+  [
+    auth,
+    [
+      check('productId', 'Product id must be provided')
+      .not()
+      .isEmpty(),
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res
+      .status(400)
+      .json({ errors: errors.array() });
+    }
+    
+    const { productId } = req.body;
+    
+    try {
+      const company = await Company.findById(req.user.companyId);
+      
+      company.favoriteProducts.unshift(productId);
+      
+      company.save();
+      
+      return res
+      .status(201)
+      .json(company.favoriteProducts);
+    } catch (error) {
+      console.error(error.message);
+      return res
+      .status(500)
+      .send('Server Error');
+    }
+  }  
+);
+  
+  
+// Strecth @TODO: route to unfavorite item **
+  
+
+// @route    GET api/companies/:companyId
 // @desc     Get company by companyId
 // @access   Public
 router.get(
-  '/:_id', 
+  '/:companyId', 
   async (req, res) => {
     try {
-      const company = await Company.findById(req.params._id);
+      const company = await Company.findById(req.params.companyId);
 
       if (!company) {
         return res
@@ -169,52 +217,5 @@ router.get(
     }
   }
 );
-
-
-// @route   POST api/companies/favorite-products
-// @desc    Add product to favorites
-// @access  Private
-router.post(
-  '/favorite-products',
-  [
-    auth,
-    [
-      check('productId', 'Product id must be provided')
-        .not()
-        .isEmpty(),
-    ]
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res
-        .status(400)
-        .json({ errors: errors.array() });
-    }
-
-    const { productId } = req.body;
-
-    try {
-      const company = await Company.findById(req.user.companyId);
-
-      company.favoriteProducts.unshift(productId);
-
-      company.save();
-
-      return res
-        .status(201)
-        .json(company.favoriteProducts);
-    } catch (error) {
-      console.error(error.message);
-      return res
-        .status(500)
-        .send('Server Error');
-    }
-  }  
-);
-
-
-// Strecth @TODO: route to unfavorite item **
-
-
+  
 module.exports = router;
