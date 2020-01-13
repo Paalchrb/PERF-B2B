@@ -2,15 +2,23 @@ import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Spinner from '../layout/Spinner';
+import DashboardCompanyInfo from './DashboardCompanyInfo';
+import DashboardFavoriteProducts from './DashboardFavoriteProducts';
+// import DashboardRecentProducts from './dashboardRecentProducts';
+// import DashboardRecentOrders from './dashboardRecentOrders';
+// import DashboardFavoriteProducts from './dashboardFavoriteProducts';
 import { 
-  getCurrentCompany, 
+  getCurrentCompany,
   getRecentProducts,
   getRecentOrders,
   getFavoriteProducts,
 } from '../../actions/dashboard';
 
+
 const Dashboard = ({
   auth: {
+    user,
     token,
     isAuthenticated
   },
@@ -30,12 +38,55 @@ const Dashboard = ({
   }, [getCurrentCompany, getRecentProducts, getFavoriteProducts, getRecentOrders, isAuthenticated, token]);
 
   return (
+  <div>
+    <nav className="toolbar-small">
+        <div id="toolbar-small-menu">
+          <i className="fas fa-bars" id="icon"></i>
+        </div>
+        <div id="toolbar-small-top">
+          <i className="fas fa-search" id="icon"></i>
+          <i className="fas fa-plus" id="icon"></i>
+          <i className="fas fa-box" id="icon"></i>
+          <i className="fas fa-th" id="icon"></i>
+        </div>
+        <div id="toolbar-small-bottom">
+          <i className="fas fa-user" id="icon"></i>
+          <i className="fas fa-industry" id="icon"></i>
+        </div>
+      </nav>
+
     <Fragment>
-      <p>This is the dashboard</p>
-      <Link to='/order'>Orderview</Link>
-    </Fragment>
-  );
-};
+      {dashboard === null || dashboard.loading ? (
+        <Spinner />
+      ) : (
+        <div className='content-area'>
+        <Fragment>
+          <DashboardCompanyInfo company={dashboard.company} user={user}/>   
+          <div className="action-buttons">
+          <div><i className="fas fa-search"></i><h4>Finn produkt</h4></div>
+          <div><i className="fas fa-plus"></i><h4>Legg til produkt</h4></div>
+          <div><i className="fas fa-box"></i><h4>Endre produkt</h4></div>
+          <div><i className="fas fa-th"></i><h4>Se mine produkter</h4></div>
+          </div> 
+        </Fragment>
+
+
+        <Fragment>
+          <DashboardFavoriteProducts products={dashboard.favoriteProducts}/>
+        </Fragment>
+
+        </div>
+        )}
+
+        </Fragment>
+
+        <Link to='/order'>Orderview</Link>
+        </div>
+       )
+      };
+    
+   
+
 
 Dashboard.propTypes = {
   getCurrentCompany: PropTypes.func.isRequired,
