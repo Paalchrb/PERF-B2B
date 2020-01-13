@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import DashboardCompanyInfo from './DashboardCompanyInfo';
-// import DashboardFavoriteProducts from './DashboardFavoriteProducts';
+import DashboardFavoriteProducts from './DashboardFavoriteProducts';
 // import DashboardRecentProducts from './dashboardRecentProducts';
 // import DashboardRecentOrders from './dashboardRecentOrders';
 // import DashboardFavoriteProducts from './dashboardFavoriteProducts';
@@ -72,7 +72,7 @@ const Dashboard = ({
 
 
         <Fragment>
-          {/* <DashboardFavoriteProducts products={dashboard.favoriteProducts}/> */}
+          <DashboardFavoriteProducts products={dashboard.favoriteProducts}/>
         </Fragment>
 
         </div>
