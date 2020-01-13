@@ -6,6 +6,7 @@ import dashboard from './dashboard';
 import order from './order';
 import navbar from './navbar';
 import productSearch from './productSearch'
+import shopCart from './shopCart';
 
 export default combineReducers({
   //export reducers here
@@ -15,4 +16,5 @@ export default combineReducers({
   order,
   navbar,
   productSearch
+  shopCart
 });

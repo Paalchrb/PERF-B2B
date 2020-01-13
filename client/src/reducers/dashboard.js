@@ -66,7 +66,6 @@ export default function(state = initialState, action) {
           ...state,
           recentOrders: payload,
           loading: false,
-          error: null
         }
       case RECENT_ORDERS_ERROR:
         return {

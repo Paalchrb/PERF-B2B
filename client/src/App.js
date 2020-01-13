@@ -9,6 +9,7 @@ import Order from './components/order/Order';
 import ProductSearch from './components/products/ProductSearch';
 import Alert from './components/layout/Alert';
 import NotFound from './components/layout/NotFound';
+import ShopCart from './components/shopCart/ShopCart';
 //redux:
 import { Provider } from 'react-redux'; //all Components wrapped in Provider will have access to store(state)
 import store from './store';
@@ -37,6 +38,7 @@ const App = () => {
         <PrivateRoute path='/dashboard' component={Dashboard} />
         <PrivateRoute path='/order' component={Order} />
         <Route exact path='/products' component={ProductSearch} />
+        <PrivateRoute path='/shopcart' component={ShopCart} />
         <Route path='/' component={NotFound} />
       </Switch>
     </Router>

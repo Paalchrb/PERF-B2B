@@ -101,6 +101,7 @@ router.get(
 );
 
 
+
 // @route   GET api/products/favorites
 // @desc    Get favourite products
 // @access  Private
@@ -113,20 +114,20 @@ router.get(
       const favIds = company.favoriteProducts;
       
       const favProducts = await Product.find( { _id : { $in : favIds } } );
-
+      
       return res
-        .status(200)
-        .json(favProducts)
+      .status(200)
+      .json(favProducts)
     } catch (error) {
       console.error(error.message);
       return res
-        .status(500)
-        .send('Server Error');
+      .status(500)
+      .send('Server Error');
     }
   }
 );
-
-
+  
+  
 // @route   GET api/products/recent
 // @desc    Get recently bought products
 // @access  Private
@@ -139,17 +140,46 @@ router.get(
       const recentIds = company.recentProducts;
       
       const recProducts = await Product.find( { _id : { $in : recentIds } } );
-
+      
       return res
-        .status(200)
-        .json(recProducts)
+      .status(200)
+      .json(recProducts)
     } catch (error) {
       console.error(error.message);
       return res
-        .status(500)
-        .send('Server Error');
+      .status(500)
+      .send('Server Error');
     }
   }
 );
 
+
+  // @route   GET api/products/:productId
+  // @desc    Get product by id
+  // @access  Public
+  router.get(
+    '/:productId',
+    async (req, res) => {
+      try {
+        const product = await Product.findById(req.params.productId);
+        
+        // Check for ObjectId format and post
+        if(!product) {
+          return res
+            .status(404)
+            .json({ msg: 'Product not found' });
+        }
+  
+        return res
+          .status(200)
+          .json(product);
+      } catch (err) {
+        console.error(err.message);
+        return res
+          .status(500)
+          .send('Server Error');
+      }
+  })
+;
+    
 module.exports = router;

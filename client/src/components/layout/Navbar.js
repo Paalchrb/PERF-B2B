@@ -17,6 +17,9 @@ const authLinks = (
     <li>
       <Link to='/' onClick={logout}>Logout</Link>
     </li>
+    <li>
+      <Link to='shopcart'>Shopping cart</Link>
+    </li>
   </ul>
 );
 
@@ -68,6 +71,17 @@ const onSubmit = (event) => {
       </form>
       <div className='top-right-nav'>
       <i className="fas fa-user" id="top-right-icon"></i>
+      <div id='search-container'>
+        
+        <i id='search-icon' className='fas fa-search'></i>
+        <input 
+          type='text'
+          onChange={event => searchFieldChange(event)}
+          id='search'>
+        </input>
+      </div>
+      <div className='top-right-nav'>
+        <i className="fas fa-user" id="top-right-icon"></i>
         <i className="fas fa-cog" id="top-right-icon"></i>
         <i className="fas fa-shopping-cart" id="top-right-icon"></i>
         <i className="fas fa-sign-out-alt" id="top-right-icon"></i>
