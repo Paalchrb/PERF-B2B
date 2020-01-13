@@ -4,25 +4,27 @@ const DashboardFavoriteProducts = ({
   products, 
 }) => {
   const productsMarkup = products.map(product => (
-    
+    <div 
+      className='product-card'
+      key={product._id}
+    >
+      <h3>{product.productName}</h3>
+      <img 
+        src={product.productImage} 
+        alt='Product' 
+        width='100px'
+        heigth='100px'
+      />
+    </div>
   ));
 
   return (
-    <div className='product-card'>
-    
-        <Fragment>
-          <h3>{products.forEach()}</h3>
-        </Fragment>
-
-      <div className='about-container'>
-        {company.aboutUs && (
-          <Fragment>
-            <h2 className='text-primary'>Info om {company.companyName.trim().split(' ')[0]}</h2>
-            <p>{company.aboutUs}</p>
-          </Fragment>
-        )}
+    <Fragment>
+      <h2>Favorite products:</h2>
+      <div className='product-container'> {/*add a real class here*/}
+        {productsMarkup}
       </div>
-    </div>
+    </Fragment>
   );
 }
-export default DashboardCompanyInfo;
+export default DashboardFavoriteProducts;

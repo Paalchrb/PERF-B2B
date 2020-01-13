@@ -47,6 +47,11 @@ export default function(state = initialState, action) {
       }
     case REMOVE_FROM_CART:
     case UPDATE_CART:
+      return{
+        ...state,
+        isloading: false,
+        shopCartItems: payload
+      }
     case LOAD_CART:
     default:
       return state;

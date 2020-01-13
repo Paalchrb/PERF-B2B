@@ -3,6 +3,7 @@ import {
   //LOAD_CART,
   LOAD_CART_ERROR,
   ADD_TO_CART,
+  UPDATE_CART,
   /* REMOVE_FROM_CART,
   UPDATE_CART,
   CONFIRM_PURCHASE,
@@ -24,7 +25,6 @@ export const addItemToCart = (token, productId, quantity) => async dispatch => {
     }
     const product = await axios.get(`/api/products/${productId}`, config);
     const seller = await axios.get(`/api/companies/${product.data.companyId}`);
-    console.log(product, seller);
 
     const payload = {
       ...product.data,
@@ -40,9 +40,32 @@ export const addItemToCart = (token, productId, quantity) => async dispatch => {
     dispatch({
       type: LOAD_CART_ERROR,
       payload: { 
-     /*    msg: error.response.statusText, 
-        status: error.response.status  */
+        msg: error.response.statusText, 
+        status: error.response.status 
       }
     });
   }
-}
+};
+
+// update shopcart
+export const updateCart= (shopListItems) => async dispatch => {
+  try { 
+    // query to fetch items in shopcart from api?
+
+    dispatch({
+      type: UPDATE_CART,
+      payload: shopListItems
+    });
+  } catch (error) {
+    dispatch({
+      type: LOAD_CART_ERROR,
+      payload: { 
+        msg: error.response.statusText, 
+        status: error.response.status 
+      }
+    });
+  }
+};
+
+
+
