@@ -13,9 +13,11 @@ const authLinks = (
     <li>
       <Link to='/' onClick={logout}>Logout</Link>
     </li>
-    
     <li>
       <Link to='/dashboard'>Dashboard</Link>
+    </li>
+    <li>
+      <Link to='shopcart'>Shopping cart</Link>
     </li>
   </ul>
 );
