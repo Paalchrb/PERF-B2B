@@ -6,6 +6,7 @@ import Navbar from './components/layout/Navbar';
 import LandingPage from './components/layout/LandingPage';
 import Dashboard from './components/dashboard/Dashboard';
 import Order from './components/order/Order';
+import ProductSearch from './components/layout/ProductSearch';
 import Alert from './components/layout/Alert';
 import NotFound from './components/layout/NotFound';
 //redux:
@@ -35,6 +36,7 @@ const App = () => {
         <Route path='/login' component={Login} />
         <PrivateRoute path='/dashboard' component={Dashboard} />
         <PrivateRoute path='/order' component={Order} />
+        <Route exact path='/products' component={ProductSearch} />
         <Route path='/' component={NotFound} />
       </Switch>
     </Router>

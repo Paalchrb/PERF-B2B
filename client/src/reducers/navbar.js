@@ -1,5 +1,6 @@
 import {
-  CHANGE_SEARCH_FIELD
+  CHANGE_SEARCH_FIELD,
+  SUBMIT_SEARCH
 } from '../actions/constants';
 
 
@@ -10,7 +11,11 @@ const initialState = {
 export default function(state = initialState, action = {}) {
   switch(action.type) {
     case CHANGE_SEARCH_FIELD:
-      return Object.assign({}, { state, searchField: action.payload });
+    case SUBMIT_SEARCH:
+      return {
+        ...state,  
+        searchField: action.payload 
+      };
     default:
         return state;
   }

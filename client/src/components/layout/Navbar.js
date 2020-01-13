@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setSearchField } from '../../actions/navbar';
+import { setSearchField, submitSearch } from '../../actions/navbar';
 import { logout } from '../../actions/auth';
 
 
@@ -38,11 +38,19 @@ const searchFieldChange = function(event) {
   return (
     <div>
       navbar
-      <input 
+      <form> 
+        <input 
         type='text'
         onChange={event => searchFieldChange(event)}
-      >
-      </input>
+        >
+        </input>
+        <input
+        type='button'
+        value='Button'
+        onSubmit={() => this.props.submitSearch}
+        >
+        </input>
+      </form>
       <ul>
         <li>
           <Link to='/'>Landingpage</Link>
@@ -55,6 +63,7 @@ const searchFieldChange = function(event) {
 
 
 Navbar.propTypes = {
+  submitSearch: PropTypes.func.isRequired,
   setSearchField: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
@@ -66,9 +75,15 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
+const mapDispatchToProps = {
+  logout,
+  setSearchField,
+  submitSearch 
+}
+
 export default connect(
   mapStateToProps,
-  { logout, setSearchField }
+  mapDispatchToProps
   )(Navbar);
 
 

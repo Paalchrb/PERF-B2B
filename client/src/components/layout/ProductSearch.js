@@ -1,0 +1,15 @@
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+
+const Products = () => {
+  return (
+    <Fragment>
+      <p>This is the products page</p>
+    </Fragment>
+  )
+}
+
+export default connect(null)(Products);
