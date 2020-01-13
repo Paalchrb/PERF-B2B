@@ -1,7 +1,7 @@
-import { GET_PRODUCTS, PRODUCT_ERROR } from './constants';
+import { GET_ALL_PRODUCTS, PRODUCT_ERROR } from '../actions/constants';
 
 const initialState = {
-  allProducts: [],
+  products: [],
   loading: true,
 	error: {}
 };
@@ -10,17 +10,17 @@ export default function(state= initialState, action) {
   const { type, payload } = action;
 
   switch(type) {
-    case GET_PRODUCTS:
+    case GET_ALL_PRODUCTS:
       return {
         ...state,
-        allProducts: payload,
+        products: payload,
         loading: false
       }
     case PRODUCT_ERROR:
       return {
         ...state,
         error: payload,
-        allProducts: [],
+        products: [],
         loading: false
       }
     default:

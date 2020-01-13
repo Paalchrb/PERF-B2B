@@ -1,22 +1,20 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setSearchField, submitSearch } from '../../actions/navbar';
 import { logout } from '../../actions/auth';
+import logoWhite from '../../img/dtb-logo-white-03.png';
 
 
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout, setSearchField, submitSearch }) => {
+const Navbar = ({ auth: { isAuthenticated, loading }, logout, setSearchField, submitSearch, history }) => {
 const authLinks = (
   <ul>
     <li>
-      <Link to='/' onClick={logout}>Logout</Link>
       <Link to='/dashboard'>Dashboard</Link>
-    </li>
-    
+    </li>   
     <li>
-      <Link to='/dashboard'>Dashboard</Link>
       <Link to='/' onClick={logout}>Logout</Link>
     </li>
   </ul>
@@ -25,7 +23,6 @@ const authLinks = (
 const guestLinks = (
   <ul>
     <li>
-      <a href='#!'>Register</a>
       <a href='#!'>Companies</a>
     </li>
     <li>
@@ -33,8 +30,7 @@ const guestLinks = (
     </li>
     <li>
       <a href='#!'>Register</a>
-    </li>
-    
+    </li>  
   </ul>
 );
 
@@ -42,47 +38,39 @@ const searchFieldChange = function(event) {
   setSearchField(event.target.value);
 }
 
+const onSubmit = (event) => {
+  event.preventDefault();
+  submitSearch();
+  history.push('/products');
+}
+
   return (
-    <div>
-      navbar
-      <form> 
-        <input 
-        type='text'
-        onChange={event => searchFieldChange(event)}
-        >
-        </input>
-        <input
-        type='button'
-        value='Button'
-        onClick={() => submitSearch()}
-        >
-        </input>
-      </form>
-      <ul>
-        <li>
-          <Link to='/'>Landingpage</Link>
-        </li>
-      </ul>
-      { !loading && (<Fragment>{ isAuthenticated ? authLinks: guestLinks }</Fragment>)}
-    </div>
+
+    <nav className='navbar'>
       <Link to='/'>
-        <img id='logo' src='../../public/dtb-logo-white-03.png' alt='Company logo'></img>
+        <img id='logo' src={logoWhite} alt='Company logo'></img>
       </Link>
       
-      <div id='search-container'>
-        
-        <i id='search-icon' className='fas fa-search' id='search'></i>
-        <input 
-          type='text'
-          onChange={event => searchFieldChange(event)}
-        >
-        </input>
-      </div>
+      <form onSubmit={(event) => onSubmit(event)}>
+        <div id='search-container'>
+          <i 
+            id='search-icon' 
+            className='fas fa-search'
+          ></i>
+          <input 
+            id='search'
+            type='text'
+            
+            onChange={event => searchFieldChange(event)}
+          >
+          </input>
+        </div>
+      </form>
       <div className='top-right-nav'>
-      <i class="fas fa-user" id="top-right-icon"></i>
-        <i class="fas fa-cog" id="top-right-icon"></i>
-        <i class="fas fa-shopping-cart" id="top-right-icon"></i>
-        <i class="fas fa-sign-out-alt" id="top-right-icon"></i>
+      <i className="fas fa-user" id="top-right-icon"></i>
+        <i className="fas fa-cog" id="top-right-icon"></i>
+        <i className="fas fa-shopping-cart" id="top-right-icon"></i>
+        <i className="fas fa-sign-out-alt" id="top-right-icon"></i>
       </div>
       
       { !loading && (
@@ -101,8 +89,7 @@ Navbar.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  submitSearch: state.searchField,
-  setSearchField: state.searchField,
+  searchfield: state.navbar.searchField,
   auth: state.auth
 });
 
@@ -115,6 +102,6 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-  )(Navbar);
+  )(withRouter(Navbar));
 
 

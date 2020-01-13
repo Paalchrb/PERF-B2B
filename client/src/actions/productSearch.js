@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { GET_PRODUCTS, PRODUCT_ERROR } from './constants';
+import { GET_ALL_PRODUCTS, PRODUCT_ERROR } from './constants';
 
 //Get all products
 export const getAllProducts = () => async dispatch => {
@@ -8,10 +8,9 @@ export const getAllProducts = () => async dispatch => {
     const allProducts = await axios.get('/api/products');
 
     dispatch({
-      type: GET_PRODUCTS,
+      type: GET_ALL_PRODUCTS,
       payload: allProducts.data
     });
-    console.log(allProducts.data);
 
   } catch (error) {
     dispatch({
@@ -23,3 +22,4 @@ export const getAllProducts = () => async dispatch => {
     });
   }
 };
+

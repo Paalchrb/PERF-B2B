@@ -6,7 +6,7 @@ import Navbar from './components/layout/Navbar';
 import LandingPage from './components/layout/LandingPage';
 import Dashboard from './components/dashboard/Dashboard';
 import Order from './components/order/Order';
-import ProductSearch from './components/layout/ProductSearch';
+import ProductSearch from './components/products/ProductSearch';
 import Alert from './components/layout/Alert';
 import NotFound from './components/layout/NotFound';
 //redux:
