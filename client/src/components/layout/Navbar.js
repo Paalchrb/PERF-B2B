@@ -12,10 +12,12 @@ const authLinks = (
   <ul>
     <li>
       <Link to='/' onClick={logout}>Logout</Link>
+      <Link to='/dashboard'>Dashboard</Link>
     </li>
     
     <li>
       <Link to='/dashboard'>Dashboard</Link>
+      <Link to='/' onClick={logout}>Logout</Link>
     </li>
   </ul>
 );
@@ -24,10 +26,15 @@ const guestLinks = (
   <ul>
     <li>
       <a href='#!'>Register</a>
+      <a href='#!'>Companies</a>
     </li>
     <li>
       <Link to='/login'>Login</Link>
     </li>
+    <li>
+      <a href='#!'>Register</a>
+    </li>
+    
   </ul>
 );
 
@@ -58,6 +65,29 @@ const searchFieldChange = function(event) {
       </ul>
       { !loading && (<Fragment>{ isAuthenticated ? authLinks: guestLinks }</Fragment>)}
     </div>
+      <Link to='/'>
+        <img id='logo' src='../../public/dtb-logo-white-03.png' alt='Company logo'></img>
+      </Link>
+      
+      <div id='search-container'>
+        
+        <i id='search-icon' className='fas fa-search' id='search'></i>
+        <input 
+          type='text'
+          onChange={event => searchFieldChange(event)}
+        >
+        </input>
+      </div>
+      <div className='top-right-nav'>
+      <i class="fas fa-user" id="top-right-icon"></i>
+        <i class="fas fa-cog" id="top-right-icon"></i>
+        <i class="fas fa-shopping-cart" id="top-right-icon"></i>
+        <i class="fas fa-sign-out-alt" id="top-right-icon"></i>
+      </div>
+      
+      { !loading && (
+        <Fragment>{ isAuthenticated ? authLinks: guestLinks }</Fragment>)}
+    </nav>
   )
 }
 

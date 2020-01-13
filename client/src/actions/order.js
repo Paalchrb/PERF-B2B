@@ -15,7 +15,7 @@ export const getMyOrder = () => async dispatch => {
       }
     }
     
-    const res = await axios('/api/orders/5e1a2392c9ef3b0b2f4d2310', config);
+    const res = await axios('/api/orders/5e1a2392c9ef3b0b2f4d2310', config); //TO DO
  
     dispatch({
       type: GET_ORDER,
