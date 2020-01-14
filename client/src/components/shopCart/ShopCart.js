@@ -1,44 +1,39 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addItemToCart, updateCart } from '../../actions/shopCart';
+import { addItemToCart } from '../../actions/shopCart';
 
 const ShopCart = ({
   auth: {
     token
   },
-  shopCartItems = [],
-  addItemToCart,
-  updateCart
+  shopCart: {
+    shopCartItems = []
+  },
+  addItemToCart
 }) => {
-  let shopItemsMarkup = [];
-  useEffect(() => {
-    shopItemsMarkup = createCartItemMarkup(shopCartItems);
-  })
-
-
   const handleClick = event => {
     event.preventDefault();
     addItemToCart(token, '5e19e065d0a60f24bb99520a', 5);
   }
-  
-  const createCartItemMarkup = (products) => {
-    const itemMarkup = products.map(product => (
-      <div 
+
+  const itemMarkup = shopCartItems.map((product, index) => (
+    <div 
       className='product-card'
-      key={product._id}
-      >
-        <h3>{product.productName}</h3>
-        <img 
-          src={product.productImage} 
-          alt='Product' 
-          width='100px'
-          heigth='100px'
-        />
-    </div>
-    ));
-    return itemMarkup;
-  }
+      key={index}
+      id={product._id}
+    >
+      <h3>{product.productName}</h3>
+      <img 
+        src={product.productImage} 
+        alt='Product' 
+        width='100px'
+        heigth='100px'
+      />
+      <p>Quantity: {product.quantity}</p>
+  </div>
+  ));
+
 
   return (
     <Fragment>
@@ -47,7 +42,7 @@ const ShopCart = ({
         onClick={event => handleClick(event)}
       >Add item</button>
       <div className='product-container'>
-        {shopItemsMarkup}
+        {itemMarkup}
       </div>
     </Fragment>
   )
@@ -55,18 +50,17 @@ const ShopCart = ({
 
 ShopCart.propTypes = {
   auth: PropTypes.object.isRequired,
-  shopCartItems: PropTypes.array,
+  shopCart: PropTypes.object.isRequired,
   addItemToCart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  shopCartItems: state.shopCartItems
+  shopCart: state.shopCart
 });
 
 const mapDispatchToProps = {
   addItemToCart,
-  updateCart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopCart);

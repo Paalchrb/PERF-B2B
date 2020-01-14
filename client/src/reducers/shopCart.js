@@ -20,10 +20,10 @@ export default function(state = initialState, action) {
     case ADD_TO_CART:
       return {
         ...state,
-          shopCartItems: [
-            ...state.shopCartItems,
-            payload
-          ],
+        shopCartItems: [
+          ...state.shopCartItems,
+          payload
+        ],
         isLoading: false
       };
     case CONFIRM_PURCHASE:

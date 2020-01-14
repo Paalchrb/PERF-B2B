@@ -12,7 +12,7 @@ const DashboardCompanyInfo = ({
     <div className='about-container'>
       {company.aboutUs && (
         <Fragment>
-          <h2 className='text-primary'>Info om {company.companyName.trim().split(' ')[0]}</h2>
+          <h2 className='text-primary'>Info om {company.companyName}</h2>
           <p>{company.aboutUs}</p>
         </Fragment>
       )}
