@@ -11,15 +11,15 @@ import whiteLogo from '../../assets/logo-white.png'
 const Navbar = ({ auth: { isAuthenticated, loading }, logout, setSearchField, submitSearch, history }) => {
 const authLinks = (
     <div className="top-right-nav">
-      <Link to='/' onClick={logout}><i className="fas fa-sign-out-alt" id="top-right-icon"><div className="icon-text-top">Sign-out</div></i></Link>
-      <Link to='/shopcart'><i className="fas fa-shopping-cart" id="top-right-icon"></i></Link>
+      <Link to='/' onClick={logout}><i className="fas fa-sign-out-alt" id="top-right-icon"><div className="icon-text-top">Logg inn</div></i></Link>
+      <Link to='/shopcart'><i className="fas fa-shopping-cart" id="top-right-icon"><div className="icon-text-top">Handlekurv</div></i></Link>
   </div>
 );
 
 const guestLinks = (
 
   <div className="top-right-nav">
-    <Link to='/login'><i className="fas fa-sign-in-alt" id="top-right-icon"><div className="icon-text-top">Sign-in</div></i></Link>
+    <Link to='/login'><i className="fas fa-sign-in-alt" id="top-right-icon"><div className="icon-text-top">Logg inn</div></i></Link>
     
   </div>
 
