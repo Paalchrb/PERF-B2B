@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setSearchField } from '../../actions/navbar';
+import { setSearchField, submitSearch } from '../../actions/navbar';
 import { logout } from '../../actions/auth';
 import whiteLogo from '../../assets/dtb-logo-white-03.png'
 
 
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout, setSearchField }) => {
+const Navbar = ({ auth: { isAuthenticated, loading }, logout, setSearchField, submitSearch, history }) => {
 const authLinks = (
   <ul>
     <li>
@@ -40,7 +40,13 @@ const guestLinks = (
 
 const searchFieldChange = function(event) {
   setSearchField(event.target.value);
-}
+};
+
+const onSubmit = (event) => {
+  event.preventDefault();
+  submitSearch();
+  history.push('/products');
+};
 
   return (
     <nav className='navbar'>
@@ -48,15 +54,19 @@ const searchFieldChange = function(event) {
         <img id='logo' src={whiteLogo} alt='Company logo'></img>
       </Link>
       
-      <div id='search-container'>
-        
-        <i id='search-icon' className='fas fa-search'></i>
-        <input 
-          type='text'
-          onChange={event => searchFieldChange(event)}
-          id='search'>
-        </input>
-      </div>
+      <form onSubmit={(event) => onSubmit(event)}>
+        <div id='search-container'>
+          
+          <i id='search-icon' className='fas fa-search' onClick={(event) => onSubmit(event)}></i>
+          <input 
+            id='search'
+            type='text'
+            onChange={event => searchFieldChange(event)}
+          >
+          </input>
+        </div>
+      </form>
+
       <div className='top-right-nav'>
         <i className="fas fa-user" id="top-right-icon"></i>
         <i className="fas fa-cog" id="top-right-icon"></i>
@@ -72,6 +82,7 @@ const searchFieldChange = function(event) {
 
 
 Navbar.propTypes = {
+  submitSearch: PropTypes.func.isRequired,
   setSearchField: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
@@ -85,7 +96,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logout, setSearchField }
-  )(Navbar);
+  { logout, setSearchField, submitSearch }
+  )(withRouter(Navbar));
 
 

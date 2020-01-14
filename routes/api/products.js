@@ -173,8 +173,8 @@ router.get(
         return res
           .status(200)
           .json(product);
-      } catch (err) {
-        console.error(err.message);
+      } catch (error) {
+        console.error(error.message);
         return res
           .status(500)
           .send('Server Error');
