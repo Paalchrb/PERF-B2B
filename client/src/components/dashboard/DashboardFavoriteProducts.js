@@ -1,12 +1,25 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addItemToCart } from '../../actions/shopCart';
 
 const DashboardFavoriteProducts = ({
   products, 
+  auth: {
+    token
+  },
+  addItemToCart,
 }) => {
+
+  const handleClick = event => {
+    event.preventDefault();
+    addItemToCart(token, event.target.id);
+  }
 
 
 
   const productsMarkup = products.map(product => (
+
     <div 
       className='product-card'
       key={product._id}
@@ -18,9 +31,12 @@ const DashboardFavoriteProducts = ({
         width='100px'
         heigth='100px'
       />
-      <p>Price per unit: {product.productPrice}</p>
-      <p>MVA per unit: {product.productVat}</p>
-      <p>Net price per unit: {product.productPrice * (1 + product.productVat)}</p>
+      <p>Pris per enhet: {product.productPrice}</p>
+      <p>MVA per enhet: {product.productVat}</p>
+      <p>Netto pris per enhet {product.productPrice * (1 + product.productVat)}</p>
+      <button id={product._id} onClick={event => handleClick(event)}
+      >Legg i handlevogn</button> 
+    
     </div>
   ));
 
@@ -33,4 +49,20 @@ const DashboardFavoriteProducts = ({
     </Fragment>
   );
 }
-export default DashboardFavoriteProducts;
+
+
+
+DashboardFavoriteProducts.propTypes = {
+  auth: PropTypes.object.isRequired,
+  addItemToCart: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = {
+  addItemToCart,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardFavoriteProducts);
