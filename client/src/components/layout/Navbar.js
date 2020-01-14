@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setSearchField } from '../../actions/navbar';
 import { logout } from '../../actions/auth';
+import whiteLogo from '../../assets/dtb-logo-white-03.png'
 
 
 
@@ -44,7 +45,7 @@ const searchFieldChange = function(event) {
   return (
     <nav className='navbar'>
       <Link to='/'>
-        <img id='logo' src='../../public/dtb-logo-white-03.png' alt='Company logo'></img>
+        <img id='logo' src={whiteLogo} alt='Company logo'></img>
       </Link>
       
       <div id='search-container'>
