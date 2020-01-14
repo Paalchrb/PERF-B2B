@@ -52,6 +52,7 @@ export const getRecentProducts = (token) => async dispatch => {
       payload: recentProducts.data
     })
   } catch (error) {
+    console.log('error', error);
     dispatch({
       type: RECENT_PRODUCTS_ERROR,
       payload: {

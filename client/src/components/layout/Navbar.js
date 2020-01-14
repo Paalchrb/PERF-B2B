@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { setSearchField, submitSearch } from '../../actions/navbar';
 import { logout } from '../../actions/auth';
 import logoWhite from '../../img/dtb-logo-white-03.png';
+import whiteLogo from '../../assets/dtb-logo-white-03.png'
 
 
 
@@ -52,6 +53,7 @@ const onSubmit = (event) => {
     <nav className='navbar'>
       <Link to='/'>
         <img id='logo' src={logoWhite} alt='Company logo'></img>
+        <img id='logo' src={whiteLogo} alt='Company logo'></img>
       </Link>
       
       <form onSubmit={(event) => onSubmit(event)}>
