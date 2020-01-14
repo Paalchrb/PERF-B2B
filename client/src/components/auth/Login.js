@@ -27,14 +27,14 @@ const Login = ({ setAlert, login, isAuthenticated }) => {
 
   return (
     <Fragment>
-      <div class="login-container">
-        <div class="login-form">
+      <div className="login-container">
+        <div className="login-form">
           <h1>Sign in</h1>
           <p>Sign Into Your Account</p>
           <form onSubmit={e => onSubmit(e)}>
             <div>
               <input
-                class="login-input"
+                className="login-input"
                 type='email'
                 placeholder='Email Address'
                 name='email'
@@ -45,7 +45,7 @@ const Login = ({ setAlert, login, isAuthenticated }) => {
             </div>
             <div>
               <input
-                class="login-input"
+                className="login-input"
                 type='password'
                 placeholder='Password'
                 name='password'
@@ -54,7 +54,7 @@ const Login = ({ setAlert, login, isAuthenticated }) => {
                 minLength='6'
               />
             </div>
-            <input class="login-button" type="submit" value="Login" />
+            <input className="login-button" type="submit" value="Login" />
           </form>
           <p className='my-1'>
             Don't have an account? <Link to='/register'>Sign Up</Link>
