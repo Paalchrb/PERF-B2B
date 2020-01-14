@@ -16,12 +16,10 @@ const ShopCart = ({
 }) => {
   const handleClick = event => {
     event.preventDefault();
-    console.log(event.target.id)
-    addItemToCart(token, '5e19e065d0a60f24bb99520a', 5);
+    addItemToCart(token, '5e19e065d0a60f24bb99520a');
   }
 
   const handleChange = event => {
-    console.log(event.target.value, event.target.id)
     event.preventDefault();
     updateCartItemQuantity(event.target.value, event.target.id);
   };
@@ -50,7 +48,7 @@ const ShopCart = ({
         Enhetspris:  {product.productPrice}
       </p>
       <p>
-        Total: {+product.productPrice * +product.quantity}
+        Total: {product.productPrice * +product.quantity}
       </p>
   </div>
   ));
@@ -60,17 +58,9 @@ const ShopCart = ({
     <Fragment>
       <Toolbar/>
       <div className='content-area'>
-        <h3>This is the shopcart component</h3>
-        <button
-          onClick={event => handleClick(event)}
-        >Add item</button>
-        <div className='product-container'>
-          {shopItemsMarkup}
-        </div>
       <h3>This is the shopcart component</h3>
       <button
         onClick={event => handleClick(event)}
-        id='1234'
       >Add item</button>
       <div className='product-container'>
         {shopItemsMarkup}

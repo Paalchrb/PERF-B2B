@@ -20,13 +20,13 @@ export const addItemToCart = (token, productId, quantity = 1) => async dispatch 
     }
     const product = await axios.get(`/api/products/${productId}`, config);
     const seller = await axios.get(`/api/companies/${product.data.companyId}`);
-
+    
     const payload = {
       ...product.data,
       quantity,
       sellerName: seller.data.companyName
     };
-
+    
     dispatch({
       type: ADD_TO_CART,
       payload
@@ -46,13 +46,12 @@ export const updateCartItemQuantity = (quantity, productId) => dispatch => {
       productId,
       quantity
     };
-
-    dispatch({
+    return dispatch({
       type: UPDATE_ITEM_QUANTITY,
       payload
     });
   } catch(error) {
-    dispatch({
+    return dispatch({
       type: ITEM_QUANTITY_ERROR,
     });
   }
