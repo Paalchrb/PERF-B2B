@@ -37,13 +37,14 @@ export const addItemToCart = (token, productId, quantity) => async dispatch => {
       payload
     });
   } catch (error) {
-    dispatch({
-      type: LOAD_CART_ERROR,
-      payload: { 
-        msg: error.response.statusText, 
-        status: error.response.status 
-      }
-    });
+    console.log('Could not add to cart!')
+    // dispatch({
+    //   type: LOAD_CART_ERROR,
+    //   payload: { 
+    //     msg: error.response.statusText, 
+    //     status: error.response.status 
+    //   }
+    // });
   }
 };
 

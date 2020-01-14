@@ -14,6 +14,7 @@ const ShopCart = ({
 }) => {
   const handleClick = event => {
     event.preventDefault();
+    console.log(event.target.id)
     addItemToCart(token, '5e19e065d0a60f24bb99520a', 5);
   }
 
@@ -45,6 +46,13 @@ const ShopCart = ({
         <div className='product-container'>
           {itemMarkup}
         </div>
+      <h3>This is the shopcart component</h3>
+      <button
+        onClick={event => handleClick(event)}
+        id='1234'
+      >Add item</button>
+      <div className='product-container'>
+        {shopItemsMarkup}
       </div>
     </Fragment>
   )
