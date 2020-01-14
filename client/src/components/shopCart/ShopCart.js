@@ -1,12 +1,8 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-<<<<<<< HEAD
 import { addItemToCart, updateCartItemQuantity } from '../../actions/shopCart';
-=======
-import { addItemToCart } from '../../actions/shopCart';
 import Toolbar from '../layout/Toolbar';
->>>>>>> 3a41a0676fff55cfceda01435db0610e6f4e8ba4
 
 const ShopCart = ({
   auth: {
@@ -24,17 +20,13 @@ const ShopCart = ({
     addItemToCart(token, '5e19e065d0a60f24bb99520a', 5);
   }
 
-<<<<<<< HEAD
   const handleChange = event => {
     console.log(event.target.value, event.target.id)
     event.preventDefault();
     updateCartItemQuantity(event.target.value, event.target.id);
   };
 
-  const itemMarkup = shopCartItems.map((product, index) => (
-=======
   const shopItemsMarkup = shopCartItems.map((product, index) => (
->>>>>>> 3a41a0676fff55cfceda01435db0610e6f4e8ba4
     <div 
       className='product-card'
       key={index}
