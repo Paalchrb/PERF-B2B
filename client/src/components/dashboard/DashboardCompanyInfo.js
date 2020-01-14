@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 const DashboardCompanyInfo = ({
   company,
-}) => (
+}) => ( company && (
   <div className='company-section'>
     <div className='company-title'>
       <Fragment>
@@ -18,6 +18,6 @@ const DashboardCompanyInfo = ({
       )}
     </div>
   </div>
-);
+));
 
 export default DashboardCompanyInfo;

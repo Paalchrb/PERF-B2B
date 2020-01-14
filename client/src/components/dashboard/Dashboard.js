@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import DashboardCompanyInfo from './DashboardCompanyInfo';
 import DashboardFavoriteProducts from './DashboardFavoriteProducts';
-// import DashboardRecentProducts from './dashboardRecentProducts';
-// import DashboardRecentOrders from './dashboardRecentOrders';
-// import DashboardFavoriteProducts from './dashboardFavoriteProducts';
+import DashboardRecentProducts from './DashboardRecentProducts';
+// import DashboardRecentOrders from './DashboardRecentOrders';
+
 import { 
   getCurrentCompany,
   getRecentProducts,
@@ -73,6 +73,8 @@ const Dashboard = ({
 
         <Fragment>
           <DashboardFavoriteProducts products={dashboard.favoriteProducts}/>
+          <DashboardRecentProducts products={dashboard.recentProducts}/>
+          {/* <DashboardRecentOrders orders={dashboard.recentProducts}/> */}
         </Fragment>
 
         </div>
