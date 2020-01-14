@@ -38,8 +38,8 @@ const Dashboard = ({
   }, [getCurrentCompany, getRecentProducts, getFavoriteProducts, getRecentOrders, isAuthenticated, token]);
 
   return (
-  <div>
-    <nav className="toolbar-small">
+    <div>
+      <nav className="toolbar-small">
         <div id="toolbar-small-menu">
           <i className="fas fa-bars" id="icon"></i>
         </div>
@@ -55,40 +55,35 @@ const Dashboard = ({
         </div>
       </nav>
 
-    <Fragment>
-      {dashboard === null || dashboard.loading ? (
-        <Spinner />
-      ) : (
-        <div className='content-area'>
-        <Fragment>
-          <DashboardCompanyInfo company={dashboard.company} user={user}/>   
-          <div className="action-buttons">
-          <div><i className="fas fa-search"></i><h4>Finn produkt</h4></div>
-          <div><i className="fas fa-plus"></i><h4>Legg til produkt</h4></div>
-          <div><i className="fas fa-box"></i><h4>Endre produkt</h4></div>
-          <div><i className="fas fa-th"></i><h4>Se mine produkter</h4></div>
-          </div> 
-        </Fragment>
+      <Fragment>
+        {dashboard === null || dashboard.loading ? (
+          <Spinner />
+        ) : (
+          <div className='content-area'>
+          <Fragment>
+            <DashboardCompanyInfo company={dashboard.company} user={user} />   
+            <div className="action-buttons">
+              <div><i className="fas fa-search"></i><h4>Finn produkt</h4></div>
+              <div><i className="fas fa-plus"></i><h4>Legg til produkt</h4></div>
+              <div><i className="fas fa-box"></i><h4>Endre produkt</h4></div>
+              <div><i className="fas fa-th"></i><h4>Se mine produkter</h4></div>
+            </div> 
+          </Fragment>
 
+          <Fragment>
+            <DashboardFavoriteProducts products={dashboard.favoriteProducts}/>
+            <DashboardRecentProducts products={dashboard.recentProducts}/>
+            {/* <DashboardRecentOrders orders={dashboard.recentProducts}/> */}
+          </Fragment>
 
-        <Fragment>
-          <DashboardFavoriteProducts products={dashboard.favoriteProducts}/>
-          <DashboardRecentProducts products={dashboard.recentProducts}/>
-          {/* <DashboardRecentOrders orders={dashboard.recentProducts}/> */}
-        </Fragment>
-
-        </div>
+          </div>
         )}
-
-        </Fragment>
-
+      </Fragment>
         <Link to='/order'>Orderview</Link>
-        </div>
-       )
-      };
+    </div>
+  )
+};
     
-   
-
 
 Dashboard.propTypes = {
   getCurrentCompany: PropTypes.func.isRequired,

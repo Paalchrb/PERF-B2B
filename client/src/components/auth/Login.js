@@ -27,34 +27,42 @@ const Login = ({ setAlert, login, isAuthenticated }) => {
 
   return (
     <Fragment>
-      <h1>Sign in</h1>
-      <p>Sign Into Your Account</p>
-      <form onSubmit={e => onSubmit(e)}>
-        <div>
-          <input
-            type='email'
-            placeholder='Email Address'
-            name='email'
-            value={email}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <div>
-          <input
-            type='password'
-            placeholder='Password'
-            name='password'
-            value={password}
-            onChange={e => onChange(e)}
-            minLength='6'
-          />
-        </div>
-        <input type="submit" value="Login" />
-      </form>
-      <p className='my-1'>
-        Don't have an account? <Link to='/register'>Sign Up</Link>
-      </p>
+      <div class="login-container">
+        <div class="login-form">
+          <h1>Sign in</h1>
+          <p>Sign Into Your Account</p>
+          <form onSubmit={e => onSubmit(e)}>
+            <div>
+              <input
+                class="login-input"
+                type='email'
+                placeholder='Email Address'
+                name='email'
+                value={email}
+                onChange={e => onChange(e)}
+                required
+              />
+            </div>
+            <div>
+              <input
+                class="login-input"
+                type='password'
+                placeholder='Password'
+                name='password'
+                value={password}
+                onChange={e => onChange(e)}
+                minLength='6'
+              />
+            </div>
+            <input class="login-button" type="submit" value="Login" />
+          </form>
+          <p className='my-1'>
+            Don't have an account? <Link to='/register'>Sign Up</Link>
+          </p>
+      </div>
+
+      </div>
+      
     </Fragment>
   );
 };

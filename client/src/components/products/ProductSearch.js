@@ -13,6 +13,7 @@ const ProductSearch = ({ products, getAllProducts, searchField}) => {
   const allProducts = products.filter(product => {
     return (
       product.productName.toLowerCase().includes(searchField.toLowerCase()) ||
+      product.productSubhead.toLowerCase().includes(searchField.toLowerCase()) ||
       product.productDescription.toLowerCase().includes(searchField.toLowerCase())
     )
   })
