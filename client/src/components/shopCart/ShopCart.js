@@ -18,7 +18,7 @@ const ShopCart = ({
     addItemToCart(token, '5e19e065d0a60f24bb99520a', 5);
   }
 
-  const itemMarkup = shopCartItems.map((product, index) => (
+  const shopItemsMarkup = shopCartItems.map((product, index) => (
     <div 
       className='product-card'
       key={index}
@@ -44,7 +44,7 @@ const ShopCart = ({
           onClick={event => handleClick(event)}
         >Add item</button>
         <div className='product-container'>
-          {itemMarkup}
+          {shopItemsMarkup}
         </div>
       <h3>This is the shopcart component</h3>
       <button
@@ -53,6 +53,7 @@ const ShopCart = ({
       >Add item</button>
       <div className='product-container'>
         {shopItemsMarkup}
+      </div>
       </div>
     </Fragment>
   )

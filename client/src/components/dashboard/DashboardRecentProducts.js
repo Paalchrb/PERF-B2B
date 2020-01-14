@@ -1,9 +1,20 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addItemToCart } from '../../actions/shopCart';
 
 const DashboardRecentProducts = ({
-  products, 
+  products,
+  auth: { token 
+  },
+  addItemToCart,
 }) => {
 
+
+  const handleClick = event => {
+    event.preventDefault();
+    addItemToCart(token, event.target.id);
+  }
 
 
   const recentProductsMarkup = products.map(product => (
@@ -21,6 +32,8 @@ const DashboardRecentProducts = ({
       <p>Price per unit: {product.productPrice}</p>
       <p>MVA per unit: {product.productVat}</p>
       <p>Net price per unit: {product.productPrice * (1 + product.productVat)}</p>
+      <button id={product._id} onClick={event => handleClick(event)}
+      >Legg i handlevogn</button> 
     </div>
   ));
 
@@ -33,4 +46,19 @@ const DashboardRecentProducts = ({
     </Fragment>
   );
 }
-export default DashboardRecentProducts;
+
+
+DashboardRecentProducts.propTypes = {
+  auth: PropTypes.object.isRequired,
+  addItemToCart: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = {
+  addItemToCart,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardRecentProducts);
