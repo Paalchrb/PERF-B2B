@@ -1,11 +1,8 @@
 import {
-  LOAD_CART,
   LOAD_CART_ERROR,
   ADD_TO_CART,
-  REMOVE_FROM_CART,
-  UPDATE_CART,
-  CONFIRM_PURCHASE,
-  PURCHASE_ERROR,
+  UPDATE_ITEM_QUANTITY,
+  ITEM_QUANTITY_ERROR
 } from '../actions/constants';
 
 const initialState = {
@@ -26,12 +23,6 @@ export default function(state = initialState, action) {
         ],
         isLoading: false
       };
-    case CONFIRM_PURCHASE:
-      return {
-        ...state,
-        shopCartItems: [],
-        isLoading: false,
-      }
     case LOAD_CART_ERROR:
       return {
         ...state,
@@ -39,20 +30,16 @@ export default function(state = initialState, action) {
         shopCartItems: [],
         error: payload
       }
-    case PURCHASE_ERROR:
+    case UPDATE_ITEM_QUANTITY:
+      const shopCartArray = state.shopCartItems;
+      const index = shopCartArray.findIndex(product => product._id === payload.productId);
+      shopCartArray[index].quantity = payload.quantity;
       return {
         ...state,
-        isLoading: false,
-        error: payload
+        shopCartItems: shopCartArray,
+        isLoading: false
       }
-    case REMOVE_FROM_CART:
-    case UPDATE_CART:
-      return{
-        ...state,
-        isloading: false,
-        shopCartItems: payload
-      }
-    case LOAD_CART:
+    case ITEM_QUANTITY_ERROR:
     default:
       return state;
   }

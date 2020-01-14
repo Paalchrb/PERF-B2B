@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addItemToCart } from '../../actions/shopCart';
+import { addItemToCart, updateCartItemQuantity } from '../../actions/shopCart';
 
 const ShopCart = ({
   auth: {
@@ -17,6 +17,11 @@ const ShopCart = ({
     addItemToCart(token, '5e19e065d0a60f24bb99520a', 5);
   }
 
+  const handleChange = event => {
+    event.preventDefault();
+    updateCartItemQuantity(event.target.value, event.target.id);
+  };
+
   const itemMarkup = shopCartItems.map((product, index) => (
     <div 
       className='product-card'
@@ -24,12 +29,16 @@ const ShopCart = ({
       id={product._id}
     >
       <h3>{product.productName}</h3>
-      <img 
-        src={product.productImage} 
-        alt='Product' 
-        width='100px'
-        heigth='100px'
-      />
+      <label htmlFor='quantity'>
+      Quantity:
+        <input 
+          name='quantity'
+          type = 'text'
+          id = {product._id}
+          value = {product.quantity}
+          onChange = {event => handleChange(event)}
+        />
+      </label>
       <p>Quantity: {product.quantity}</p>
   </div>
   ));
