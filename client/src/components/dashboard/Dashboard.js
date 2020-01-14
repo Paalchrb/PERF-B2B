@@ -6,7 +6,7 @@ import Spinner from '../layout/Spinner';
 import DashboardCompanyInfo from './DashboardCompanyInfo';
 import DashboardFavoriteProducts from './DashboardFavoriteProducts';
 import DashboardRecentProducts from './DashboardRecentProducts';
-// import DashboardRecentOrders from './DashboardRecentOrders';
+import DashboardRecentOrders from './DashboardRecentOrders';
 
 import { 
   getCurrentCompany,
@@ -73,7 +73,7 @@ const Dashboard = ({
           <Fragment>
             <DashboardFavoriteProducts products={dashboard.favoriteProducts}/>
             <DashboardRecentProducts products={dashboard.recentProducts}/>
-            {/* <DashboardRecentOrders orders={dashboard.recentProducts}/> */}
+            <DashboardRecentOrders orders={dashboard.recentOrders}/>
           </Fragment>
 
           </div>
