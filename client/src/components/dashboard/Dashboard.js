@@ -6,6 +6,7 @@ import Spinner from '../layout/Spinner';
 import DashboardCompanyInfo from './DashboardCompanyInfo';
 import DashboardFavoriteProducts from './DashboardFavoriteProducts';
 import DashboardRecentProducts from './DashboardRecentProducts';
+import Toolbar from '../layout/Toolbar';
 // import DashboardRecentOrders from './DashboardRecentOrders';
 
 import { 
@@ -39,21 +40,7 @@ const Dashboard = ({
 
   return (
     <div>
-      <nav className="toolbar-small">
-        <div id="toolbar-small-menu">
-          <i className="fas fa-bars" id="icon"></i>
-        </div>
-        <div id="toolbar-small-top">
-          <i className="fas fa-search" id="icon"></i>
-          <i className="fas fa-plus" id="icon"></i>
-          <i className="fas fa-box" id="icon"></i>
-          <i className="fas fa-th" id="icon"></i>
-        </div>
-        <div id="toolbar-small-bottom">
-          <i className="fas fa-user" id="icon"></i>
-          <i className="fas fa-industry" id="icon"></i>
-        </div>
-      </nav>
+      <Toolbar/>
 
       <Fragment>
         {dashboard === null || dashboard.loading ? (

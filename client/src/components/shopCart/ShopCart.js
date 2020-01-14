@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addItemToCart } from '../../actions/shopCart';
+import Toolbar from '../layout/Toolbar';
 
 const ShopCart = ({
   auth: {
@@ -38,6 +39,7 @@ const ShopCart = ({
 
   return (
     <Fragment>
+      <Toolbar/>
       <div className='content-area'>
         <h3>This is the shopcart component</h3>
         <button

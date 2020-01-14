@@ -383,7 +383,7 @@ $accent: #00b7ff;
 $darkaccent: #0081eb;
 $cart-width: 500px;
 $toolbar-width: 60px;
-$navbar-height: 90px;
+$navbar-height: 60px;
 $mainfont: 'Roboto', sans-serif;
 
 body {
@@ -576,7 +576,7 @@ button {
 }
 
 .navbar {
-  background-color: $darker;
+  background-color: $dark;
   color: $white;
   position: fixed;
   top: 0;
@@ -588,7 +588,7 @@ button {
   justify-content: space-between;
   align-items: center;
   z-index: 100;
-  padding: 10px 30px 10px 30px;
+  padding: 5px 5px 5px 0px;
   box-sizing: border-box;
   #search-container {
     display: flex;
@@ -596,25 +596,25 @@ button {
     position: static;
     background-color: white;
     color: $darker;
-    border-radius: 20px;
+    border-radius: 5px;
     border: 0px;
-    height: 50px;
-    width: 450px;
-    padding: 10px 25px 10px 25px;
+    height: 30px;
+    width: 350px;
+    padding: 8px 16px 8px 16px;
     box-sizing: border-box;
     // box-shadow: 0px 0px 7px 0px $dark;
     &:hover {
-      box-shadow: 0px 0px 0px 3px $accent;
+      box-shadow: 0px 0px 0px 0px $white;
     }
     #search-icon {
       position: static;
       left: 40px;
-      font-size: 20px;
+      font-size: 16px;
     }
     #search {
-      font-size: 20px;
+      font-size: 16px;
       padding: 0;
-      margin-left: 20px;
+      margin-left: 16px;
       background-color: white;
       border: 0;
     }
@@ -623,16 +623,21 @@ button {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 200px;
+      flex-direction: column;
+      width: 100%;
       color: white;
+      div {
+        padding: 10px 20px;
+      }
+      
       
     }
   }
   #top-right-icon {
     color: $white;
-    padding: 0px 20px;
-    margin-right: 20px;
-    font-size: 25px;
+    padding: 0px 6px;
+    margin-right: 10px;
+    font-size: 20px;
     cursor: pointer;
     &:hover {
       color: $accent;
@@ -640,24 +645,24 @@ button {
   }
   
   #logo {
-    width: 100px;
+    width: 250px;
   }
 }
 
-.toolbar-small {
+.toolbar {
   background-color: $lightest;
   color: $darker;
   position: fixed;
   left: 0;
   top: $navbar-height;
-  height: calc(100vh - 90px);
+  height: calc(100vh - 60px);
   width: $toolbar-width;
   z-index: 200;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  #toolbar-small-menu {
+  #toolbar-menu {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -665,23 +670,14 @@ button {
     margin-top: 15px;
 
   }
-  #toolbar-small-top {
+  #toolbar-top {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     height: 30vh;
     margin-top: 20px;
-
-  }
-  #toolbar-small-bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    height: 15vh;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-bottom: 40vh;
 
   }
   
