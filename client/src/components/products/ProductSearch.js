@@ -11,7 +11,10 @@ const ProductSearch = ({ products, getAllProducts, searchField}) => {
   }, [getAllProducts]);
 
   const allProducts = products.filter(product => {
-    return product.productName.toLowerCase().includes(searchField.toLowerCase())
+    return (
+      product.productName.toLowerCase().includes(searchField.toLowerCase()) ||
+      product.productDescription.toLowerCase().includes(searchField.toLowerCase())
+    )
   })
   .map(product => (
   
