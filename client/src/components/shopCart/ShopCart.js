@@ -10,7 +10,8 @@ const ShopCart = ({
   shopCart: {
     shopCartItems = []
   },
-  addItemToCart
+  addItemToCart,
+  updateCartItemQuantity
 }) => {
   const handleClick = event => {
     event.preventDefault();
@@ -18,6 +19,7 @@ const ShopCart = ({
   }
 
   const handleChange = event => {
+    console.log(event.target.value, event.target.id)
     event.preventDefault();
     updateCartItemQuantity(event.target.value, event.target.id);
   };
@@ -28,18 +30,26 @@ const ShopCart = ({
       key={index}
       id={product._id}
     >
-      <h3>{product.productName}</h3>
+      <h3>{product.sellerName}</h3>
       <label htmlFor='quantity'>
       Quantity:
         <input 
           name='quantity'
-          type = 'text'
+          type = 'number'
+          value={product.quantity}
           id = {product._id}
-          value = {product.quantity}
           onChange = {event => handleChange(event)}
         />
       </label>
-      <p>Quantity: {product.quantity}</p>
+      <p>
+        Navn:  {product.productName}
+      </p>
+      <p>
+        Enhetspris:  {product.productPrice}
+      </p>
+      <p>
+        Total: {+product.productPrice * +product.quantity}
+      </p>
   </div>
   ));
 
@@ -63,6 +73,7 @@ ShopCart.propTypes = {
   auth: PropTypes.object.isRequired,
   shopCart: PropTypes.object.isRequired,
   addItemToCart: PropTypes.func.isRequired,
+  updateCartItemQuantity: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -72,6 +83,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   addItemToCart,
+  updateCartItemQuantity
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopCart);
