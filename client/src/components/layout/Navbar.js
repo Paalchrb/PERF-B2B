@@ -4,38 +4,25 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setSearchField, submitSearch } from '../../actions/navbar';
 import { logout } from '../../actions/auth';
-import whiteLogo from '../../assets/dtb-logo-white-03.png'
+import whiteLogo from '../../assets/logo-white.png'
 
 
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout, setSearchField, submitSearch, history }) => {
 const authLinks = (
-  <ul>
-    <li>
-      <Link to='/dashboard'>Dashboard</Link>
-    </li>
-    <li>
-      <Link to='/' onClick={logout}>Logout</Link>
-    </li>
-    <li>
-      <Link to='shopcart'>Shopping cart</Link>
-    </li>
-  </ul>
+    <div className="top-right-nav">
+      <Link to='/' onClick={logout}><i className="fas fa-sign-out-alt" id="top-right-icon"><div className="icon-text-top">Sign-out</div></i></Link>
+      <Link to='/shopcart'><i className="fas fa-shopping-cart" id="top-right-icon"></i></Link>
+  </div>
 );
 
 const guestLinks = (
-  <ul>
-    <li>
-      <a href='#!'>Companies</a>
-    </li>
-    <li>
-      <Link to='/login'>Login</Link>
-    </li>
-    <li>
-      <a href='#!'>Register</a>
-    </li>
+
+  <div className="top-right-nav">
+    <Link to='/login'><i className="fas fa-sign-in-alt" id="top-right-icon"><div className="icon-text-top">Sign-in</div></i></Link>
     
-  </ul>
+  </div>
+
 );
 
 const searchFieldChange = function(event) {
@@ -66,13 +53,6 @@ const onSubmit = (event) => {
           </input>
         </div>
       </form>
-
-      <div className='top-right-nav'>
-        <i className="fas fa-user" id="top-right-icon"></i>
-        <i className="fas fa-cog" id="top-right-icon"></i>
-        <i className="fas fa-shopping-cart" id="top-right-icon"></i>
-        <i className="fas fa-sign-out-alt" id="top-right-icon"></i>
-      </div>
       
       { !loading && (
         <Fragment>{ isAuthenticated ? authLinks: guestLinks }</Fragment>)}
