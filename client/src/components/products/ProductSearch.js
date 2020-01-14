@@ -5,12 +5,15 @@ import PropTypes from 'prop-types';
 import { getAllProducts } from '../../actions/productSearch';
 
 
-const ProductSearch = ({ products, getAllProducts}) => {
+const ProductSearch = ({ products, getAllProducts, searchField}) => {
   useEffect(() => {
     getAllProducts();
   }, [getAllProducts]);
 
-  const allProducts = products.map(product => (
+  const allProducts = products.filter(product => {
+    return product.productName.toLowerCase().includes(searchField.toLowerCase())
+  })
+  .map(product => (
   
     <div key={product._id} className='content-area product-cards product-card'>
       {/* <img src={product.productImage} /> */}
@@ -35,7 +38,8 @@ ProductSearch.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  products: state.productSearch.products
+  products: state.productSearch.products,
+  searchField: state.navbar.searchField
 });
 
 const mapDispatchToProps = {

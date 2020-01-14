@@ -38,8 +38,6 @@ const Dashboard = ({
   }, [getCurrentCompany, getRecentProducts, getFavoriteProducts, getRecentOrders, isAuthenticated, token]);
 
   return (
-    <div>
-      <nav className="toolbar-small">
   <div>
     <nav className="toolbar-small">
         <div id="toolbar-small-menu">
@@ -50,22 +48,6 @@ const Dashboard = ({
           <i className="fas fa-plus" id="icon"></i>
           <i className="fas fa-box" id="icon"></i>
           <i className="fas fa-th" id="icon"></i>
-<<<<<<< HEAD
-        </div>
-        <div id="toolbar-small-bottom">
-          <i className="fas fa-user" id="icon"></i>
-          <i className="fas fa-industry" id="icon"></i>
-        </div>
-      </nav>
-  
-  <div className='content-area'>
-
-  <div className='company-section'>
-        {/* <img src={logoWhite} className="company-logo"></img> */}
-        <div className="company-title">
-          <h1>Tap That AS</h1>
-=======
->>>>>>> ce8e7651086b8dc695513676aba11f230040e492
         </div>
         <div id="toolbar-small-bottom">
           <i className="fas fa-user" id="icon"></i>

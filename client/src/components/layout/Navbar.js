@@ -13,7 +13,7 @@ const authLinks = (
   <ul>
     <li>
       <Link to='/dashboard'>Dashboard</Link>
-    </li>   
+    </li>
     <li>
       <Link to='/' onClick={logout}>Logout</Link>
     </li>
@@ -33,22 +33,22 @@ const guestLinks = (
     </li>
     <li>
       <a href='#!'>Register</a>
-    </li>  
+    </li>
+    
   </ul>
 );
 
 const searchFieldChange = function(event) {
   setSearchField(event.target.value);
-}
+};
 
 const onSubmit = (event) => {
   event.preventDefault();
   submitSearch();
   history.push('/products');
-}
+};
 
   return (
-
     <nav className='navbar'>
       <Link to='/'>
         <img id='logo' src={logoWhite} alt='Company logo'></img>
@@ -56,30 +56,17 @@ const onSubmit = (event) => {
       
       <form onSubmit={(event) => onSubmit(event)}>
         <div id='search-container'>
-          <i 
-            id='search-icon' 
-            className='fas fa-search'
-          ></i>
+          
+          <i id='search-icon' className='fas fa-search'></i>
           <input 
             id='search'
             type='text'
-            
             onChange={event => searchFieldChange(event)}
           >
           </input>
         </div>
       </form>
-      <div className='top-right-nav'>
-      <i className="fas fa-user" id="top-right-icon"></i>
-      <div id='search-container'>
-        
-        <i id='search-icon' className='fas fa-search'></i>
-        <input 
-          type='text'
-          onChange={event => searchFieldChange(event)}
-          id='search'>
-        </input>
-      </div>
+
       <div className='top-right-nav'>
         <i className="fas fa-user" id="top-right-icon"></i>
         <i className="fas fa-cog" id="top-right-icon"></i>
@@ -103,19 +90,13 @@ Navbar.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  searchfield: state.navbar.searchField,
+  setSearchField: state.searchField,
   auth: state.auth
 });
 
-const mapDispatchToProps = {
-  logout,
-  setSearchField,
-  submitSearch 
-}
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { logout, setSearchField, submitSearch }
   )(withRouter(Navbar));
 
 

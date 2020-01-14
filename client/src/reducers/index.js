@@ -15,6 +15,6 @@ export default combineReducers({
   dashboard,
   order,
   navbar,
-  productSearch
+  productSearch,
   shopCart
 });
