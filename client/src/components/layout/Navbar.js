@@ -57,7 +57,7 @@ const onSubmit = (event) => {
       <form onSubmit={(event) => onSubmit(event)}>
         <div id='search-container'>
           
-          <i id='search-icon' className='fas fa-search'></i>
+          <i id='search-icon' className='fas fa-search' onClick={(event) => onSubmit(event)}></i>
           <input 
             id='search'
             type='text'

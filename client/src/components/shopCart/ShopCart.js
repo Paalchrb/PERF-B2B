@@ -37,12 +37,14 @@ const ShopCart = ({
 
   return (
     <Fragment>
-      <h3>This is the shopcart component</h3>
-      <button
-        onClick={event => handleClick(event)}
-      >Add item</button>
-      <div className='product-container'>
-        {itemMarkup}
+      <div className='content-area'>
+        <h3>This is the shopcart component</h3>
+        <button
+          onClick={event => handleClick(event)}
+        >Add item</button>
+        <div className='product-container'>
+          {itemMarkup}
+        </div>
       </div>
     </Fragment>
   )
