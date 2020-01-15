@@ -2,23 +2,18 @@ import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getAllProducts } from '../../actions/productSearch';
+import { getProductsByCompanyId } from '../../actions/myProducts';
 import Toolbar from '../layout/Toolbar';
 
 
-const MyProducts = ({  products, getAllProducts, searchField}) => {
-  useEffect(() => {
-    getAllProducts();
-  }, [getAllProducts]);
 
-  const allProducts = products.filter(product => {
-    return (
-      product.productName.toLowerCase().includes(searchField.toLowerCase()) ||
-      product.productSubhead.toLowerCase().includes(searchField.toLowerCase()) ||
-      product.productDescription.toLowerCase().includes(searchField.toLowerCase())
-    )
-  })
-  .map(product => (
+const MyProducts = ({ auth:{ token }, products, getProductsByCompanyId, searchField}) => {
+  useEffect(() => {
+    getProductsByCompanyId(token);
+  }, [getProductsByCompanyId, token]);
+  console.log(products);
+
+  const productsByCompanyId = products.products.map(product => (
   
     <div key={product._id} className='product-card grow'>
       <div className="product-image-container">
@@ -47,16 +42,13 @@ const MyProducts = ({  products, getAllProducts, searchField}) => {
     </div>
   ))
 
-
-  
-
   return (
     
     <Fragment>
       <Toolbar/>
       <div className='content-area'>
         <div className='product-card-container'>
-          {allProducts}
+          {productsByCompanyId}
         </div>
       </div>
     </Fragment>
@@ -64,17 +56,19 @@ const MyProducts = ({  products, getAllProducts, searchField}) => {
 };
 
 MyProducts.propTypes = {
-  getAllProducts: PropTypes.func.isRequired
+  getProductsByCompanyId: PropTypes.func.isRequired,
+  products: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  products: state.productSearch.products,
-  searchField: state.navbar.searchField
+  searchField: state.navbar.searchField,
+  products: state.myProducts,
 });
 
 const mapDispatchToProps = {
-  getAllProducts
+  getProductsByCompanyId
 };
 
 export default connect(

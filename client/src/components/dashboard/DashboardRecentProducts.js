@@ -48,9 +48,9 @@ const DashboardRecentProducts = ({
     <Fragment>
       {products.length > 0 ? (
         <div className="dashboard-products-container">
-          <h3>Siste bestillinger</h3>
+          <h3>Sist kjøpte</h3>
             <div className='product-card-container-dashboard'> 
-             {recentProductsMarkup}
+              {recentProductsMarkup}
             </div>
         </div>
         ) : (

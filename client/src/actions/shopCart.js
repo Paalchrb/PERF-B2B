@@ -35,6 +35,7 @@ export const addItemToCart = (token, productId, quantity = 1) => async dispatch 
       payload
     });
   } catch (error) {
+    
     dispatch({
       type: LOAD_CART_ERROR,
       payload: error

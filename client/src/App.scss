@@ -385,6 +385,7 @@ $cart-width: 500px;
 $toolbar-width: 200px;
 $navbar-height: 90px;
 $mainfont: 'Roboto', sans-serif;
+$radius: 5px;
 
 body {
   font-family: $mainfont;
@@ -418,7 +419,7 @@ button {
   font-weight: bold;
   text-transform: uppercase;
   padding: 15px 70px;
-  border-radius: 0 0 15px 15px;
+  border-radius: 0 0 $radius $radius;
   border: 0px;
   span {
     font-family: $mainfont;
@@ -440,6 +441,52 @@ button {
     background-color: $darkaccent;
   }
 }
+// Landing page
+.landing-page-container {
+  width: 100vw;
+  overflow: hidden;
+  background: $white;
+  box-sizing: border-box;
+  .landing-page-header-container {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.788), rgba(0, 0, 0, 0)), url(./assets/btb_background_1920.jpg);
+    background-size: cover;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 20vw;
+    box-sizing: border-box;
+    
+
+  }
+  .landing-page-content {
+    width: 960px;
+    margin: 10vh auto;
+    p {
+      margin: 1rem 0 1rem 0;
+      line-height: 1.5em;
+    }
+  }
+}
+
+.lp-button {
+  border-radius: $radius;
+  background: rgba(0, 0, 0, 0.0);
+  border: 2px solid $white;
+  margin: 10px;
+  display: inline;
+  &:hover {
+    background: rgba(0, 0, 0, 0.0);
+    border: 2px solid $white;
+  }
+}
+b {
+  font-weight: bold;
+}
+
+// Login
 
 .login-container {
   color: $dark;
@@ -463,7 +510,7 @@ button {
     .login-input {
       padding: 10px 20px;
       border: 1px solid $darker;
-      border-radius: 5px;
+      border-radius: $radius;
       margin-bottom: 15px;
     }
     .login-button {
@@ -471,7 +518,7 @@ button {
       border: 0px solid white;
       font-size: 20px;
       padding: 10px 20px;
-      border-radius: 5px;
+      border-radius: $radius;
       color: white;
       margin-bottom: 20px;
     }
@@ -494,8 +541,8 @@ button {
   .company-section {
     background: $white;
     padding: 3vw;
-    border-radius: 10px;
-    margin-bottom: 5vh;
+    border-radius: $radius;
+    margin-bottom: 10vh;
     display: grid;
     grid-template-columns: 1fr 3fr 2fr;
     grid-template-rows: auto;
@@ -535,7 +582,7 @@ button {
   div {
     // background-color: $white;
     // border: 2px $black solid;
-    border-radius: 100px;
+    border-radius: $radius;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -581,7 +628,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 10px;
+  border-radius: $radius;
   background-color: $white;
   height: 300px;
   cursor: pointer;
@@ -593,7 +640,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 10px;
+  border-radius: $radius;
   background-color: $white;
   height: 300px;
   cursor: pointer;
@@ -607,7 +654,7 @@ button {
   width: 100%;
   position: relative;
   bottom: 0;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 $radius $radius;
   background-color: $lightest;
   color: #777;
   &:hover {
@@ -629,7 +676,7 @@ button {
   height: 100%;
   width: 100%;
   object-fit: cover;
-  border-radius: 10px 10px 0 0;
+  border-radius: $radius $radius 0 0;
     
   
 }
@@ -674,9 +721,7 @@ button {
 }
 
 .dashboard-products-container {
-  margin-bottom: 5vh;
-  padding-bottom: 30px;
-  border-bottom: 2px $lighter solid;
+  margin-bottom: 10vh;
   h3 {
     margin-bottom: 1.2em;
     color: $darker;
@@ -689,7 +734,7 @@ button {
 .recent-orders-card {
   background: $white;
   padding: 5vh;
-  border-radius: 10px;
+  border-radius: $radius;
   box-shadow: 
   0px 0px 8px 0px rgba(0, 0, 0, 0.1);
 
@@ -718,7 +763,7 @@ button {
 }
 
 .navbar {
-  background-color: $darker;
+  background-color: $darkest;
   color: $white;
   position: fixed;
   top: 0;
@@ -738,7 +783,7 @@ button {
     position: static;
     background-color: white;
     color: $darker;
-    border-radius: 5px;
+    border-radius: $radius;
     border: 0px;
     height: 40px;
     width: 400px;
@@ -814,7 +859,7 @@ button {
   flex-direction: column;
   align-items: left;
   justify-content: space-between;
-  #toolbar-menu {
+  #toolbar-menu-close {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -845,6 +890,42 @@ button {
 
   }
   
+}
+
+.toolbar-small {
+  background-color: $lightest;
+  color: $darker;
+  position: fixed;
+  left: 0;
+  top: $navbar-height;
+  height: calc(100vh - 60px);
+  width: 60px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  #toolbar-menu-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 15px;
+
+  }
+  #toolbar-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 30vh;
+    margin-top: 100px;
+    
+
+  }
+
 }
 
 .cart {
@@ -941,7 +1022,7 @@ button {
       background: white;
       display: flex;
       justify-content: center;
-      border-radius: 5px;
+      border-radius: $radius;
       font-weight: bold;
       font-size: 14px;
       text-align: center;

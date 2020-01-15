@@ -42,7 +42,7 @@ const DashboardFavoriteProducts = ({
     </div>
     
       <button onClick={() => handleClick(product._id)} className="product-order-button"><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
-    
+
   </div>
   ));
 
