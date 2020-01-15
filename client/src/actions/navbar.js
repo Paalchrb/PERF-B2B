@@ -18,4 +18,8 @@ export const submitSearch = () => async dispatch => {
   });
 
   
+export const submitSearch = text => async dispatch => {
+  dispatch({
+    type: SUBMIT_SEARCH,
+  });  
 };

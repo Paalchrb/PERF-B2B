@@ -2,61 +2,94 @@ import {
   LOAD_CART_ERROR,
   ADD_TO_CART,
   UPDATE_ITEM_QUANTITY,
-  ITEM_QUANTITY_ERROR
+  ITEM_QUANTITY_ERROR,
+  CREATE_NEW_ORDER,
+  NEW_ORDER_ERROR,
+  LOGOUT,
 } from '../actions/constants';
 
 const initialState = {
   shopCartItems: [],
-  isLoading: true,
+  orders: [],
+  orderCreated: false,
+  loading: true,
   error: {}
 };
 
-//Check if product alreade exists in shop cart, and update quantity if it does.
-const updateShopCartItems = (productArr, payload) => {
-  const index = productArr.findIndex(product => product._id === payload._id);
-  if (index !== -1) {
-    productArr[index].quantity = +productArr[index].quantity + 1;
-  } else {
-    productArr.push(payload);
-  }
-  return productArr;
-};
-
-export default function(state = initialState, action) {
+export default function(state=initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case LOGOUT:
+      return initialState;
     case ADD_TO_CART:
-      const updatedShopCartItems = updateShopCartItems(state.shopCartItems, payload);
-     
+      let index = state.shopCartItems.findIndex(product => product._id === payload._id);
+      let updatedCartItems = []
+      if (index !== -1) {
+        updatedCartItems = [
+          ...state.shopCartItems.slice(0, index),
+        {
+          ...state.shopCartItems[index],
+          quantity: payload.quantity++
+        },
+        ...state.shopCartItems.slice(index + 1)
+        ]
+      } else {
+        updatedCartItems = payload
+      }
       return {
         ...state,
-        shopCartItems: updatedShopCartItems,
-        isLoading: false
+        shopCartItems: updatedCartItems,
+        loading: false
       };
     case LOAD_CART_ERROR:
       return {
         ...state,
-        isLoading: false,
+        loading: false,
         shopCartItems: [],
         error: payload
       }
     case UPDATE_ITEM_QUANTITY:
       // update quantity at selected item
-      const shopCartArray = state.shopCartItems;
-      const index = shopCartArray.findIndex(product => product._id === payload.productId);
-      shopCartArray[index].quantity = payload.quantity;
+      index = state.shopCartItems.findIndex(product => product._id === payload.productId);
+      
+      updatedCartItems = [
+        ...state.shopCartItems.slice(0, index),
+        {
+          ...state.shopCartItems[index],
+          quantity: payload.quantity
+        },
+        ...state.shopCartItems.slice(index + 1)
+      ];
 
       return {
         ...state,
-        shopCartItems: shopCartArray,
-        isLoading: false
+        shopCartItems: updatedCartItems,
+        loading: false
       }
     case ITEM_QUANTITY_ERROR:
       return {
         ...state,
         error: payload,
-        isLoading: false
+        loading: false
       }
+    case CREATE_NEW_ORDER:
+      return {
+        ...state,
+        orders: [
+          ...state.orders,
+          payload
+        ],
+        loading: false,
+        orderCreated: true
+
+      }
+    case NEW_ORDER_ERROR:
+        return {
+          ...state,
+          orders: [],
+          error: payload,
+          loading: false
+        }
     default:
       return state;
   }

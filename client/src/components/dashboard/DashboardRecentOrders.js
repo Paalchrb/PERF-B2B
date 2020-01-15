@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { format } from 'date-fns';
 
 const DashboardRecentOrders = ({
   orders, 
@@ -7,23 +8,38 @@ const DashboardRecentOrders = ({
   
 
   const recentOrdersMarkup = orders.map(order => (order && (
-    <div 
-      key={order._id}
-    >
-  
-  <li>{order.orderDate} - Buyer contact: {order.buyerContact.firstName} {order.buyerContact.lastName} / email: {order.buyerContact.userEmail}, tlf: {order.buyerContact.userPhone}</li>
-
-
+    <div className="recent-order-table-row" key={order._id}>
+      <div>{orders.indexOf(order) + 1}</div>
+      <div>{format(new Date(order.orderDate), 'MM/dd/yyyy')}</div>
+      <div>{order.buyerContact.firstName} {order.buyerContact.lastName}</div>
+      <div>{order.buyerContact.userEmail}</div>
+      <div>{order.buyerContact.userPhone}</div>
     </div>
   )));
 
   return (
-    
     <Fragment>
-      <h3>Recent orders:</h3>
-      <ul>
-      {recentOrdersMarkup}
-      </ul>
+    {orders.length > 0 ? (
+      <div className="recent-orders-card">
+      <h3>Siste bestillinger</h3>
+      <div className="recent-order-table-row-headers">
+        <div>Nr.
+        </div>
+        <div>Dato</div>
+        <div>Kontaktperson</div>
+        <div>Email</div>
+        <div>Telefon</div>
+      </div>
+        {recentOrdersMarkup}
+    </div>
+    ) : (
+      <div className='recent-orders-card'>
+        <h4>Det har ikke blitt gjort noen bestillinger</h4>
+      </div>
+    )}
+   
+      
+      
     </Fragment>
   );
 }
