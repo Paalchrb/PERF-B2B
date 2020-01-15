@@ -1,6 +1,7 @@
 import {
   GET_ORDER,
-  ORDER_ERROR
+  ORDER_ERROR,
+  LOGOUT
 } from '../actions/constants';
 
 const initialState = {
@@ -25,6 +26,8 @@ export default function(state = initialState, action) {
         error: payload,
         loading: false
       }
+    case LOGOUT:
+      return initialState
     default:
       return state;
   }

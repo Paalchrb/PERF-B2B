@@ -6,38 +6,10 @@ const OrderSchema = new mongoose.Schema({
     default: Date.now,
     required: true
   },
-  //Has to be a counter
   orderNumber: {
     type: String,
-    //required: true
   },
-  orderLine: [{
-    productId: {
-      type: String,
-      required: true
-    },
-    productName: {
-      type: String,
-      required: true
-    },
-    productPrice: {
-      type: Number,
-      required: true
-    },
-    productVat: {
-      type: Number,
-      required: true
-    },
-    quantity: {
-      type: Number,
-      required: true
-    },
-    // orderLineNetTotal: {
-    //   type: Number,
-    //   required: true
-    // }
-  }],
-  orderLine: [
+  orderLines: [
     {
       productId: {
         type: String,
@@ -59,7 +31,7 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         required: true
       },
-      orderLineNetTotal: {
+      orderLineTotal: {
         type: Number
       }
     }

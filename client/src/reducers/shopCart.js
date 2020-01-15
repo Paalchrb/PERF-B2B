@@ -1,5 +1,5 @@
 import {
-  LOAD_CART_ERROR,
+  ADD_TO_CART_ERROR,
   ADD_TO_CART,
   UPDATE_ITEM_QUANTITY,
   ITEM_QUANTITY_ERROR,
@@ -18,30 +18,32 @@ const initialState = {
 
 export default function(state=initialState, action) {
   const { type, payload } = action;
+  let index = -1;
+  let updatedCartItems = [];
   switch (type) {
-    case LOGOUT:
-      return initialState;
     case ADD_TO_CART:
-      let index = state.shopCartItems.findIndex(product => product._id === payload._id);
-      let updatedCartItems = []
+      index = state.shopCartItems.findIndex(product => product._id === payload._id);
       if (index !== -1) {
         updatedCartItems = [
           ...state.shopCartItems.slice(0, index),
         {
           ...state.shopCartItems[index],
-          quantity: payload.quantity++
+          quantity: +payload.quantity + 1
         },
         ...state.shopCartItems.slice(index + 1)
         ]
-      } else {
-        updatedCartItems = payload
+      } else { 
+        updatedCartItems = [
+          ...state.shopCartItems,
+          payload
+        ]
       }
       return {
         ...state,
         shopCartItems: updatedCartItems,
         loading: false
       };
-    case LOAD_CART_ERROR:
+    case ADD_TO_CART_ERROR:
       return {
         ...state,
         loading: false,
@@ -81,15 +83,16 @@ export default function(state=initialState, action) {
         ],
         loading: false,
         orderCreated: true
-
       }
     case NEW_ORDER_ERROR:
-        return {
-          ...state,
-          orders: [],
-          error: payload,
-          loading: false
-        }
+      return {
+        ...state,
+        orders: [],
+        error: payload,
+        loading: false
+      }
+    case LOGOUT:
+      return initialState;
     default:
       return state;
   }

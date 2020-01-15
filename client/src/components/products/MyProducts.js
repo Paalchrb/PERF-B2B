@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getProductsByCompanyId } from '../../actions/myProducts';
@@ -10,7 +9,6 @@ const MyProducts = ({ auth:{ token }, products, getProductsByCompanyId, searchFi
   useEffect(() => {
     getProductsByCompanyId(token);
   }, [getProductsByCompanyId, token]);
-  console.log(products);
 
   const productsByCompanyId = products.products.map(product => (
   
@@ -36,7 +34,7 @@ const MyProducts = ({ auth:{ token }, products, getProductsByCompanyId, searchFi
         
       </div>
       
-        <button className="product-order-button"><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
+        <button className="product-order-button"><i className="fas fa-edit" id="icon-order-button"></i>Rediger</button>
       
     </div>
   ))

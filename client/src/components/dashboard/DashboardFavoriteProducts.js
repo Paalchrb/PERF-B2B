@@ -6,16 +6,16 @@ import { addItemToCart } from '../../actions/shopCart';
 const DashboardFavoriteProducts = ({
   products, 
   auth: {
-    token
+    isAuthenticated
   },
   addItemToCart,
 }) => {
 
   const handleClick = id => {
-    addItemToCart(token, id);
-  }
-
-
+    if (isAuthenticated) {
+      addItemToCart(id);
+    }
+  };
 
   const productsMarkup = products.map(product => (
 

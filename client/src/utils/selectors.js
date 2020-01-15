@@ -1,5 +1,3 @@
-import shopCart from "../reducers/shopCart";
-
 export const shopCartSelector = shopCartItems => {
   const shopCartObjects = [];
   shopCartItems.forEach(shopCartItem => {

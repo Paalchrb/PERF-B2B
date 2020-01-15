@@ -1,12 +1,11 @@
 import axios from 'axios';
 import {
-  LOAD_CART_ERROR,
+  ADD_TO_CART_ERROR,
   ADD_TO_CART,
   UPDATE_ITEM_QUANTITY,
   ITEM_QUANTITY_ERROR,
   CREATE_NEW_ORDER,
   NEW_ORDER_ERROR
-  
 } from '../actions/constants';
 
 // Load cart items:
@@ -14,14 +13,9 @@ import {
 // @TODO: CREATE LOAD CART ACTION
 
 // Add item to cart:
-export const addItemToCart = (token, productId, quantity = 1) => async dispatch => {
+export const addItemToCart = (productId, quantity = 1) => async dispatch => {
   try { 
-    const config = {
-      headers: {
-        'x-auth-token': token
-      }
-    }
-    const product = await axios.get(`/api/products/${productId}`, config);
+    const product = await axios.get(`/api/products/${productId}`);
     const seller = await axios.get(`/api/companies/${product.data.companyId}`);
     
     const payload = {
@@ -36,7 +30,7 @@ export const addItemToCart = (token, productId, quantity = 1) => async dispatch 
     });
   } catch (error) {
     dispatch({
-      type: LOAD_CART_ERROR,
+      type: ADD_TO_CART_ERROR,
       payload: error
     });
   }
@@ -61,7 +55,7 @@ export const updateCartItemQuantity = (quantity, productId) => dispatch => {
 };
 
 // Create and send new order
-export const createNewOrder = (sellerId, productId, quantity, token) => async dispatch => {
+export const createNewOrders = (shopCartItems, token) => async dispatch => {
   try {
     const config = {
       headers: {
@@ -71,9 +65,7 @@ export const createNewOrder = (sellerId, productId, quantity, token) => async di
     }
   
     const body = {
-      sellerId,
-      productId,
-      quantity 
+      shopCartItems
     }
   
     const res = await axios.post('/api/orders', body, config);
