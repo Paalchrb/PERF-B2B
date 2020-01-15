@@ -1,71 +1,70 @@
 import React, { Fragment, useEffect } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getProductById } from '../../actions/product';
+import { format } from 'date-fns';
 import Toolbar from '../layout/Toolbar';
-import ProductCardButton from '../layout/ProductCardButton';
 
+const SinglePageProductView = ({ auth: { token, isAuthenticated }, product: { selectedProduct, loading }, getProductById, match  }) => {
+  const productId = match.params.productId;
 
-const SingleProductView = ({ 
-  products, 
-  }) => {
+  useEffect(() => {
+    (async function() {
+      await getProductById(token, productId);
+    })();
+  }, [getProductById, token, isAuthenticated, productId]);
 
-    const allProductsMarkup = products.map(product => (
-      <div key={product._id} className='product-card grow'>
-        <div className="product-image-container">
-          <img className="product-card-image" src={product.productImage} alt='Product illustration'/>
+  let productMarkup = [];
+
+  if (selectedProduct && !loading) {
+
+    productMarkup = selectedProduct.product.map(product => {
+      return (
+        <div key={product._id}>
+          <div>Navn: {product.productName}</div>
+          <div>Produkt-id: {product.productId}</div>
+          <div>Pris: {product.productPrice}</div>
+          <div>Mva: {product.productVat}</div>
+          <div>Netto: {product.productLineNetTotal}</div>
         </div>
+      )
+    });
+  };
+
   
-      <div className="product-card-info">
-       <div className="product-card-text">
-        <h4>{product.productName}</h4>
-        <h6>{product.productSubhead}</h6>
-       </div>
-        
-        <div className="product-card-price-container">
-          <div className="product-card-price">
-            {product.productPrice},-
-          </div>
-        
-        <div className="product-card-vat">(eks mva på {product.productVat * 100}%)</div>
-        </div>
+  return (
+    <div>
+      {selectedProduct && !loading && isAuthenticated ? (
+  
+     
+          <Fragment>
+      <Toolbar />
+      <div className='content-area'> 
+        <h3>Produkt</h3>
+        <div>{productMarkup}</div>
       </div>
-
-      <ProductCardButton product={product._id}/>
-      
+    </Fragment>) : (
+      <div className='content-area'> 
+      <h3>Produkt</h3>
+      <div>{productMarkup}</div>
     </div>
-    ));
+    )}
+      </div>
+   )
+};
+
+SinglePageProductView.propTypes = {
+  auth: PropTypes.object.isRequired,
   
-    return (
-      <Fragment>
-        {products.length > 0 ? (
-          <div className="dashboard-products-container">
-            <h3>Siste bestillinger</h3>
-              <div className='product-card-container-dashboard'> 
-               {recentProductsMarkup}
-              </div>
-          </div>
-          ) : (
-          <div className="dashboard-products-container">
-            <h4>Det har ikke blitt gjort noen bestillinger</h4>
-          </div>
-          )
-        }
-      </Fragment>
-    );
-  }
-  
-  
-  DashboardRecentProducts.propTypes = {
-    auth: PropTypes.object.isRequired,
-    addItemToCart: PropTypes.func.isRequired,
-  };
-  
-  const mapStateToProps = state => ({
-    auth: state.auth,
-  });
-  
-  const mapDispatchToProps = {
-    addItemToCart,
-  };
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(SingleProductView);
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  product: state.product
+});
+
+const mapDispatchToProps = {
+  getProductById
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SinglePageProductView);
