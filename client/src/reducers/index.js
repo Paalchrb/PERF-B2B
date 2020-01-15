@@ -8,6 +8,7 @@ import navbar from './navbar';
 import productSearch from './productSearch';
 import shopCart from './shopCart';
 import toolbar from './toolbar';
+import myProducts from './myProducts'
 
 export default combineReducers({
   //export reducers here
@@ -18,5 +19,6 @@ export default combineReducers({
   navbar,
   productSearch,
   shopCart,
-  toolbar
+  toolbar,
+  myProducts
 });
