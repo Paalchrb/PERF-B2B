@@ -12,10 +12,11 @@ const initialState = {
   shopCartItems: [],
   orders: [],
   orderCreated: false,
-  isLoading: true,
+  loading: true,
   error: {}
 };
 
+<<<<<<< HEAD
 //Check if product alreade exists in shop cart, and update quantity if it does.
 const updateShopCartItems = (productArr, payload) => {
   const index = productArr.findIndex(product => product._id === payload._id);
@@ -29,42 +30,67 @@ const updateShopCartItems = (productArr, payload) => {
 
 export default function(_state = initialState, action) {
   const state = JSON.parse(JSON.stringify(_state));
+=======
+export default function(state=initialState, action) {
+>>>>>>> 0972a92d5aaed59920abe7b5702b6c4a1c42a5cf
   const { type, payload } = action;
   switch (type) {
     case LOGOUT:
       return initialState;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0972a92d5aaed59920abe7b5702b6c4a1c42a5cf
     case ADD_TO_CART:
-      const updatedShopCartItems = updateShopCartItems(state.shopCartItems, payload);
-     
+      let index = state.shopCartItems.findIndex(product => product._id === payload._id);
+      let updatedCartItems = []
+      if (index !== -1) {
+        updatedCartItems = [
+          ...state.shopCartItems.slice(0, index),
+        {
+          ...state.shopCartItems[index],
+          quantity: payload.quantity++
+        },
+        ...state.shopCartItems.slice(index + 1)
+        ]
+      } else {
+        updatedCartItems = payload
+      }
       return {
         ...state,
-        shopCartItems: updatedShopCartItems,
-        isLoading: false
+        shopCartItems: updatedCartItems,
+        loading: false
       };
     case LOAD_CART_ERROR:
       return {
         ...state,
-        isLoading: false,
+        loading: false,
         shopCartItems: [],
         error: payload
       }
     case UPDATE_ITEM_QUANTITY:
       // update quantity at selected item
-      const shopCartArray = state.shopCartItems;
-      const index = shopCartArray.findIndex(product => product._id === payload.productId);
-      shopCartArray[index].quantity = payload.quantity;
+      index = state.shopCartItems.findIndex(product => product._id === payload.productId);
+      
+      updatedCartItems = [
+        ...state.shopCartItems.slice(0, index),
+        {
+          ...state.shopCartItems[index],
+          quantity: payload.quantity
+        },
+        ...state.shopCartItems.slice(index + 1)
+      ];
 
       return {
         ...state,
-        shopCartItems: shopCartArray,
-        isLoading: false
+        shopCartItems: updatedCartItems,
+        loading: false
       }
     case ITEM_QUANTITY_ERROR:
       return {
         ...state,
         error: payload,
-        isLoading: false
+        loading: false
       }
     case CREATE_NEW_ORDER:
       return {
@@ -73,7 +99,7 @@ export default function(_state = initialState, action) {
           ...state.orders,
           payload
         ],
-        isLoading: false,
+        loading: false,
         orderCreated: true
 
       }
@@ -82,7 +108,7 @@ export default function(_state = initialState, action) {
           ...state,
           orders: [],
           error: payload,
-          isLoading: false
+          loading: false
         }
     default:
       return state;
