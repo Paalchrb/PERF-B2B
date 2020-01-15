@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addItemToCart } from '../../actions/shopCart';
+import { getProductById } from '../../actions/product';
 import { Link, withRouter } from 'react-router-dom';
 
 const DashboardFavoriteProducts = ({
@@ -12,18 +13,22 @@ const DashboardFavoriteProducts = ({
   addItemToCart,
 }) => {
 
-  let routePath = '/products/';
+  
 
   const handleClick = id => {
     addItemToCart(token, id);
   }
 
+  // const handleSingleViewChange = id => {
+  //   getProductById(id);
+  // }
+
 
 
   const productsMarkup = products.map(product => (
-    <Link to={routePath+product._id}>
+    
       <div key={product._id} className='product-card grow'>
-      <div className="product-image-container">
+      <div  className="product-image-container">
         <img className="product-card-image" src={product.productImage} alt='Product illustration' />
       </div>
 
@@ -45,9 +50,11 @@ const DashboardFavoriteProducts = ({
       </div>
       
         <button className="product-order-button" onClick={() => handleClick(product._id)}><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
+
+     
       
     </div>
-  </Link>
+  
   ));
 
   return (

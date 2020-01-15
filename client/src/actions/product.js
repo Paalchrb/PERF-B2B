@@ -14,7 +14,7 @@ export const getProductById = (token, productId) => async dispatch => {
       }
     }
     
-    const res = await axios(`/api/orders/${productId}`, config); 
+    const res = await axios(`/api/products/${productId}`, config); 
 
     dispatch({
       type: GET_SINGLE_PRODUCT,
