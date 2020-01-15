@@ -1,22 +1,29 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addItemToCart, updateCartItemQuantity } from '../../actions/shopCart';
+import { updateCartItemQuantity, createNewOrder } from '../../actions/shopCart';
 import Toolbar from '../layout/Toolbar';
 
 const ShopCart = ({
   auth: {
-    token
+    token,
   },
   shopCart: {
-    shopCartItems = []
+    shopCartItems = [],
+    isLoading,
+    orderCreated
   },
-  addItemToCart,
-  updateCartItemQuantity
+  updateCartItemQuantity,
+  createNewOrder
 }) => {
   const handleClick = event => {
     event.preventDefault();
-    addItemToCart(token, '5e19e065d0a60f24bb99520a');
+    if(shopCartItems.length > 0) {
+      shopCartItems.forEach(product => {
+        createNewOrder(product.companyId, product._id, product.quantity, token );
+      });
+    }
   }
 
   const handleChange = event => {
@@ -53,19 +60,29 @@ const ShopCart = ({
   </div>
   ));
 
-
   return (
     <Fragment>
       <Toolbar/>
       <div className='content-area'>
-      <h3>This is the shopcart component</h3>
-      <button
-        onClick={event => handleClick(event)}
-      >Add item</button>
-      <div className='product-container'>
-        {shopItemsMarkup}
-      </div>
-      </div>
+      {(orderCreated && !isLoading) ? (
+        <Fragment>
+          <p>Bestilling bekreftet</p>
+          <Link to='#!'>Se ordre her</Link>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <h3>Handlekurv</h3>
+          <div className='product-container'>
+            {shopCartItems.length > 0 ? shopItemsMarkup : <p>Ingen varer i handlekurv</p>}
+          </div>
+          <button
+            onClick={event => handleClick(event)}
+          >
+            Send bestilling
+          </button>
+        </Fragment>
+      )}
+       </div>
     </Fragment>
   )
 };
@@ -73,7 +90,7 @@ const ShopCart = ({
 ShopCart.propTypes = {
   auth: PropTypes.object.isRequired,
   shopCart: PropTypes.object.isRequired,
-  addItemToCart: PropTypes.func.isRequired,
+  createNewOrder: PropTypes.func.isRequired,
   updateCartItemQuantity: PropTypes.func.isRequired,
 };
 
@@ -83,7 +100,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  addItemToCart,
+  createNewOrder,
   updateCartItemQuantity
 };
 

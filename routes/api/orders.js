@@ -85,19 +85,27 @@ router.post(
         }
       });
 
-      buyer.recentOrders.unshift(order._id);
+      seller.recentOrders.unshift(order._id);
+      if (seller.recentOrders.length > 4) {
+        seller.recentOrders = seller.recentOrders.slice(5);
+      }
 
+      buyer.recentOrders.unshift(order._id);
       if (buyer.recentOrders.length > 4) {
         buyer.recentOrders = buyer.recentOrders.slice(5);
       }
       
-      buyer.recentProducts.unshift(productId);
-      
-      if (buyer.recentProducts.length > 4) {
-        buyer.recentProducts = buyer.recentProducts.slice(5);
+      //avoid duplicate products in recent products:
+      if(!buyer.recentProducts.includes(productId)) {
+        buyer.recentProducts.unshift(productId);
+        if (buyer.recentProducts.length > 4) {
+          buyer.recentProducts = buyer.recentProducts.slice(5);
+        }
       }
 
       await order.save();
+      await buyer.save();
+      await seller.save();
       
       return res
         .status(201)
