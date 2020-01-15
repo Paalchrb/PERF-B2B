@@ -7,22 +7,33 @@ const DashboardRecentOrders = ({
   
 
   const recentOrdersMarkup = orders.map(order => (order && (
-    <div 
-      key={order._id}
-    >
-
-  <li>{order.orderDate} - Buyer contact: {order.buyerContact.firstName} {order.buyerContact.lastName} / email: {order.buyerContact.userEmail}, tlf: {order.buyerContact.userPhone}</li>
-
+    <div className="recent-order-table-row" key={order._id}>
+      <div>{order._id}</div>
+      <div>{order.orderDate}</div>
+      <div>{order.buyerContact.firstName} {order.buyerContact.lastName}</div>
+      <div>{order.buyerContact.userEmail}</div>
+      <div>{order.buyerContact.userPhone}</div>
     </div>
   )));
 
   return (
     
     <Fragment>
-      <h3>Recent orders:</h3>
-      <ul>
-      {recentOrdersMarkup}
-      </ul>
+      <div className="recent-orders-card">
+        <h3>Recent orders</h3>
+        <div className="recent-order-table-row-headers">
+          <div>Id</div>
+          <div>Date</div>
+          <div>Contact</div>
+          <div>Email</div>
+          <div>Phone</div>
+        </div>
+          {recentOrdersMarkup}
+        
+        
+
+      </div>
+      
     </Fragment>
   );
 }
