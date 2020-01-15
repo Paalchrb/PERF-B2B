@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAllProducts } from '../../actions/productSearch';
@@ -22,7 +22,7 @@ const ProductSearch = ({ products, getAllProducts, searchField}) => {
   
     <div key={product._id} className='product-card grow'>
       <div className="product-image-container">
-        <img className="product-card-image" src={product.productImage} />
+        <img className="product-card-image" src={product.productImage} alt='Product illustration'/>
       </div>
 
       <div className="product-card-info">

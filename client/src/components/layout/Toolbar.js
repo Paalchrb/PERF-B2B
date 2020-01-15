@@ -6,7 +6,6 @@ import { togleToolbar } from '../../actions/toolbar';
 
 
 const Toolbar = ({togleToolbar, toolbar: { toolbar } }) => {
-  console.log(toolbar)
   const handleClick = event => {
     event.preventDefault();
     togleToolbar();
@@ -54,6 +53,7 @@ Toolbar.propTypes = {
 
 const mapStateToProps = state => ({
   toolbar: state.toolbar,
+  
 });
 
 export default connect(
