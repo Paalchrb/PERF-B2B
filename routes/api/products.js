@@ -161,6 +161,7 @@ router.get(
   auth,
   async (req, res) => {
     try {
+      console.log(req.user.companyId);
       const myProducts = await Product.find({ 'companyId': req.user.companyId });
       return res
         .status(200)
