@@ -17,12 +17,10 @@ const initialState = {
 };
 
 export default function(state=initialState, action) {
-
   const { type, payload } = action;
   switch (type) {
     case LOGOUT:
       return initialState;
-
     case ADD_TO_CART:
       let index = state.shopCartItems.findIndex(product => product._id === payload._id);
       let updatedCartItems = []
