@@ -11,9 +11,8 @@ const DashboardFavoriteProducts = ({
   addItemToCart,
 }) => {
 
-  const handleClick = event => {
-    event.preventDefault();
-    addItemToCart(token, event.target.id);
+  const handleClick = id => {
+    addItemToCart(token, id);
   }
 
 
@@ -42,19 +41,24 @@ const DashboardFavoriteProducts = ({
       
     </div>
     
-      <button className="product-order-button"><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
+      <button onClick={() => handleClick(product._id)} className="product-order-button"><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
     
   </div>
   ));
 
   return (
     <Fragment>
-      <div className="dashboard-products-container">
+      {products.length > 0 ? (<div className="dashboard-products-container">
         <h3>Favorite products</h3>
       <div className='product-card-container-dashboard'> {/*add a real class here*/}
         {productsMarkup}
       </div>
-      </div>
+      </div>) : (
+        <div className="dashboard-products-container">
+          <h4>You have not selected any favorite products</h4>
+        </div>
+      )}
+      
     </Fragment>
   );
 }
