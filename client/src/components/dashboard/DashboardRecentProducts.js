@@ -11,9 +11,8 @@ const DashboardRecentProducts = ({
 }) => {
 
 
-  const handleClick = event => {
-    event.preventDefault();
-    addItemToCart(token, event.target.id);
+  const handleClick = id => {
+    addItemToCart(token, id);
   }
 
 
@@ -40,19 +39,26 @@ const DashboardRecentProducts = ({
       
     </div>
     
-      <button className="product-order-button"><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
+      <button onClick={() => handleClick(product._id)} className="product-order-button"><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
     
   </div>
   ));
 
   return (
     <Fragment>
-      <div className="dashboard-products-container">
-      <h3>Recent products</h3>
-      <div className='product-card-container-dashboard'> {/*add a real class here*/}
-        {recentProductsMarkup}
-      </div>
+      {products.length > 0 ? (
+        <div className="dashboard-products-container">
+          <h3>Recent products</h3>
+            <div className='product-card-container-dashboard'> 
+             {recentProductsMarkup}
+            </div>
         </div>
+        ) : (
+        <div className="dashboard-products-container">
+          <h4>There are no recent orders</h4>
+        </div>
+        )
+      }
     </Fragment>
   );
 }

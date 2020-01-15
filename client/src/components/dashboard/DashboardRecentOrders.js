@@ -17,22 +17,26 @@ const DashboardRecentOrders = ({
   )));
 
   return (
-    
     <Fragment>
+    {orders.length > 0 ? (
       <div className="recent-orders-card">
-        <h3>Recent orders</h3>
-        <div className="recent-order-table-row-headers">
-          <div>Id</div>
-          <div>Date</div>
-          <div>Contact</div>
-          <div>Email</div>
-          <div>Phone</div>
-        </div>
-          {recentOrdersMarkup}
-        
-        
-
+      <h3>Recent orders</h3>
+      <div className="recent-order-table-row-headers">
+        <div>Id</div>
+        <div>Date</div>
+        <div>Contact</div>
+        <div>Email</div>
+        <div>Phone</div>
       </div>
+        {recentOrdersMarkup}
+    </div>
+    ) : (
+      <div className='recent-orders-card'>
+        <h4>You have no recent orders</h4>
+      </div>
+    )}
+   
+      
       
     </Fragment>
   );
