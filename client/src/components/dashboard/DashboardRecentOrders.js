@@ -12,15 +12,11 @@ const DashboardRecentOrders = ({
   const recentOrdersMarkup = orders.map(order => (order && (
   
       <div className="recent-order-table-row" key={order._id}>
-   
-        <Link to={routePath+order._id}>
-          <div>{orders.indexOf(order) + 1}</div>
-        </Link>
         <Link to={routePath+order._id}>
      
         <div>{orders.indexOf(order) + 1}</div>
       </Link>
-      <Link>
+      <Link to={routePath+order._id}>
         <div>{format(new Date(order.orderDate), 'MM/dd/yyyy')}</div>
         </Link>
         <Link to={routePath+order._id}>
