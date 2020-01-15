@@ -1,28 +1,22 @@
 import React, { Fragment, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getAllProducts } from '../../actions/productSearch';
+import { getProductsByCompanyId } from '../../actions/myProducts';
 import Toolbar from '../layout/Toolbar';
 
 
-const ProductSearch = ({ products, getAllProducts, searchField}) => {
+const MyProducts = ({ auth:{ token }, products, getProductsByCompanyId, searchField}) => {
   useEffect(() => {
-    getAllProducts();
-  }, [getAllProducts]);
+    getProductsByCompanyId(token);
+  }, [getProductsByCompanyId, token]);
+  console.log(products);
 
-  const allProducts = products.filter(product => {
-    return (
-      product.productName.toLowerCase().includes(searchField.toLowerCase()) ||
-      product.productSubhead.toLowerCase().includes(searchField.toLowerCase()) ||
-      product.productDescription.toLowerCase().includes(searchField.toLowerCase())
-    )
-  })
-  .map(product => (
+  const productsByCompanyId = products.products.map(product => (
   
     <div key={product._id} className='product-card grow'>
       <div className="product-image-container">
-        <img className="product-card-image" src={product.productImage} alt='Product illustration'/>
+        <img className="product-card-image" src={product.productImage} alt='Product illustration' />
       </div>
 
       <div className="product-card-info">
@@ -53,27 +47,29 @@ const ProductSearch = ({ products, getAllProducts, searchField}) => {
       <Toolbar/>
       <div className='content-area'>
         <div className='product-card-container'>
-          {allProducts}
+          {productsByCompanyId}
         </div>
       </div>
     </Fragment>
   )
 };
 
-ProductSearch.propTypes = {
-  getAllProducts: PropTypes.func.isRequired
+MyProducts.propTypes = {
+  getProductsByCompanyId: PropTypes.func.isRequired,
+  products: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  products: state.productSearch.products,
-  searchField: state.navbar.searchField
+  products: state.myProducts,
+  auth: state.auth
 });
 
 const mapDispatchToProps = {
-  getAllProducts
+  getProductsByCompanyId
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProductSearch);
+)(MyProducts);

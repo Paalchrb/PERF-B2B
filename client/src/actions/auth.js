@@ -19,7 +19,7 @@ export const loadUser = () => async dispatch => {
     const res = await axios.get('/api/auth');
     dispatch({
       type: USER_LOADED,
-      payload: res.data //Includes user AND company, and will this create a problem? (res.data.user?)
+      payload: res.data 
     });
   } catch (error) {
     dispatch({

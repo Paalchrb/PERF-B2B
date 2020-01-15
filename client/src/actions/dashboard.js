@@ -20,7 +20,7 @@ export const getCurrentCompany = (token) => async dispatch => {
       }
     }
     
-    const company = await axios('/api/companies/me', config);
+    const company = await axios.get('/api/companies/me', config);
  
     dispatch({
       type: GET_COMPANY,
@@ -29,10 +29,7 @@ export const getCurrentCompany = (token) => async dispatch => {
   } catch (error) {
     dispatch({
       type: COMPANY_ERROR,
-      payload: { 
-        msg: error.response.statusText, 
-        status: error.response.status 
-      }
+      payload: error
     });
   }
 };
@@ -45,20 +42,16 @@ export const getRecentProducts = (token) => async dispatch => {
         'x-auth-token': token,
       }
     }
-    const recentProducts = await axios('api/products/recent', config);
+    const recentProducts = await axios.get('api/products/recent', config);
 
     dispatch({
       type: GET_RECENT_PRODUCTS,
       payload: recentProducts.data
     })
   } catch (error) {
-    console.log('error', error);
     dispatch({
       type: RECENT_PRODUCTS_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status
-      }
+      payload: error
     });
   }
 };
@@ -72,7 +65,7 @@ export const getFavoriteProducts = (token) => async dispatch => {
       }
     }
     
-    const favoriteProducts = await axios('api/products/favorites', config);
+    const favoriteProducts = await axios.get('api/products/favorites', config);
 
     dispatch({
       type: GET_FAV_PRODUCTS,
@@ -82,8 +75,7 @@ export const getFavoriteProducts = (token) => async dispatch => {
     dispatch({
       type: FAV_PRODUCTS_ERROR,
       payload: {
-        msg: error.response.statusText,
-        status: error.response.status
+        msg: 'Unable to load favorite products'
       }
     });
   }
@@ -98,7 +90,7 @@ export const getRecentOrders = (token) => async dispatch => {
       }
     }
     
-    const getRecentOrders = await axios('api/orders/procurement/recent', config);
+    const getRecentOrders = await axios.get('api/orders/procurement/recent', config);
 
     dispatch({
       type: GET_RECENT_ORDERS,
@@ -107,10 +99,7 @@ export const getRecentOrders = (token) => async dispatch => {
   } catch (error) {
     dispatch({
       type: RECENT_ORDERS_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status
-      }
+      payload: error
     });
   }
 };

@@ -15,10 +15,7 @@ export const getAllProducts = () => async dispatch => {
   } catch (error) {
     dispatch({
       type: PRODUCT_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status
-      }
+      payload: error
     });
   }
 };

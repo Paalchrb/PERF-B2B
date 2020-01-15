@@ -153,6 +153,28 @@ router.get(
   }
 );
 
+// @route   GET api/products/me
+// @desc    Get one companys products
+// @access  Private
+router.get(
+  '/me',
+  auth,
+  async (req, res) => {
+    try {
+      console.log(req.user.companyId);
+      const myProducts = await Product.find({ 'companyId': req.user.companyId });
+      return res
+        .status(200)
+        .json(myProducts);
+    } catch (error) {
+      console.error(error.message);
+      return res
+        .status(500)
+        .send('Server Error');
+    }
+  }
+);
+
 
   // @route   GET api/products/:productId
   // @desc    Get product by id
