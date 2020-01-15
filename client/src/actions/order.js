@@ -1,24 +1,53 @@
 import axios from 'axios';
 
 import {
-  GET_ORDER,
-  ORDER_ERROR
+  GET_ALL_ORDERS,
+  GET_SINGLE_ORDER,
+  ORDER_ERROR,
+  SET_CURRENT_ORDER
 } from '../actions/constants';
 
 
-//get user order
-export const getMyOrder = () => async dispatch => {
+//Get all user orders
+export const getAllMyOrders = (token) => async dispatch => {
   try {
     let config = {
       headers: {
-        'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWUxOWQ5NDZmOTExYTUxYjE1NDVlZTRlIiwiY29tcGFueUlkIjoiNWUxOWQ2ZjJmOTExYTUxYjE1NDVlZTRjIn0sImlhdCI6MTU3ODc3NTAyNywiZXhwIjoxNTgyMzc1MDI3fQ.p7f-59xoGg5zMhmHg61lrnLwDpcyQ_DNrTtaizHYBXM',
+        'x-auth-token': token
       }
     }
     
-    const res = await axios('/api/orders/5e1a2392c9ef3b0b2f4d2310', config); //TO DO
+    const res = await axios('/api/orders/me', config); //TO DO
  
     dispatch({
-      type: GET_ORDER,
+      type: GET_ALL_ORDERS,
+      payload: res.data
+    });
+  } catch (error) {
+    console.log('There an an error retrieving your order');
+    // dispatch({
+    //   type: ORDER_ERROR,
+    //   payload: { 
+    //     msg: error.response.statusText, 
+    //     status: error.response.status 
+    //   }
+    // });
+  }
+};
+
+//Get user order by id
+export const getMyOrderById = (token, orderId) => async dispatch => {
+  try {
+    let config = {
+      headers: {
+        'x-auth-token': token
+      }
+    }
+    
+    const res = await axios(`/api/orders/${orderId}`, config); //TO DO
+
+    dispatch({
+      type: GET_SINGLE_ORDER,
       payload: res.data
     });
   } catch (error) {
@@ -31,3 +60,11 @@ export const getMyOrder = () => async dispatch => {
     });
   }
 };
+
+//Toggles Single Order-view in Orders-view
+export const setCurrentOrder = orderId => dispatch => {
+  dispatch({
+    type: SET_CURRENT_ORDER,
+    payload: orderId
+  });
+}

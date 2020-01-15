@@ -2,7 +2,6 @@ import {
   CHANGE_SEARCH_FIELD,
   SUBMIT_SEARCH
 } from '../actions/constants';
-import axios from 'axios';
 
 
 export const setSearchField = text => dispatch => {
@@ -12,12 +11,10 @@ export const setSearchField = text => dispatch => {
   });
 };
 
-export const submitSearch = text => async dispatch => {
-
+export const submitSearch = () => async dispatch => {
 
   dispatch({
-    type: SUBMIT_SEARCH,
-    // payload
+    type: SUBMIT_SEARCH
   });
 
   

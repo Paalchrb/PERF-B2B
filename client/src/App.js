@@ -5,7 +5,7 @@ import Login from './components/auth/Login';
 import Navbar from './components/layout/Navbar';
 import LandingPage from './components/layout/LandingPage';
 import Dashboard from './components/dashboard/Dashboard';
-import Order from './components/order/Order';
+import Orders from './components/order/Orders';
 import ProductSearch from './components/products/ProductSearch';
 import Alert from './components/layout/Alert';
 import NotFound from './components/layout/NotFound';
@@ -36,7 +36,7 @@ const App = () => {
         <Route exact path='/' component={LandingPage} />
         <Route path='/login' component={Login} />
         <PrivateRoute path='/dashboard' component={Dashboard} />
-        <PrivateRoute path='/order' component={Order} />
+        <PrivateRoute path='/orders' component={Orders} />
         <Route exact path='/products' component={ProductSearch} />
         <PrivateRoute path='/shopcart' component={ShopCart} />
         <Route path='/' component={NotFound} />
