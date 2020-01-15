@@ -8,7 +8,7 @@ import { Link, withRouter } from 'react-router-dom';
 const DashboardFavoriteProducts = ({
   products, 
   auth: {
-    token
+    isAuthenticated
   },
   addItemToCart,
 }) => {
@@ -16,12 +16,10 @@ const DashboardFavoriteProducts = ({
   
 
   const handleClick = id => {
-    addItemToCart(token, id);
-  }
-
-  // const handleSingleViewChange = id => {
-  //   getProductById(id);
-  // }
+    if (isAuthenticated) {
+      addItemToCart(id);
+    }
+  };
 
 
 

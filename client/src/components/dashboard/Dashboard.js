@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Spinner from '../layout/Spinner';
 import DashboardCompanyInfo from './DashboardCompanyInfo';
 import DashboardFavoriteProducts from './DashboardFavoriteProducts';
