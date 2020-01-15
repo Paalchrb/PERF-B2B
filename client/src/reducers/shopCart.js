@@ -16,31 +16,11 @@ const initialState = {
   error: {}
 };
 
-<<<<<<< HEAD
-//Check if product alreade exists in shop cart, and update quantity if it does.
-const updateShopCartItems = (productArr, payload) => {
-  const index = productArr.findIndex(product => product._id === payload._id);
-  if (index !== -1) {
-    productArr[index].quantity = +productArr[index].quantity + 1;
-  } else {
-    productArr.push(payload);
-  }
-  return productArr;
-};
-
-export default function(_state = initialState, action) {
-  const state = JSON.parse(JSON.stringify(_state));
-=======
 export default function(state=initialState, action) {
->>>>>>> 0972a92d5aaed59920abe7b5702b6c4a1c42a5cf
   const { type, payload } = action;
   switch (type) {
     case LOGOUT:
       return initialState;
-<<<<<<< HEAD
-
-=======
->>>>>>> 0972a92d5aaed59920abe7b5702b6c4a1c42a5cf
     case ADD_TO_CART:
       let index = state.shopCartItems.findIndex(product => product._id === payload._id);
       let updatedCartItems = []
