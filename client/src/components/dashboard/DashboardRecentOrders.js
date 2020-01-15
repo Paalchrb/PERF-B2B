@@ -10,9 +10,8 @@ const DashboardRecentOrders = ({
     <div 
       key={order._id}
     >
-  
-  <li>{order.orderDate} - Buyer contact: {order.buyerContact.firstName} {order.buyerContact.lastName} / email: {order.buyerContact.userEmail}, tlf: {order.buyerContact.userPhone}</li>
 
+  <li>{order.orderDate} - Buyer contact: {order.buyerContact.firstName} {order.buyerContact.lastName} / email: {order.buyerContact.userEmail}, tlf: {order.buyerContact.userPhone}</li>
 
     </div>
   )));
