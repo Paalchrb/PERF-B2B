@@ -3,14 +3,19 @@ import { Link } from 'react-router-dom';
 import whiteLogo from '../../assets/logo-white.png'
 const LandingPage = () => {
   return (
-    <div className='landing-page-container'>
+    
     <Fragment>
+      <div className='landing-page-container'>
       <div className="landing-page-header-container">
         <img src={whiteLogo} alt="woman in factory"></img>
-        {/* <div className="hero-text"><h1>DIN BEDRIFT - DINE BEHOV</h1></div> */}
 
-        <button className="lp-button">Prøv løsningen</button>
-        <button className="lp-button">Registrer</button>
+
+        <div>
+          <button className="lp-button">Prøv løsningen</button>
+          <button className="lp-button">Registrer</button>
+
+        </div>
+        
 
       </div>
       <div className="landing-page-content">
@@ -20,15 +25,11 @@ const LandingPage = () => {
       <p><b>Btb</b> er en lavterskels markedsplass som digitaliserer bestillingsprosessen mellom små bedrifter i et lokalt økosystem.</p>
 
       <p>En åpen plattform med gratis tilgang til å registrere din bedrift med dine produkter. Gjennomfør bestillinger og salg på en enkel og oversiktelig måte. Ved større katalog/omsetning abonnerer du på PRO-planen uten begrensninger, eller ENTERPRISE-planen med integrasjoner. Produkter og firmaer er tilgjengelige for søk uten registrering.</p>
-
-<Link to='/login'><button className="lp-button">Logg inn</button></Link>
-<button className="lp-button">Registrering</button>
-
       </div>
       
- 
+      </div>
     </Fragment>
-    </div>
+    
   )
 }
 
