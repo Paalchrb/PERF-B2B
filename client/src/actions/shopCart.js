@@ -1,22 +1,17 @@
 import axios from 'axios';
 import {
-  //LOAD_CART,
   LOAD_CART_ERROR,
   ADD_TO_CART,
-  UPDATE_CART,
-  /* REMOVE_FROM_CART,
-  UPDATE_CART,
-  CONFIRM_PURCHASE,
-  PURCHASE_ERROR, */
+  UPDATE_ITEM_QUANTITY,
+  ITEM_QUANTITY_ERROR
 } from '../actions/constants';
 
 // Load cart items:
 // @TODO: MAKE CART MODEL IN DATABASE SO UNFINISHED CART CAN BE SAVED, AND DISPLAY WHEN USER LOGS IN.
 // @TODO: CREATE LOAD CART ACTION
 
-
 // Add item to cart:
-export const addItemToCart = (token, productId, quantity) => async dispatch => {
+export const addItemToCart = (token, productId, quantity = 1) => async dispatch => {
   try { 
     const config = {
       headers: {
@@ -25,13 +20,13 @@ export const addItemToCart = (token, productId, quantity) => async dispatch => {
     }
     const product = await axios.get(`/api/products/${productId}`, config);
     const seller = await axios.get(`/api/companies/${product.data.companyId}`);
-
+    
     const payload = {
       ...product.data,
       quantity,
       sellerName: seller.data.companyName
     };
-
+    
     dispatch({
       type: ADD_TO_CART,
       payload
@@ -40,30 +35,25 @@ export const addItemToCart = (token, productId, quantity) => async dispatch => {
     
     dispatch({
       type: LOAD_CART_ERROR,
-      payload: { 
-        msg: error.response.statusText, 
-        status: error.response.status 
-      }
+      payload: error
     });
   }
 };
 
-// update shopcart
-export const updateCart= (shopListItems) => async dispatch => {
-  try { 
-    // query to fetch items in shopcart from api?
-
-    dispatch({
-      type: UPDATE_CART,
-      payload: shopListItems
+// Update shop cart item quantity
+export const updateCartItemQuantity = (quantity, productId) => dispatch => {
+  try {
+    const payload = {
+      productId,
+      quantity
+    };
+    return dispatch({
+      type: UPDATE_ITEM_QUANTITY,
+      payload
     });
-  } catch (error) {
-    dispatch({
-      type: LOAD_CART_ERROR,
-      payload: { 
-        msg: error.response.statusText, 
-        status: error.response.status 
-      }
+  } catch(error) {
+    return dispatch({
+      type: ITEM_QUANTITY_ERROR,
     });
   }
 };

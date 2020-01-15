@@ -1,11 +1,8 @@
 import {
-  LOAD_CART,
   LOAD_CART_ERROR,
   ADD_TO_CART,
-  REMOVE_FROM_CART,
-  UPDATE_CART,
-  CONFIRM_PURCHASE,
-  PURCHASE_ERROR,
+  UPDATE_ITEM_QUANTITY,
+  ITEM_QUANTITY_ERROR
 } from '../actions/constants';
 
 const initialState = {
@@ -14,24 +11,28 @@ const initialState = {
   error: {}
 };
 
+//Check if product alreade exists in shop cart, and update quantity if it does.
+const updateShopCartItems = (productArr, payload) => {
+  const index = productArr.findIndex(product => product._id === payload._id);
+  if (index !== -1) {
+    productArr[index].quantity = +productArr[index].quantity + 1;
+  } else {
+    productArr.push(payload);
+  }
+  return productArr;
+};
+
 export default function(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case ADD_TO_CART:
+      const updatedShopCartItems = updateShopCartItems(state.shopCartItems, payload);
+     
       return {
         ...state,
-        shopCartItems: [
-          ...state.shopCartItems,
-          payload
-        ],
+        shopCartItems: updatedShopCartItems,
         isLoading: false
       };
-    case CONFIRM_PURCHASE:
-      return {
-        ...state,
-        shopCartItems: [],
-        isLoading: false,
-      }
     case LOAD_CART_ERROR:
       return {
         ...state,
@@ -39,20 +40,23 @@ export default function(state = initialState, action) {
         shopCartItems: [],
         error: payload
       }
-    case PURCHASE_ERROR:
+    case UPDATE_ITEM_QUANTITY:
+      // update quantity at selected item
+      const shopCartArray = state.shopCartItems;
+      const index = shopCartArray.findIndex(product => product._id === payload.productId);
+      shopCartArray[index].quantity = payload.quantity;
+
       return {
         ...state,
-        isLoading: false,
-        error: payload
+        shopCartItems: shopCartArray,
+        isLoading: false
       }
-    case REMOVE_FROM_CART:
-    case UPDATE_CART:
-      return{
+    case ITEM_QUANTITY_ERROR:
+      return {
         ...state,
-        isloading: false,
-        shopCartItems: payload
+        error: payload,
+        isLoading: false
       }
-    case LOAD_CART:
     default:
       return state;
   }

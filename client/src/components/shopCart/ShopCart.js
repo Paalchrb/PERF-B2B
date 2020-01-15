@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addItemToCart } from '../../actions/shopCart';
+import { addItemToCart, updateCartItemQuantity } from '../../actions/shopCart';
+import Toolbar from '../layout/Toolbar';
 
 const ShopCart = ({
   auth: {
@@ -10,41 +11,60 @@ const ShopCart = ({
   shopCart: {
     shopCartItems = []
   },
-  addItemToCart
+  addItemToCart,
+  updateCartItemQuantity
 }) => {
   const handleClick = event => {
     event.preventDefault();
-    addItemToCart(token, '5e19e065d0a60f24bb99520a', 5);
+    addItemToCart(token, '5e19e065d0a60f24bb99520a');
   }
 
-  const itemMarkup = shopCartItems.map((product, index) => (
+  const handleChange = event => {
+    event.preventDefault();
+    updateCartItemQuantity(event.target.value, event.target.id);
+  };
+
+  const shopItemsMarkup = shopCartItems.map((product, index) => (
     <div 
       className='product-card'
       key={index}
       id={product._id}
     >
-      <h3>{product.productName}</h3>
-      <img 
-        src={product.productImage} 
-        alt='Product' 
-        width='100px'
-        heigth='100px'
-      />
-      <p>Quantity: {product.quantity}</p>
+      <h3>{product.sellerName}</h3>
+      <label htmlFor='quantity'>
+      Quantity:
+        <input 
+          name='quantity'
+          type = 'number'
+          value={product.quantity}
+          id = {product._id}
+          onChange = {event => handleChange(event)}
+        />
+      </label>
+      <p>
+        Navn:  {product.productName}
+      </p>
+      <p>
+        Enhetspris:  {product.productPrice}
+      </p>
+      <p>
+        Total: {product.productPrice * +product.quantity}
+      </p>
   </div>
   ));
 
 
   return (
     <Fragment>
+      <Toolbar/>
       <div className='content-area'>
-        <h3>This is the shopcart component</h3>
-        <button
-          onClick={event => handleClick(event)}
-        >Add item</button>
-        <div className='product-container'>
-          {itemMarkup}
-        </div>
+      <h3>This is the shopcart component</h3>
+      <button
+        onClick={event => handleClick(event)}
+      >Add item</button>
+      <div className='product-container'>
+        {shopItemsMarkup}
+      </div>
       </div>
     </Fragment>
   )
@@ -54,6 +74,7 @@ ShopCart.propTypes = {
   auth: PropTypes.object.isRequired,
   shopCart: PropTypes.object.isRequired,
   addItemToCart: PropTypes.func.isRequired,
+  updateCartItemQuantity: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -63,6 +84,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   addItemToCart,
+  updateCartItemQuantity
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopCart);

@@ -6,7 +6,7 @@ const DashboardRecentOrders = ({
 
   
 
-  const recentOrdersMarkup = orders.map(order =>  (order && (
+  const recentOrdersMarkup = orders.map(order => (order && (
     <div 
       key={order._id}
     >
@@ -20,7 +20,7 @@ const DashboardRecentOrders = ({
   return (
     
     <Fragment>
-      <h3>Recent orders</h3>
+      <h3>Recent orders:</h3>
       <ul>
       {recentOrdersMarkup}
       </ul>

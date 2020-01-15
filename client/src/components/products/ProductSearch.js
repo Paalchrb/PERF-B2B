@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAllProducts } from '../../actions/productSearch';
+import Toolbar from '../layout/Toolbar';
 
 
 const ProductSearch = ({ products, getAllProducts, searchField}) => {
@@ -26,7 +27,9 @@ const ProductSearch = ({ products, getAllProducts, searchField}) => {
   ))
 
   return (
+    
     <Fragment>
+      <Toolbar/>
       <div className='content-area'>
         <div className='content-area product-cards'>
           {allProducts}
