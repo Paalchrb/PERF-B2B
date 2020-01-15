@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { format } from 'date-fns';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const DashboardRecentOrders = ({
   orders, 
@@ -17,6 +17,10 @@ const DashboardRecentOrders = ({
           <div>{orders.indexOf(order) + 1}</div>
         </Link>
         <Link to={routePath+order._id}>
+     
+        <div>{orders.indexOf(order) + 1}</div>
+      </Link>
+      <Link>
         <div>{format(new Date(order.orderDate), 'MM/dd/yyyy')}</div>
         </Link>
         <Link to={routePath+order._id}>

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { updateCartItemQuantity, createNewOrder } from '../../actions/shopCart';
+import { updateCartItemQuantity, createNewOrders } from '../../actions/shopCart';
 import { shopCartSelector } from '../../utils/selectors';
 import Toolbar from '../layout/Toolbar';
 
@@ -12,28 +12,24 @@ const ShopCart = ({
   },
   shopCart: {
     shopCartItems,
-    isLoading,
+    loading,
     orderCreated
   },
   updateCartItemQuantity,
-  createNewOrder
+  createNewOrders
 }) => {
   const handleClick = event => {
     event.preventDefault();
     if(shopCartItems.length > 0) {
-      shopCartItems.forEach(product => {
-        createNewOrder(product.companyId, product._id, product.quantity, token );
-      });
+      createNewOrders(shopCartItems, token );
     }
-  }
+  };
 
   const handleChange = (event, id) => {
-    console.log(id);
     updateCartItemQuantity(event.target.value, id);
   };
 
   const shopCartObjects = shopCartSelector(shopCartItems);
-
   const shopItemsMarkup = shopCartObjects.map((object, index) => (
     <div 
       key={index}
@@ -72,7 +68,7 @@ const ShopCart = ({
     <Fragment>
       <Toolbar/>
       <div className='content-area'>
-      {(orderCreated && !isLoading) ? (
+      {(orderCreated && !loading) ? (
         <Fragment>
           <p>Bestilling bekreftet</p>
           <Link to='#!'>Se ordre her</Link>
@@ -98,7 +94,7 @@ const ShopCart = ({
 ShopCart.propTypes = {
   auth: PropTypes.object.isRequired,
   shopCart: PropTypes.object.isRequired,
-  createNewOrder: PropTypes.func.isRequired,
+  createNewOrders: PropTypes.func.isRequired,
   updateCartItemQuantity: PropTypes.func.isRequired,
 };
 
@@ -108,7 +104,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  createNewOrder,
+  createNewOrders,
   updateCartItemQuantity
 };
 

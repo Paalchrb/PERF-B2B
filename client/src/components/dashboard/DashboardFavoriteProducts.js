@@ -8,23 +8,26 @@ import { Link, withRouter } from 'react-router-dom';
 const DashboardFavoriteProducts = ({
   products, 
   auth: {
-    token
+    isAuthenticated
   },
   addItemToCart,
   getProductById
 }) => {
 
   
-
-  const handleClick = id => {
-    addItemToCart(token, id);
-  }
-
   // let handleSingleViewChange = id => {
   //   getProductById(id);
   // }
   // onClick={() => handleSingleViewChange(product._id)}
   // let routePath = '/products/'
+
+  const handleClick = id => {
+    if (isAuthenticated) {
+      addItemToCart(id);
+    }
+  };
+
+
 
   const productsMarkup = products.map(product => (
     

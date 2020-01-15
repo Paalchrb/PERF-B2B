@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import whiteLogo from '../../assets/logo-white.png'
 const LandingPage = () => {
   return (
