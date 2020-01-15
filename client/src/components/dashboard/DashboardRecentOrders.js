@@ -10,15 +10,28 @@ const DashboardRecentOrders = ({
 
   
   const recentOrdersMarkup = orders.map(order => (order && (
-    <Link to={routePath+order._id}>
+  
       <div className="recent-order-table-row" key={order._id}>
-        <div>{orders.indexOf(order) + 1}</div>
+   
+        <Link to={routePath+order._id}>
+          <div>{orders.indexOf(order) + 1}</div>
+        </Link>
+        <Link to={routePath+order._id}>
         <div>{format(new Date(order.orderDate), 'MM/dd/yyyy')}</div>
-        <div>{order.buyerContact.firstName} {order.buyerContact.lastName}</div>
-        <div>{order.buyerContact.userEmail}</div>
-        <div>{order.buyerContact.userPhone}</div>
+        </Link>
+        <Link to={routePath+order._id}>
+          <div>{order.buyerContact.firstName} {order.buyerContact.lastName}
+          </div>
+        </Link>
+        <Link to={routePath+order._id}>
+          <div>{order.buyerContact.userEmail}</div>
+        </Link>
+        <Link to={routePath+order._id}>
+          <div>{order.buyerContact.userPhone}</div>
+        </Link>
+  
       </div>
-    </Link>
+    
   )));
 
   return (

@@ -5,16 +5,11 @@ import {
 } from '../actions/constants';
 
 
-//Get user product by id
-export const getProductById = (token, productId) => async dispatch => {
+//Get product by id
+export let getProductById = (productId) => async dispatch => {
   try {
-    let config = {
-      headers: {
-        'x-auth-token': token
-      }
-    }
-    
-    const res = await axios(`/api/products/${productId}`, config); 
+
+    let res = await axios(`/api/products/${productId}`); 
 
     dispatch({
       type: GET_SINGLE_PRODUCT,

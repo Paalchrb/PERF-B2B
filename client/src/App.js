@@ -8,7 +8,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import Orders from './components/order/Orders';
 import SingleOrder from './components/order/SingleOrder';
 import ProductSearch from './components/products/ProductSearch';
-import SinglePageProductView from './components/products/SingePageProductView';
+import SinglePageProductView from './components/products/SinglePageProductView';
 import MyProducts from './components/products/MyProducts';
 import Alert from './components/layout/Alert';
 import NotFound from './components/layout/NotFound';
