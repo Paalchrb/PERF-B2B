@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getOrderById } from '../../actions/order';
 import { format } from 'date-fns';
+import Toolbar from '../layout/Toolbar';
 
 const SingleOrder = ({ auth: { token, isAuthenticated }, order: { selectedOrder, loading }, getOrderById, match  }) => {
   const orderId = match.params.orderId;
@@ -37,6 +38,7 @@ const SingleOrder = ({ auth: { token, isAuthenticated }, order: { selectedOrder,
   
   return (selectedOrder && !loading ? (
     <Fragment>
+      <Toolbar />
       <div className='content-area'> 
         <div>Dato opprettet: {orderDateFormatted}</div>
         <h3>Produkter</h3>

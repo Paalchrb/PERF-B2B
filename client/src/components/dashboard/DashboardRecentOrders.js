@@ -6,7 +6,6 @@ const DashboardRecentOrders = ({
 }) => {
 
   
-
   const recentOrdersMarkup = orders.map(order => (order && (
     <div className="recent-order-table-row" key={order._id}>
       <div>{orders.indexOf(order) + 1}</div>
@@ -21,7 +20,7 @@ const DashboardRecentOrders = ({
     <Fragment>
     {orders.length > 0 ? (
       <div className="recent-orders-card">
-      <h3>Siste bestillinger</h3>
+      <h3>Siste ordre</h3>
       <div className="recent-order-table-row-headers">
         <div>Nr.
         </div>

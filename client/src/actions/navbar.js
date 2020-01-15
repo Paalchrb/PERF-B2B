@@ -11,13 +11,6 @@ export const setSearchField = text => dispatch => {
   });
 };
 
-export const submitSearch = () => async dispatch => {
-
-  dispatch({
-    type: SUBMIT_SEARCH
-  });
-
-  
 export const submitSearch = text => async dispatch => {
   dispatch({
     type: SUBMIT_SEARCH,

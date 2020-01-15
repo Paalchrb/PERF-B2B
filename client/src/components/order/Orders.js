@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getAllOrders } from '../../actions/order';
 import { format } from 'date-fns';
+import Toolbar from '../layout/Toolbar';
 
 const Orders = ({ auth: { token, isAuthenticated }, order: { orders, loading }, getAllOrders, history }) => {
   useEffect(() => {
@@ -59,6 +60,7 @@ const Orders = ({ auth: { token, isAuthenticated }, order: { orders, loading }, 
 
   return ( orders && !loading ? ( 
     <Fragment>
+    <Toolbar />
     <div className='content-area'>
       <h2>Ordreoversikt</h2>
       <h4>Kjøpsordre</h4> 
