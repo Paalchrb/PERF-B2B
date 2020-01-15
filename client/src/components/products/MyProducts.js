@@ -42,7 +42,7 @@ const MyProducts = ({  products, getAllProducts, searchField}) => {
         
       </div>
       
-        <button className="product-order-button"><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
+        <button className="product-order-button"><i className="fas fa-shopping-cart" id="icon-order-button"></i>Endre produktet</button>
       
     </div>
   ))
