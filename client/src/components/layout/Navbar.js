@@ -10,19 +10,49 @@ import whiteLogo from '../../assets/logo-white.png'
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout, setSearchField, submitSearch, history }) => {
 const authLinks = (
+    <Fragment>
+    <Link to='/dashboard'>
+      <img id='logo' src={whiteLogo} alt='Company logo'></img>
+    </Link>
+    <form onSubmit={(event) => onSubmit(event)}>
+      <div id='search-container'>
+        <i id='search-icon' className='fas fa-search' onClick={(event) =>   onSubmit(event)}>
+        </i>
+        <input 
+          id='search'
+          type='text'
+          onChange={event => searchFieldChange(event)}>
+        </input>
+      </div>
+    </form>
     <div className="top-right-nav">
       <Link to='/' onClick={logout}><i className="fas fa-sign-out-alt" id="top-right-icon"><div className="icon-text-top">Logg ut</div></i></Link>
       <Link to='/shopcart'><i className="fas fa-shopping-cart" id="top-right-icon"><div className="icon-text-top">Handlekurv</div></i></Link>
   </div>
+  </Fragment>
 );
 
 const guestLinks = (
-
-  <div className="top-right-nav">
-    <Link to='/login'><i className="fas fa-sign-in-alt" id="top-right-icon"><div className="icon-text-top">Logg inn</div></i></Link>
-    <Link to='/shopcart'><i className="fas fa-shopping-cart" id="top-right-icon"><div className="icon-text-top">Handlekurv</div></i></Link>
-  </div>
-
+  <Fragment>
+    <Link to='/'>
+      <img id='logo' src={whiteLogo} alt='Company logo'></img>
+    </Link>
+    <form onSubmit={(event) => onSubmit(event)}>
+      <div id='search-container'>
+        <i id='search-icon' className='fas fa-search' onClick={(event) =>   onSubmit(event)}>
+        </i>
+        <input 
+          id='search'
+          type='text'
+          onChange={event => searchFieldChange(event)}>
+        </input>
+      </div>
+    </form>
+    <div className="top-right-nav">
+      <Link to='/login'><i className="fas fa-sign-in-alt" id="top-right-icon"><div className="icon-text-top">Logg inn</div></i></Link>
+      <Link to='/shopcart'><i className="fas fa-shopping-cart" id="top-right-icon"><div className="icon-text-top">Handlekurv</div></i></Link>
+    </div>
+  </Fragment>
 );
 
 const searchFieldChange = function(event) {
@@ -37,25 +67,10 @@ const onSubmit = (event) => {
 
   return (
     <nav className='navbar'>
-      <Link to='/'>
-        <img id='logo' src={whiteLogo} alt='Company logo'></img>
-      </Link>
-      
-      <form onSubmit={(event) => onSubmit(event)}>
-        <div id='search-container'>
-          
-          <i id='search-icon' className='fas fa-search' onClick={(event) => onSubmit(event)}></i>
-          <input 
-            id='search'
-            type='text'
-            onChange={event => searchFieldChange(event)}
-          >
-          </input>
-        </div>
-      </form>
-      
       { !loading && (
-        <Fragment>{ isAuthenticated ? authLinks: guestLinks }</Fragment>)}
+        <Fragment>{ isAuthenticated ? authLinks 
+        : guestLinks }
+      </Fragment>)}
     </nav>
   )
 }

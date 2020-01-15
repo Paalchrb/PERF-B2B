@@ -1,19 +1,24 @@
 import React, { Fragment } from 'react';
 import { format } from 'date-fns';
+import { Link, withRouter } from 'react-router-dom';
 
 const DashboardRecentOrders = ({
   orders, 
 }) => {
 
+  let routePath = '/orders/';
+
   
   const recentOrdersMarkup = orders.map(order => (order && (
-    <div className="recent-order-table-row" key={order._id}>
-      <div>{orders.indexOf(order) + 1}</div>
-      <div>{format(new Date(order.orderDate), 'MM/dd/yyyy')}</div>
-      <div>{order.buyerContact.firstName} {order.buyerContact.lastName}</div>
-      <div>{order.buyerContact.userEmail}</div>
-      <div>{order.buyerContact.userPhone}</div>
-    </div>
+    <Link to={routePath+order._id}>
+      <div className="recent-order-table-row" key={order._id}>
+        <div>{orders.indexOf(order) + 1}</div>
+        <div>{format(new Date(order.orderDate), 'MM/dd/yyyy')}</div>
+        <div>{order.buyerContact.firstName} {order.buyerContact.lastName}</div>
+        <div>{order.buyerContact.userEmail}</div>
+        <div>{order.buyerContact.userPhone}</div>
+      </div>
+    </Link>
   )));
 
   return (

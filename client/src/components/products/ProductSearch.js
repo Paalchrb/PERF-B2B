@@ -1,17 +1,25 @@
 import React, { Fragment, useEffect } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAllProducts } from '../../actions/productSearch';
+import { addItemToCart } from '../../actions/shopCart';
 import Toolbar from '../layout/Toolbar';
 
 
-
-  const ProductSearch = ({ auth: { isAuthenticated, loading 
-  }, products, getAllProducts, searchField}) => {
+  const ProductSearch = ({ auth: { token, isAuthenticated, loading 
+  }, 
+  products, 
+  getAllProducts, 
+  addItemToCart,
+  searchField}) => {
     useEffect(() => {
       getAllProducts();
     }, [getAllProducts]);
+
+    const handleClick = id => {
+      addItemToCart(token, id);
+    }
   
     const allProducts = products.filter(product => {
       return (
@@ -44,7 +52,7 @@ import Toolbar from '../layout/Toolbar';
           
         </div>
         
-          <button className="product-order-button"><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
+          <button className="product-order-button" onClick={() => handleClick(product._id)}><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
         
       </div>
     ))
@@ -78,6 +86,8 @@ import Toolbar from '../layout/Toolbar';
 };
 
 ProductSearch.propTypes = {
+  auth: PropTypes.object.isRequired,
+  addItemToCart: PropTypes.func.isRequired,
   getAllProducts: PropTypes.func.isRequired
 };
 
@@ -88,6 +98,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  addItemToCart,
   getAllProducts
 };
 

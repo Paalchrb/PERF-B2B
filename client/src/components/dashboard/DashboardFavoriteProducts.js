@@ -21,7 +21,7 @@ const DashboardFavoriteProducts = ({
 
     <div key={product._id} className='product-card grow'>
     <div className="product-image-container">
-      <img className="product-card-image" src={product.productImage} alt='Product illustration' />
+      <img className="product-card-image" src={product.productImage} />
     </div>
 
     <div className="product-card-info">
@@ -41,8 +41,8 @@ const DashboardFavoriteProducts = ({
       
     </div>
     
-      <button onClick={() => handleClick(product._id)} className="product-order-button"><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
-
+      <button className="product-order-button" onClick={() => handleClick(product._id)}><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
+    
   </div>
   ));
 
@@ -55,10 +55,9 @@ const DashboardFavoriteProducts = ({
       </div>
       </div>) : (
         <div className="dashboard-products-container">
-          <h4>Ingen favorittprodukter er valgt</h4>
+          <h4>Du har ikke valgt noen favoritter</h4>
         </div>
       )}
-      
     </Fragment>
   );
 }
