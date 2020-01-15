@@ -49,13 +49,13 @@ const DashboardFavoriteProducts = ({
   return (
     <Fragment>
       {products.length > 0 ? (<div className="dashboard-products-container">
-        <h3>Favorite products</h3>
+        <h3>Favorittprodukter</h3>
       <div className='product-card-container-dashboard'> {/*add a real class here*/}
         {productsMarkup}
       </div>
       </div>) : (
         <div className="dashboard-products-container">
-          <h4>You have not selected any favorite products</h4>
+          <h4>Ingen favorittprodukter er valgt</h4>
         </div>
       )}
       

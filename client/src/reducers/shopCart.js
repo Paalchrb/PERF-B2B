@@ -4,7 +4,8 @@ import {
   UPDATE_ITEM_QUANTITY,
   ITEM_QUANTITY_ERROR,
   CREATE_NEW_ORDER,
-  NEW_ORDER_ERROR
+  NEW_ORDER_ERROR,
+  LOGOUT,
 } from '../actions/constants';
 
 const initialState = {
@@ -26,9 +27,13 @@ const updateShopCartItems = (productArr, payload) => {
   return productArr;
 };
 
-export default function(state = initialState, action) {
+export default function(_state = initialState, action) {
+  const state = JSON.parse(JSON.stringify(_state));
   const { type, payload } = action;
   switch (type) {
+    case LOGOUT:
+      return initialState;
+
     case ADD_TO_CART:
       const updatedShopCartItems = updateShopCartItems(state.shopCartItems, payload);
      

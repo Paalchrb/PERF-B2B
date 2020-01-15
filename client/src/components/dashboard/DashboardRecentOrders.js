@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { format } from 'date-fns';
 
 const DashboardRecentOrders = ({
   orders, 
@@ -8,8 +9,8 @@ const DashboardRecentOrders = ({
 
   const recentOrdersMarkup = orders.map(order => (order && (
     <div className="recent-order-table-row" key={order._id}>
-      <div>{order._id}</div>
-      <div>{order.orderDate}</div>
+      <div>{orders.indexOf(order) + 1}</div>
+      <div>{format(new Date(order.orderDate), 'MM/dd/yyyy')}</div>
       <div>{order.buyerContact.firstName} {order.buyerContact.lastName}</div>
       <div>{order.buyerContact.userEmail}</div>
       <div>{order.buyerContact.userPhone}</div>
@@ -20,19 +21,20 @@ const DashboardRecentOrders = ({
     <Fragment>
     {orders.length > 0 ? (
       <div className="recent-orders-card">
-      <h3>Recent orders</h3>
+      <h3>Siste bestillinger</h3>
       <div className="recent-order-table-row-headers">
-        <div>Id</div>
-        <div>Date</div>
-        <div>Contact</div>
+        <div>Nr.
+        </div>
+        <div>Dato</div>
+        <div>Kontaktperson</div>
         <div>Email</div>
-        <div>Phone</div>
+        <div>Telefon</div>
       </div>
         {recentOrdersMarkup}
     </div>
     ) : (
       <div className='recent-orders-card'>
-        <h4>You have no recent orders</h4>
+        <h4>Det har ikke blitt gjort noen bestillinger</h4>
       </div>
     )}
    

@@ -22,7 +22,7 @@ const MyProducts = ({ products, getAllProducts, searchField}) => {
   
     <div key={product._id} className='product-card grow'>
       <div className="product-image-container">
-        <img className="product-card-image" src={product.productImage} />
+        <img className="product-card-image" src={product.productImage} alt='Product illustration' />
       </div>
 
       <div className="product-card-info">
