@@ -36,20 +36,24 @@ const Dashboard = ({
       await getFavoriteProducts(token);
       await getRecentOrders(token);
     })();
-  }, [getCurrentCompany, getRecentProducts, getFavoriteProducts, getRecentOrders, isAuthenticated, token]);
+  }, [getCurrentCompany, getRecentProducts, getFavoriteProducts, getRecentOrders, token]);
+  
+  if(!isAuthenticated) {
+    return (
+      <Fragment>
+        <Spinner />
+      </Fragment>
+    )
+  }
 
   return (
     <div>
-      
-
-      <Fragment>
-        {dashboard === null || dashboard.loading ? (
-          <Spinner />
-        ) : (
-          <Fragment>
+      {dashboard === null || dashboard.loading ? (
+        <Spinner />
+      ) : (
+        <Fragment>
           <Toolbar/>
           <div className='content-area'>
-          <Fragment>
             <DashboardCompanyInfo company={dashboard.company} user={user} />   
             <div className="action-buttons">
               <div><i className="fas fa-search"></i><h4>Finn produkt</h4></div>
@@ -57,22 +61,14 @@ const Dashboard = ({
               <div><i className="fas fa-box"></i><h4>Endre produkt</h4></div>
               <div><i className="fas fa-th"></i><h4>Se mine produkter</h4></div>
             </div> 
-          </Fragment>
-
-          <Fragment>
             <DashboardFavoriteProducts products={dashboard.favoriteProducts}/>
             <DashboardRecentProducts products={dashboard.recentProducts}/>
             <DashboardRecentOrders orders={dashboard.recentOrders}/>
-          </Fragment>
-
           </div>
-          </Fragment>
+        </Fragment>
         )}
-      </Fragment>
-        <Link to='/order'>Orderview</Link>
     </div>
-    
-  )
+  );
 };
     
 
@@ -82,13 +78,14 @@ Dashboard.propTypes = {
   getRecentOrders: PropTypes.func.isRequired,
   getFavoriteProducts: PropTypes.func.isRequired,
   dashboard: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
   dashboard: state.dashboard,
   auth: state.auth
 });
-
+ 
 const mapDispatchToProps = {
   getCurrentCompany,
   getRecentProducts,

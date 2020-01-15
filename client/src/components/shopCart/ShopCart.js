@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { updateCartItemQuantity, createNewOrder } from '../../actions/shopCart';
+import { shopCartSelector } from '../../utils/selectors';
 import Toolbar from '../layout/Toolbar';
 
 const ShopCart = ({
@@ -10,7 +11,7 @@ const ShopCart = ({
     token,
   },
   shopCart: {
-    shopCartItems = [],
+    shopCartItems,
     isLoading,
     orderCreated
   },
@@ -26,37 +27,44 @@ const ShopCart = ({
     }
   }
 
-  const handleChange = event => {
-    event.preventDefault();
-    updateCartItemQuantity(event.target.value, event.target.id);
+  const handleChange = (event, id) => {
+    console.log(id);
+    updateCartItemQuantity(event.target.value, id);
   };
 
-  const shopItemsMarkup = shopCartItems.map((product, index) => (
+  const shopCartObjects = shopCartSelector(shopCartItems);
+
+  const shopItemsMarkup = shopCartObjects.map((object, index) => (
     <div 
-      className='product-card'
       key={index}
-      id={product._id}
     >
-      <h3>{product.sellerName}</h3>
-      <label htmlFor='quantity'>
-      Quantity:
-        <input 
-          name='quantity'
-          type = 'number'
-          value={product.quantity}
-          id = {product._id}
-          onChange = {event => handleChange(event)}
-        />
-      </label>
-      <p>
-        Navn:  {product.productName}
-      </p>
-      <p>
-        Enhetspris:  {product.productPrice}
-      </p>
-      <p>
-        Total: {product.productPrice * +product.quantity}
-      </p>
+      <h3>{object.sellerName}</h3>
+      {
+        object.products.map(product => (
+          <div
+            key={product.productId}
+          >
+            <h4>
+              Navn:  {product.productName}
+            </h4>
+            <label htmlFor='quantity'>
+              Quantity:
+              <input 
+                name='quantity'
+                type = 'number'
+                value={product.quantity}
+                onChange = {event => handleChange(event, product.productId)}
+              />
+            </label>
+            <p>
+              Enhetspris:  {product.productPrice}
+            </p>
+            <p>
+              Total: {product.productPrice * +product.quantity}
+            </p>
+          </div>
+        ))
+      }
   </div>
   ));
 
