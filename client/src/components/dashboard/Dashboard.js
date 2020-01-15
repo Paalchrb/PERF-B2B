@@ -66,7 +66,7 @@ const Dashboard = ({
           </div>
         )}
       </Fragment>
-        <Link to='/order'>Orderview</Link>
+        <Link to='/orders'>Orderview</Link>
     </div>
   )
 };

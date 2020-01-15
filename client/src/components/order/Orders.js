@@ -1,49 +1,79 @@
 import React, { Fragment, useEffect } from 'react'
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getAllMyOrders } from '../../actions/order';
+import { getAllOrders } from '../../actions/order';
+import { format } from 'date-fns';
 
-const Orders = ({ auth: { token, isAuthenticated }, order: { orders, currentOrder }, getAllMyOrders }) => {
+const Orders = ({ auth: { token, isAuthenticated }, order: { orders, loading }, getAllOrders, history }) => {
   useEffect(() => {
     (async function() {
-      await getAllMyOrders(token);
+      await getAllOrders(token);
     })();
-  }, [getAllMyOrders, token, isAuthenticated]);
+  }, [getAllOrders, token, isAuthenticated]);
+
+
+  const handleClick = id => {
+    history.push(`/orders/${id}`); 
+  };
   
-  console.log(orders.salesOrders)
-  console.log(orders.procurementOrders)
-  // console.log(orders.salesOrders[0]._id)
+  let procurementOrdersMarkup = [];
+  let salesOrdersMarkup = [];
 
-    // const allOrdersMarkup = orders.map(order => (
-    //   <div key={order.salesOrders._id || order.procurementOrders._id}>
-    //     <li>
-    //       {order.orderDate} - Buyer contact: {order.buyerContact.firstName} {order.buyerContact.lastName},  email: {order.buyerContact.userEmail}, tlf: {order.buyerContact.userPhone}
-    //     </li>
-    //   </div>
-    // ));
+  if(orders && !loading) {
 
-    // const currentOrderMarkup = orders.filter(order => (order.salesOrders._id || order.procurementOrders._id) === currentOrder)
-    // .map(order => {
-    //   <div key={order.salesOrders._id || order.procurementOrders._id}>
-    //     <li>
-    //       {order.orderDate} - Buyer contact: {order.buyerContact.firstName} {order.buyerContact.lastName},  email: {order.buyerContact.userEmail}, tlf: {order.buyerContact.userPhone}
-    //     </li>
-    //   </div>
-    // });
-  
+    procurementOrdersMarkup = orders.procurementOrders.map(order => (
+      <div key={order._id}>
+        <div>Dato: {format(new Date(order.orderDate), 'dd/MM/yyyy')}</div>  
+        <div>Selger: {order.seller.companyName}</div>
+        <h5>Produkter:</h5> 
+        <div>{order.orderLine.map(orderLine => {
+            return (
+            <Fragment key={orderLine._id}>
+              {orderLine.productName} ({orderLine.quantity})
+            </Fragment>
+            )
+          })}
+        </div>
+        <button onClick={() => handleClick(order._id)}>Se ordre</button>
+      </div>
+    ));
 
-  return (
+    salesOrdersMarkup = orders.salesOrders.map(order => (
+      <div key={order._id}>
+        <div>{format(new Date(order.orderDate), 'dd/MM/yyyy')}</div> 
+        <div>Kjøper: {order.buyerContact.firstName} {order.buyerContact.lastName}</div>
+        <h5>Produkter:</h5> 
+        <div>{order.orderLine.map(orderLine => {
+            return (
+              <Fragment key={orderLine._id}>
+              {orderLine.productName} ({orderLine.quantity})
+            </Fragment>
+            )
+          })}
+        </div>
+        <button onClick={() => handleClick(order._id)}>Se ordre</button>
+      </div>
+    ));
+  }
+
+  return ( orders && !loading ? ( 
     <Fragment>
     <div className='content-area'>
-      Test
-        {/* <Fragment>{ currentOrder ? currentOrderMarkup: allOrdersMarkup }</Fragment> */}
+      <h2>Ordreoversikt</h2>
+      <h4>Kjøpsordre</h4> 
+      {procurementOrdersMarkup}
+      <h4>Salgsordre</h4>
+      {salesOrdersMarkup}
     </div>
     </Fragment>
+    ) : ( <p>Loading...</p> )
   );
+
 };
 
 Orders.propTypes = {
-  getAllMyOrders: PropTypes.func.isRequired,
+  getAllOrders: PropTypes.func.isRequired,
   order: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -54,10 +84,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  getAllMyOrders
+  getAllOrders
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Orders);
+)(withRouter(Orders));

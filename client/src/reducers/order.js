@@ -1,13 +1,12 @@
 import {
   GET_ALL_ORDERS,
   GET_SINGLE_ORDER,
-  ORDER_ERROR,
-  SET_CURRENT_ORDER
+  ORDER_ERROR
 } from '../actions/constants';
 
 const initialState = {
-  currentOrder: '',
-	orders: [],
+  selectedOrder: null,
+	orders: null,
   loading: true,
 	error: {}
 };
@@ -17,16 +16,15 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case GET_ALL_ORDERS:
-    case GET_SINGLE_ORDER:
       return {
         ...state,
         orders: payload,
         loading: false
       }
-    case SET_CURRENT_ORDER:
+      case GET_SINGLE_ORDER:
       return {
         ...state,
-        currentOrder: payload,
+        selectedOrder: payload,
         loading: false
       }
     case ORDER_ERROR:
