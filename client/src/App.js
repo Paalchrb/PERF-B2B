@@ -6,6 +6,7 @@ import Navbar from './components/layout/Navbar';
 import LandingPage from './components/layout/LandingPage';
 import Dashboard from './components/dashboard/Dashboard';
 import Orders from './components/order/Orders';
+import SingleOrder from './components/order/SingleOrder';
 import ProductSearch from './components/products/ProductSearch';
 import MyProducts from './components/products/MyProducts';
 import Alert from './components/layout/Alert';
@@ -37,7 +38,8 @@ const App = () => {
         <Route exact path='/' component={LandingPage} />
         <Route path='/login' component={Login} />
         <PrivateRoute path='/dashboard' component={Dashboard} />
-        <PrivateRoute path='/orders' component={Orders} />
+        <PrivateRoute exact path='/orders' component={Orders} />
+        <PrivateRoute path='/orders/:orderId' component={SingleOrder} />
         <Route exact path='/products' component={ProductSearch} />
         <PrivateRoute path='/shopcart' component={ShopCart} />
         <PrivateRoute path='/myproducts' component={MyProducts} />

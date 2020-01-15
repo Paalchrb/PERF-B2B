@@ -8,7 +8,7 @@ import {
 
 
 //Get all user orders
-export const getAllMyOrders = (token) => async dispatch => {
+export const getAllOrders = (token) => async dispatch => {
   try {
     let config = {
       headers: {
@@ -16,7 +16,7 @@ export const getAllMyOrders = (token) => async dispatch => {
       }
     }
     
-    const res = await axios('/api/orders/me', config); //TO DO
+    const res = await axios('/api/orders/me', config); 
  
     dispatch({
       type: GET_ALL_ORDERS,
@@ -35,7 +35,7 @@ export const getAllMyOrders = (token) => async dispatch => {
 };
 
 //Get user order by id
-export const getMyOrderById = (token, orderId) => async dispatch => {
+export const getOrderById = (token, orderId) => async dispatch => {
   try {
     let config = {
       headers: {
@@ -43,27 +43,28 @@ export const getMyOrderById = (token, orderId) => async dispatch => {
       }
     }
     
-    const res = await axios(`/api/orders/${orderId}`, config); //TO DO
+    const res = await axios(`/api/orders/${orderId}`, config); 
 
     dispatch({
       type: GET_SINGLE_ORDER,
       payload: res.data
     });
   } catch (error) {
-    dispatch({
-      type: ORDER_ERROR,
-      payload: { 
-        msg: error.response.statusText, 
-        status: error.response.status 
-      }
-    });
+    console.log('There an an error retrieving your order');
+    // dispatch({
+    //   type: ORDER_ERROR,
+    //   payload: { 
+    //     msg: error.response.statusText, 
+    //     status: error.response.status 
+    //   }
+    // });
   }
 };
 
 //Toggles Single Order-view in Orders-view
-export const setCurrentOrder = orderId => dispatch => {
-  dispatch({
-    type: SET_CURRENT_ORDER,
-    payload: orderId
-  });
-}
+// export const setCurrentOrder = (orderId) => dispatch => {
+//   dispatch({
+//     type: SET_CURRENT_ORDER,
+//     payload: orderId
+//   });
+// }

@@ -68,6 +68,7 @@ const Dashboard = ({
           </div>
         </Fragment>
         )}
+        <Link to='/orders'>Orderview</Link>
     </div>
   );
 };

@@ -446,10 +446,11 @@ button {
   width: 100vw;
   overflow: hidden;
   background: $white;
+  box-sizing: border-box;
   .landing-page-header-container {
     width: 100vw;
     height: 100vh;
-    background-image: url(./assets/btb_background_1920.jpg);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.788), rgba(0, 0, 0, 0)), url(./assets/btb_background_1920.jpg);
     background-size: cover;
     display: flex;
     align-items: flex-start;
@@ -457,15 +458,6 @@ button {
     flex-direction: column;
     padding-left: 20vw;
     box-sizing: border-box;
-    
-    .hero-text {
-      position: relative;
-      top: -50vh;
-      margin: 0 auto;
-      width: 80vw;
-      color: $white;
-      text-align: center;
-    }
     
 
   }
@@ -481,11 +473,13 @@ button {
 
 .lp-button {
   border-radius: $radius;
-  background: $darkest;
+  background: rgba(0, 0, 0, 0.0);
+  border: 2px solid $white;
   margin: 10px;
   display: inline;
   &:hover {
-    background: $darker;
+    background: rgba(0, 0, 0, 0.0);
+    border: 2px solid $white;
   }
 }
 b {
@@ -769,7 +763,7 @@ b {
 }
 
 .navbar {
-  background-color: $darker;
+  background-color: $darkest;
   color: $white;
   position: fixed;
   top: 0;
