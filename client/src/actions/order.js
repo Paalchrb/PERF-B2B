@@ -3,8 +3,7 @@ import axios from 'axios';
 import {
   GET_ALL_ORDERS,
   GET_SINGLE_ORDER,
-  ORDER_ERROR,
-  SET_CURRENT_ORDER
+  ORDER_ERROR
 } from '../actions/constants';
 
 
