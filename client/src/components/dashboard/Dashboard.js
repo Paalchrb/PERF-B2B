@@ -40,12 +40,14 @@ const Dashboard = ({
 
   return (
     <div>
-      <Toolbar/>
+      
 
       <Fragment>
         {dashboard === null || dashboard.loading ? (
           <Spinner />
         ) : (
+          <Fragment>
+          <Toolbar/>
           <div className='content-area'>
           <Fragment>
             <DashboardCompanyInfo company={dashboard.company} user={user} />   
@@ -64,10 +66,12 @@ const Dashboard = ({
           </Fragment>
 
           </div>
+          </Fragment>
         )}
       </Fragment>
         <Link to='/order'>Orderview</Link>
     </div>
+    
   )
 };
     
