@@ -3,7 +3,10 @@ import {
   LOAD_CART_ERROR,
   ADD_TO_CART,
   UPDATE_ITEM_QUANTITY,
-  ITEM_QUANTITY_ERROR
+  ITEM_QUANTITY_ERROR,
+  CREATE_NEW_ORDER,
+  NEW_ORDER_ERROR
+  
 } from '../actions/constants';
 
 // Load cart items:
@@ -57,5 +60,36 @@ export const updateCartItemQuantity = (quantity, productId) => dispatch => {
   }
 };
 
+// Create and send new order
+export const createNewOrder = (sellerId, productId, quantity, token) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': token
+      }
+    }
+  
+    const body = {
+      sellerId,
+      productId,
+      quantity 
+    }
+  
+    const res = await axios.post('/api/orders', body, config);
+
+    dispatch({
+      type: CREATE_NEW_ORDER,
+      payload: res.data
+    })
+  } catch(error) {
+    console.error(error);
+    dispatch({
+      type: NEW_ORDER_ERROR,
+      payload: error
+    });
+  }
+
+}
 
 
