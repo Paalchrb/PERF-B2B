@@ -20,7 +20,7 @@ const guestLinks = (
 
   <div className="top-right-nav">
     <Link to='/login'><i className="fas fa-sign-in-alt" id="top-right-icon"><div className="icon-text-top">Logg inn</div></i></Link>
-    
+    <Link to='/shopcart'><i className="fas fa-shopping-cart" id="top-right-icon"><div className="icon-text-top">Handlekurv</div></i></Link>
   </div>
 
 );

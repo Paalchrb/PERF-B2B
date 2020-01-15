@@ -6,7 +6,7 @@ import { getAllProducts } from '../../actions/productSearch';
 import Toolbar from '../layout/Toolbar';
 
 
-const MyProducts = ({ products, getAllProducts, searchField}) => {
+const MyProducts = ({  products, getAllProducts, searchField}) => {
   useEffect(() => {
     getAllProducts();
   }, [getAllProducts]);
@@ -47,6 +47,9 @@ const MyProducts = ({ products, getAllProducts, searchField}) => {
     </div>
   ))
 
+
+  
+
   return (
     
     <Fragment>
@@ -65,6 +68,7 @@ MyProducts.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   products: state.productSearch.products,
   searchField: state.navbar.searchField
 });
