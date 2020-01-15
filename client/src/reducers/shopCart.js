@@ -2,11 +2,15 @@ import {
   LOAD_CART_ERROR,
   ADD_TO_CART,
   UPDATE_ITEM_QUANTITY,
-  ITEM_QUANTITY_ERROR
+  ITEM_QUANTITY_ERROR,
+  CREATE_NEW_ORDER,
+  NEW_ORDER_ERROR
 } from '../actions/constants';
 
 const initialState = {
   shopCartItems: [],
+  orders: [],
+  orderCreated: false,
   isLoading: true,
   error: {}
 };
@@ -57,6 +61,24 @@ export default function(state = initialState, action) {
         error: payload,
         isLoading: false
       }
+    case CREATE_NEW_ORDER:
+      return {
+        ...state,
+        orders: [
+          ...state.orders,
+          payload
+        ],
+        isLoading: false,
+        orderCreated: true
+
+      }
+    case NEW_ORDER_ERROR:
+        return {
+          ...state,
+          orders: [],
+          error: payload,
+          isLoading: false
+        }
     default:
       return state;
   }
