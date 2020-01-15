@@ -20,10 +20,30 @@ const ProductSearch = ({ products, getAllProducts, searchField}) => {
   })
   .map(product => (
   
-    <div key={product._id} className='content-area product-cards product-card'>
-      {/* <img src={product.productImage} /> */}
-      <h4>{product.productName}</h4>
-      <h6>{product.productSubhead}</h6>
+    <div key={product._id} className='product-card grow'>
+      <div className="product-image-container">
+        <img className="product-card-image" src={product.productImage} />
+      </div>
+
+      <div className="product-card-info">
+       <div className="product-card-text">
+        <h4>{product.productName}</h4>
+        <h6>{product.productSubhead}</h6>
+       </div>
+        
+        <div className="product-card-price-container">
+          <div className="product-card-price">
+            {product.productPrice},-
+
+          </div>
+        
+        <div className="product-card-vat">(eks mva på {product.productVat * 100}%)</div>
+        </div>
+        
+      </div>
+      
+        <button className="product-order-button"><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
+      
     </div>
   ))
 
@@ -32,7 +52,7 @@ const ProductSearch = ({ products, getAllProducts, searchField}) => {
     <Fragment>
       <Toolbar/>
       <div className='content-area'>
-        <div className='content-area product-cards'>
+        <div className='product-card-container'>
           {allProducts}
         </div>
       </div>
