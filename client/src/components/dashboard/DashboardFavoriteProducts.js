@@ -20,31 +20,40 @@ const DashboardFavoriteProducts = ({
 
   const productsMarkup = products.map(product => (
 
-    <div 
-      className='product-card'
-      key={product._id}
-    >
-      <h4>{product.productName}</h4>
-      <img 
-        src={product.productImage} 
-        alt='Product' 
-        width='100px'
-        heigth='100px'
-      />
-      <p>Pris per enhet: {product.productPrice}</p>
-      <p>MVA per enhet: {product.productVat}</p>
-      <p>Netto pris per enhet {product.productPrice * (1 + product.productVat)}</p>
-      <button id={product._id} onClick={event => handleClick(event)}
-      >Legg i handlevogn</button> 
-    
+    <div key={product._id} className='product-card grow'>
+    <div className="product-image-container">
+      <img className="product-card-image" src={product.productImage} />
     </div>
+
+    <div className="product-card-info">
+     <div className="product-card-text">
+      <h4>{product.productName}</h4>
+      <h6>{product.productSubhead}</h6>
+     </div>
+      
+      <div className="product-card-price-container">
+        <div className="product-card-price">
+          {product.productPrice},-
+
+        </div>
+      
+      <div className="product-card-vat">(eks mva på {product.productVat * 100}%)</div>
+      </div>
+      
+    </div>
+    
+      <button className="product-order-button"><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
+    
+  </div>
   ));
 
   return (
     <Fragment>
-      <h3>Favorite products:</h3>
-      <div className='product-container'> {/*add a real class here*/}
+      <div className="dashboard-products-container">
+        <h3>Favorite products</h3>
+      <div className='product-card-container-dashboard'> {/*add a real class here*/}
         {productsMarkup}
+      </div>
       </div>
     </Fragment>
   );

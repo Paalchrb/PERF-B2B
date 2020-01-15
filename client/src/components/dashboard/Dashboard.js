@@ -51,12 +51,12 @@ const Dashboard = ({
           <div className='content-area'>
           <Fragment>
             <DashboardCompanyInfo company={dashboard.company} user={user} />   
-            <div className="action-buttons">
+            {/* <div className="action-buttons">
               <div><i className="fas fa-search"></i><h4>Finn produkt</h4></div>
               <div><i className="fas fa-plus"></i><h4>Legg til produkt</h4></div>
               <div><i className="fas fa-box"></i><h4>Endre produkt</h4></div>
               <div><i className="fas fa-th"></i><h4>Se mine produkter</h4></div>
-            </div> 
+            </div>  */}
           </Fragment>
 
           <Fragment>
