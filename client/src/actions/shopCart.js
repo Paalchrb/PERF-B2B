@@ -65,7 +65,7 @@ export const createNewOrders = shopCartItems => async dispatch => {
       payload: res.data
     })
 
-    setTimeout(() => dispatch({ type: REMOVE_CREATE_ORDER }), 5000);
+    setTimeout(() => dispatch({ type: REMOVE_CREATE_ORDER }), 5000000);
   } catch(error) {
     console.error(error);
     dispatch({
