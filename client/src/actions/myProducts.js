@@ -1,5 +1,8 @@
 import axios from 'axios';
-import { GET_COMPANY_PRODUCTS, COMPANY_PRODUCTS_ERROR } from './constants';
+import { 
+  GET_COMPANY_PRODUCTS, 
+  COMPANY_PRODUCTS_ERROR 
+} from './constants';
 
 //Get products by company ID
 export const getProductsByCompanyId = () => async dispatch => {

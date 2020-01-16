@@ -56,7 +56,7 @@ const createOrder = async (cartOrder, userId, buyerCompanyId) => {
     const contactPerson = await User.findById(userId);
     const buyer = await Company.findById(buyerCompanyId);
     const seller = await Company.findById(cartOrder.companyId);
-    console.log(cartOrder.products)
+    console.log(buyer._id, seller._id)
     
     const order = new Order({   
       orderLines: [
@@ -109,7 +109,6 @@ const createOrder = async (cartOrder, userId, buyerCompanyId) => {
         buyer.recentProducts = buyer.recentProducts.slice(5);
       }
     }
-    console.log(order);
 
     await order.save();
     await seller.save();

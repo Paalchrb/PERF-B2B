@@ -8,10 +8,6 @@ import {
   NEW_ORDER_ERROR
 } from '../actions/constants';
 
-// Load cart items:
-// @TODO: MAKE CART MODEL IN DATABASE SO UNFINISHED CART CAN BE SAVED, AND DISPLAY WHEN USER LOGS IN.
-// @TODO: CREATE LOAD CART ACTION
-
 // Add item to cart:
 export const addItemToCart = (productId, quantity = 1) => async dispatch => {
   try { 

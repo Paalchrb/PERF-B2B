@@ -2,13 +2,13 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { togleToolbar } from '../../actions/toolbar';
+import { toggleToolbar } from '../../actions/toolbar';
 
 
 const Toolbar = ({togleToolbar, toolbar: { toolbar } }) => {
   const handleClick = event => {
     event.preventDefault();
-    togleToolbar();
+    toggleToolbar();
   };  
 
   return (
@@ -42,12 +42,11 @@ const Toolbar = ({togleToolbar, toolbar: { toolbar } }) => {
       )}
 
       </Fragment>
-  
   );
 };
 
 Toolbar.propTypes = {
-  togleToolbar: PropTypes.func.isRequired,
+  toggleToolbar: PropTypes.func.isRequired,
   toolbar: PropTypes.object.isRequired
 }
 
@@ -58,6 +57,6 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { togleToolbar }  
+  { toggleToolbar }  
   )(Toolbar);
 

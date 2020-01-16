@@ -1,5 +1,5 @@
 import {
-  TOGLE_TOOLBAR
+  TOGGLE_TOOLBAR
 } from '../actions/constants';
 
 
@@ -13,7 +13,7 @@ export default function(state = initialState, action) {
   } = action;
 
   switch (type) {
-    case TOGLE_TOOLBAR:
+    case TOGGLE_TOOLBAR:
       return {
         ...state,
         toolbar: !state.toolbar
