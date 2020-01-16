@@ -2,11 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
+const { formatShopCartItems, createOrder } = require('../../config/utils');
 //MongoDB models
 const Order = require('../../models/Order');
-const User = require('../../models/User');
 const Company = require('../../models/Company');
-const Product = require('../../models/Product');
 
 
 // @route   POST api/orders
@@ -16,12 +15,8 @@ router.post(
   '/',
   [
     [
-      check('sellerId', 'Seller id must be provided')
-        .not()
-        .isEmpty(),
-      check('productId', 'Product id must be provided')
-        .not()
-        .isEmpty()
+      check('shopCartItems', 'Shopping cart can not be empty')
+        .exists(),
     ],
     auth,
   ], 
@@ -33,89 +28,30 @@ router.post(
         .json({ errors: errors.array() });
     }
 
-    const {
-      sellerId,
-      productId,
-      quantity
-    } = req.body;
+    //Format inputdata to usefull format
+    const { shopCartItems } = req.body;
+    console.log(shopCartItems)
+    const formatedShopCartData = formatShopCartItems(shopCartItems);
+    console.log(formatedShopCartData)
     
-    const buyer = await Company.findById(req.user.companyId);
-    const contactPerson = await User.findById(req.user.id);
-    const seller = await Company.findById(sellerId);
-    const product = await Product.findById(productId);
-    const orderLineNetTotal = (+product.productPrice * (1 + +product.productVat)) * quantity; 
-
     try {
-      const order = new Order({   
-        orderLine: {
-          productId: productId,
-          productName: product.productName,
-          productPrice: product.productPrice,
-          productVat: product.productVat,
-          quantity,
-          orderLineNetTotal
-        },
-        buyer: {
-          companyId: buyer._id,
-          orgNum: buyer.orgNum,
-          companyName: buyer.companyName,
-          address: {
-            street: buyer.address.street,
-            zipCode: buyer.address.zipCode,
-            city: buyer.address.city,
-            country: buyer.address.country
-          }
-        },
-        seller: { 
-          companyId: seller._id,
-          orgNum: seller.orgNum,
-          companyName: seller.companyName,
-          address: {
-            street: seller.address.street,
-            zipCode: seller.address.zipCode,
-            city: seller.address.city,
-            country: seller.address.country
-          }
-        },
-        buyerContact: {
-          firstName: contactPerson.userContact.firstName,
-          lastName: contactPerson.userContact.lastName,
-          userEmail: contactPerson.userContact.userEmail,
-          userPhone: contactPerson.userContact.userPhone,
-        }
-      });
+      const orderIds = await Promise.all(
+        formatedShopCartData.map(async order => {
+          return createOrder(order, req.user.id, req.user.companyId);
+        })
+      );
 
-      seller.recentOrders.unshift(order._id);
-      if (seller.recentOrders.length > 4) {
-        seller.recentOrders = seller.recentOrders.slice(5);
-      }
-
-      buyer.recentOrders.unshift(order._id);
-      if (buyer.recentOrders.length > 4) {
-        buyer.recentOrders = buyer.recentOrders.slice(5);
-      }
-      
-      //avoid duplicate products in recent products:
-      if(!buyer.recentProducts.includes(productId)) {
-        buyer.recentProducts.unshift(productId);
-        if (buyer.recentProducts.length > 4) {
-          buyer.recentProducts = buyer.recentProducts.slice(5);
-        }
-      }
-
-      await order.save();
-      await buyer.save();
-      await seller.save();
+      console.log(orderIds);
       
       return res
         .status(201)
-        .json(order);
+        .json(orderIds); 
     } catch (error) {
       console.error(error.message);
       return res
         .status(500)
         .send('Server error');
-    }   
+    } 
   }
 );
 

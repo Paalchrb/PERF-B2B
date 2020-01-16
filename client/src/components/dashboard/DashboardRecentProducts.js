@@ -5,15 +5,17 @@ import { addItemToCart } from '../../actions/shopCart';
 
 const DashboardRecentProducts = ({
   products,
-  auth: { token 
+  auth: { isAuthenticated 
   },
   addItemToCart,
 }) => {
 
 
   const handleClick = id => {
-    addItemToCart(token, id);
-  }
+    if (isAuthenticated) {
+      addItemToCart(id);
+    }
+  };
 
 
   const recentProductsMarkup = products.map(product => (

@@ -1,4 +1,4 @@
-import { GET_COMPANY_PRODUCTS, COMPANY_PRODUCTS_ERROR } from '../actions/constants';
+import { GET_COMPANY_PRODUCTS, COMPANY_PRODUCTS_ERROR, LOGOUT } from '../actions/constants';
 
 const initialState = {
   products: [],
@@ -23,6 +23,8 @@ export default function(state= initialState, action) {
         products: [],
         loading: false
       }
+    case LOGOUT:
+      return initialState
     default:
       return state;
   };

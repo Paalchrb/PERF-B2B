@@ -10,9 +10,9 @@ export const setSearchField = text => dispatch => {
     payload: text
   });
 };
-
+  
 export const submitSearch = text => async dispatch => {
   dispatch({
-    type: SUBMIT_SEARCH,
+    type: SUBMIT_SEARCH
   });  
 };

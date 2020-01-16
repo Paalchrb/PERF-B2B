@@ -7,6 +7,7 @@ import {
   RECENT_PRODUCTS_ERROR,
   GET_RECENT_ORDERS,
   RECENT_ORDERS_ERROR,
+  LOGOUT
 } from '../actions/constants';
 
 const initialState = {
@@ -74,6 +75,8 @@ export default function(state = initialState, action) {
           error: payload,
           loading: false
         }
+      case LOGOUT:
+        return initialState
     default:
       return state;
   }
