@@ -50,7 +50,6 @@ export default function(state=initialState, action) {
       return {
         ...state,
         loading: false,
-        shopCartItems: [],
         error: payload
       }
     case UPDATE_ITEM_QUANTITY:

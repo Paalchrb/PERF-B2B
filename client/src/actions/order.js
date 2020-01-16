@@ -17,7 +17,7 @@ export const getAllOrders = () => async dispatch => {
   } catch (error) {
     dispatch({
       type: ORDER_ERROR,
-      payload: error.response.data.errors
+      payload: error
      });
   }
 };
@@ -34,7 +34,7 @@ export const getOrderById = (orderId) => async dispatch => {
   } catch (error) {
     dispatch({
       type: ORDER_ERROR,
-      payload: error.response.data.errors
+      payload: error
      });
   }
 };

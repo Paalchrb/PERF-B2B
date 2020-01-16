@@ -39,7 +39,7 @@ export const updateCartItemQuantity = (quantity, productId) => dispatch => {
       productId,
       quantity
     };
-    return dispatch({
+    dispatch({
       type: UPDATE_ITEM_QUANTITY,
       payload
     });
