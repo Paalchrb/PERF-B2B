@@ -24,11 +24,12 @@ const Orders = ({ auth: { token, isAuthenticated }, order: { orders, loading }, 
   if(orders && !loading) {
 
     procurementOrdersMarkup = orders.procurementOrders.map(order => (
-      <div key={order._id}>
-        <div>Dato: {format(new Date(order.orderDate), 'dd/MM/yyyy')}</div>  
-        <div>Selger: {order.seller.companyName}</div>
-        <h5>Produkter:</h5> 
-        <div>{order.orderLine.map(orderLine => {
+      <div key={order._id}
+      className="order-overview-line">
+        <div><i className="fas fa-calendar-alt" id="order-icons"></i>{format(new Date(order.orderDate), 'dd/MM/yyyy')}</div>  
+        <div>{order.seller.companyName}</div>
+        
+        <div>{order.orderLines.map(orderLine => {
             return (
             <Fragment key={orderLine._id}>
               {orderLine.productName} ({orderLine.quantity})
@@ -36,7 +37,7 @@ const Orders = ({ auth: { token, isAuthenticated }, order: { orders, loading }, 
             )
           })}
         </div>
-        <button onClick={() => handleClick(order._id)}>Se ordre</button>
+        <div onClick={() => handleClick(order._id)}><i className="fas fa-external-link-alt" id="order-icons"></i></div>
       </div>
     ));
 
@@ -62,11 +63,15 @@ const Orders = ({ auth: { token, isAuthenticated }, order: { orders, loading }, 
     <Fragment>
     <Toolbar />
     <div className='content-area'>
+      <div className="single-order-container">
+
+      
       <h2>Ordreoversikt</h2>
       <h4>Kjøpsordre</h4> 
       {procurementOrdersMarkup}
       <h4>Salgsordre</h4>
       {salesOrdersMarkup}
+      </div>
     </div>
     </Fragment>
     ) : ( <p>Loading...</p> )

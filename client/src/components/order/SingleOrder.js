@@ -21,15 +21,14 @@ const SingleOrder = ({ auth: { token, isAuthenticated }, order: { selectedOrder,
     const { orderDate } = selectedOrder;
     orderDateFormatted = format(new Date(orderDate), 'dd/MM/yyyy');
 
-    orderLineMarkup = selectedOrder.orderLine.map(orderLine => {
+    orderLineMarkup = selectedOrder.orderLines.map(orderLine => {
       return (
-        <div key={orderLine._id}>
-          <div>Navn: {orderLine.productName}</div>
-          <div>Produkt-id: {orderLine.productId}</div>
-          <div>Pris: {orderLine.productPrice}</div>
-          <div>Mva: {orderLine.productVat}</div>
-          <div>Antall: {orderLine.quantity}</div>
-          <div>Netto: {orderLine.orderLineNetTotal}</div>
+        <div key={orderLine._id} className="order-line-container">
+          <div>{orderLine.productName}</div>
+          <div>{orderLine.quantity}</div>
+          <div>{orderLine.productPrice}</div>
+          <div>{orderLine.productVat * 100}%</div>
+          <div>{orderLine.orderLineNetTotal}</div>
         </div>
       )
     });
@@ -39,23 +38,52 @@ const SingleOrder = ({ auth: { token, isAuthenticated }, order: { selectedOrder,
   return (selectedOrder && !loading ? (
     <Fragment>
       <Toolbar />
-      <div className='content-area'> 
-        <div>Dato opprettet: {orderDateFormatted}</div>
-        <h3>Produkter</h3>
+      <div className='content-area'>
+        <div className="single-order-container">
+
+        <div className="order-date"><i className="fas fa-calendar-alt" id="order-icons"></i>{orderDateFormatted}</div>
+        <h3 id="order-heading">Produkter</h3>
+        <div className="order-line-tags">
+          <div>Vare</div>
+          <div>Antall</div>
+          <div>Pris (eks MVA)</div>
+          <div>MVA</div>
+        </div>
         <div>{orderLineMarkup}</div>
-        <h3>Selger</h3>
-        <div>Navn på selskap: {selectedOrder.seller.companyName}</div>
-        <div>Org.nr: {selectedOrder.seller.orgNum}</div>
-        <div>Adresse: {selectedOrder.seller.address.street}, {selectedOrder.seller.address.zipcode} {selectedOrder.seller.address.city}, {selectedOrder.seller.address.country}</div>
-        <h3>Kjøper</h3>
-        <h4>Kontaktinfo</h4>
-        <div>Navn: {selectedOrder.buyerContact.firstName} {selectedOrder.buyerContact.lastName}</div>
-        <div>Email: {selectedOrder.buyerContact.userEmail}</div>
-        <div>Tlf: {selectedOrder.buyerContact.userPhone}</div>
-        <h4>Selskapsinfo</h4>
-        <div>Navn på selskap: {selectedOrder.buyer.companyName}</div>
-        <div>Org.nr: {selectedOrder.buyer.orgNum}</div>
-        <div>Adresse: {selectedOrder.buyer.address.street}, {selectedOrder.buyer.address.zipcode} {selectedOrder.buyer.address.city}, {selectedOrder.buyer.address.country}</div>
+
+        <div className="order-contact">
+        <div className="order-seller">
+          <h3 id="order-heading">Selger</h3>
+          <div><i className="fas fa-industry" id="order-icons"></i>{selectedOrder.seller.companyName}</div>
+          <div><i className="fas fa-sitemap" id="order-icons"></i>{selectedOrder.seller.orgNum}</div>
+          <div><i className="fas fa-map-marker-alt" id="order-icons"></i>{selectedOrder.seller.address.street}, {selectedOrder.seller.address.zipcode} {selectedOrder.seller.address.city}, {selectedOrder.seller.address.country}</div>
+        </div>
+
+        <div className="order-buyer">
+        <h3 id="order-heading">Kjøper</h3>
+          <div>
+            <h4 id="order-heading">Kontaktinfo</h4>
+            <div><i className="fas fa-user" id="order-icons"></i>{selectedOrder.buyerContact.firstName} {selectedOrder.buyerContact.lastName}</div>
+            <div><i className="fas fa-envelope" id="order-icons"></i>{selectedOrder.buyerContact.userEmail}</div>
+            <div><i className="fas fa-phone" id="order-icons"></i>{selectedOrder.buyerContact.userPhone}</div>
+          </div>
+
+          <div>
+            <h4 id="order-heading">Selskapsinfo</h4>
+            <div><i className="fas fa-industry" id="order-icons"></i>{selectedOrder.buyer.companyName}</div>
+            <div><i className="fas fa-sitemap" id="order-icons"></i>{selectedOrder.buyer.orgNum}</div>
+            <div><i className="fas fa-map-marker-alt" id="order-icons"></i>{selectedOrder.buyer.address.street}, {selectedOrder.buyer.address.zipcode} {selectedOrder.buyer.address.city}, {selectedOrder.buyer.address.country}</div>
+
+          </div>
+          
+          
+
+        </div>
+
+
+        </div>
+        </div>
+        
       </div>
     </Fragment>
     ) : ( <p>Loading...</p> )
