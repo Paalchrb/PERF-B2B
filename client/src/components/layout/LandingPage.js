@@ -1,16 +1,17 @@
 import React, { Fragment } from 'react';
 import whiteLogo from '../../assets/logo-white.png'
+import { Link } from 'react-router-dom';
 const LandingPage = () => {
   return (
     
     <Fragment>
       <div className='landing-page-container'>
       <div className="landing-page-header-container">
-        <img src={whiteLogo} alt="woman in factory"></img>
+        <img src={whiteLogo} alt="logo"></img>
 
 
         <div>
-          <button className="lp-button">Prøv løsningen</button>
+          <Link to="/login"><button className="lp-button">Logg inn</button></Link>
           <button className="lp-button">Registrer</button>
 
         </div>

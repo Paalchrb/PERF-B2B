@@ -452,13 +452,12 @@ button {
   .landing-page-header-container {
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.788), rgba(0, 0, 0, 0)), url(./assets/btb_background_1920.jpg);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0)), url(./assets/btb_background_1920.jpg);
     background-size: cover;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding-left: 20vw;
     box-sizing: border-box;
     
 
@@ -480,8 +479,9 @@ button {
   margin: 10px;
   display: inline;
   &:hover {
-    background: rgba(0, 0, 0, 0.0);
-    border: 2px solid $white;
+    background: $white;
+    color: $black;
+    
   }
 }
 b {
@@ -491,7 +491,7 @@ b {
 // Login
 
 .login-container {
-  color: $dark;
+  color: $darkest;
   background-color: $lightest;
   display: flex;
   justify-content: center;
@@ -516,7 +516,7 @@ b {
       margin-bottom: 15px;
     }
     .login-button {
-      background-color: $dark;
+      background-color: $darkest;
       border: 0px solid white;
       font-size: 20px;
       padding: 10px 20px;
@@ -541,38 +541,41 @@ b {
   margin-left: $toolbar-width;
   margin-right: $toolbar-width;
   box-sizing: border-box;
-  .company-section {
-    background: $white;
-    padding: 3vw;
-    border-radius: $radius;
-    margin-bottom: 10vh;
-    display: grid;
-    grid-template-columns: 1fr 3fr 2fr;
-    grid-template-rows: auto;
-    grid-template-areas:
-    "title title ."
-    "about about about"
-    "icons icons icons";
-    .company-title {
-      grid-area: title;
-      display: flex;
-      align-items: center;
-      margin-bottom: 0.8em;
-    }
-    .about-container {
-      line-height: 1.4em;
-      grid-area: about;
-      margin-top: 0.8em;
-    }
-    .company-logo {
-      grid-area: logo;
-      width: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-     
+  
+}
+.company-section {
+  background: $white;
+  padding: 3vw;
+  border-radius: $radius;
+  margin-bottom: 10vh;
+  display: grid;
+  grid-template-columns: 90px 3fr 2fr;
+  grid-template-rows: auto;
+  
+  grid-template-areas:
+  "title title title"
+  "about about about"
+  "icons icons icons";
+  .company-title {
+    grid-area: title;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8em;
   }
+  .about-container {
+    line-height: 1.4em;
+    grid-area: about;
+    margin-top: 0.8em;
+  }
+  .company-logo {
+    grid-area: logo;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    margin-bottom: 18px;
+  }
+   
 }
 
 .action-buttons {
@@ -750,7 +753,7 @@ b {
   .recent-order-table-row-headers {
     display: grid;
     padding: 12px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 40px 150px 200px 200px 150px;
   
     margin-bottom: 0px;
     font-weight: bold;
@@ -760,11 +763,15 @@ b {
   .recent-order-table-row {
     display: grid;
     padding: 12px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 40px 150px 200px 200px 150px;
 
-    border-top: 1px $lightest solid;
+    border-top: 1px $light solid;
     margin-bottom: 0px;
     cursor: pointer;
+    a {
+      text-decoration: none;
+      color: black;
+    }
   }
 }
 
@@ -1119,6 +1126,57 @@ input[type=number]::-webkit-outer-spin-button {
 
 }
 
+
+// Cart Confirmed
+
+.cart-confirmed {
+  background-color: $accent;
+  color: $darker;
+  position: fixed;
+  right: 0;
+  top: 90px;
+  min-height: calc(100vh - 90px);
+  width: $cart-width;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .order-confirmed {
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 5vh;
+  }
+
+
+  #cart-close-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+}
+
+.confirmed-orders {
+  line-height: 1em;
+}
+.confirmed-order {
+  margin-bottom: 15px;
+  color: black;
+  padding: 10px 20px;
+  border: 2px solid white;
+  border-radius: $radius;
+  a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+  }
+}
+
+#confirm-icon {
+  font-size: 80px;
+  margin-bottom: 5vh;
+}
+
 // Icons
 
 // #alert-danger-icon {
@@ -1194,7 +1252,7 @@ input[type=number]::-webkit-outer-spin-button {
 .single-order-total {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: right;
   text-align: right;
   padding: 20px 2vw;
   margin-top: 60px;
@@ -1211,6 +1269,29 @@ input[type=number]::-webkit-outer-spin-button {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
+// Alert
+
+.alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  text-align: center;
+  color: brown;
+  height: 20px;
+  border-radius: 0 0 $radius $radius;
+  padding: 10px 0;
+  margin-top: 0px;
+  i {
+    margin-right: 10px;
+  }
+}
+
+.green {
+  color: white;
+  background: rgb(35, 187, 35);
+
+}
 
 
 @media (max-width: 1400px) {
