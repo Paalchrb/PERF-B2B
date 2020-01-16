@@ -10,7 +10,6 @@ import SingleOrder from './components/order/SingleOrder';
 import ProductSearch from './components/products/ProductSearch';
 import SinglePageProductView from './components/products/SinglePageProductView';
 import MyProducts from './components/products/MyProducts';
-import Alert from './components/layout/Alert';
 import NotFound from './components/layout/NotFound';
 import ShopCart from './components/shopCart/ShopCart';
 //redux:
@@ -34,7 +33,6 @@ const App = () => {
   <Provider store={store}>
     <Router>
       <Navbar />
-      <Alert />
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route path='/login' component={Login} />

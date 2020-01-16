@@ -2,18 +2,23 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addItemToCart } from '../../actions/shopCart';
+import { setAlert } from '../../actions/alert';
+import Alert from '../layout/Alert';
 
 const DashboardRecentProducts = ({
   products,
   auth: { isAuthenticated 
   },
+  alerts,
   addItemToCart,
+  setAlert
 }) => {
 
 
   const handleClick = id => {
     if (isAuthenticated) {
       addItemToCart(id);
+      setAlert('Lagt til i handlevogn', 'success', id);
     }
   };
 
@@ -25,10 +30,10 @@ const DashboardRecentProducts = ({
     </div>
 
     <div className="product-card-info">
-     <div className="product-card-text">
-      <h4>{product.productName}</h4>
-      <h6>{product.productSubhead}</h6>
-     </div>
+      <div className="product-card-text">
+        <h4>{product.productName}</h4>
+        <h6>{product.productSubhead}</h6>
+      </div>
       
       <div className="product-card-price-container">
         <div className="product-card-price">
@@ -42,7 +47,7 @@ const DashboardRecentProducts = ({
     </div>
     
       <button onClick={() => handleClick(product._id)} className="product-order-button"><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
-    
+      {alerts.map(({ productId }) => productId).includes(product._id) && <Alert />}
   </div>
   ));
 
@@ -68,15 +73,19 @@ const DashboardRecentProducts = ({
 
 DashboardRecentProducts.propTypes = {
   auth: PropTypes.object.isRequired,
+  alerts: PropTypes.array.isRequired,
   addItemToCart: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
+  alerts: state.alert
 });
 
 const mapDispatchToProps = {
   addItemToCart,
+  setAlert
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardRecentProducts);

@@ -1,10 +1,10 @@
 import {
-  TOGLE_TOOLBAR
+  TOGGLE_TOOLBAR
 } from '../actions/constants';
 
-export const togleToolbar = event => dispatch => {
+export const toggleToolbar = event => dispatch => {
   dispatch({
-    type: TOGLE_TOOLBAR
+    type: TOGGLE_TOOLBAR
   });
 };
 
