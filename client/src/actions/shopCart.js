@@ -3,14 +3,10 @@ import {
   ADD_TO_CART_ERROR,
   ADD_TO_CART,
   UPDATE_ITEM_QUANTITY,
-  ITEM_QUANTITY_ERROR,
   CREATE_NEW_ORDER,
-  NEW_ORDER_ERROR
+  NEW_ORDER_ERROR,
+  TOGGLE_SHOPCART
 } from '../actions/constants';
-
-// Load cart items:
-// @TODO: MAKE CART MODEL IN DATABASE SO UNFINISHED CART CAN BE SAVED, AND DISPLAY WHEN USER LOGS IN.
-// @TODO: CREATE LOAD CART ACTION
 
 // Add item to cart:
 export const addItemToCart = (productId, quantity = 1) => async dispatch => {
@@ -29,7 +25,6 @@ export const addItemToCart = (productId, quantity = 1) => async dispatch => {
       payload
     });
   } catch (error) {
-    
     dispatch({
       type: ADD_TO_CART_ERROR,
       payload: error
@@ -39,7 +34,6 @@ export const addItemToCart = (productId, quantity = 1) => async dispatch => {
 
 // Update shop cart item quantity
 export const updateCartItemQuantity = (quantity, productId) => dispatch => {
-  try {
     const payload = {
       productId,
       quantity
@@ -48,20 +42,14 @@ export const updateCartItemQuantity = (quantity, productId) => dispatch => {
       type: UPDATE_ITEM_QUANTITY,
       payload
     });
-  } catch(error) {
-    return dispatch({
-      type: ITEM_QUANTITY_ERROR,
-    });
-  }
 };
 
 // Create and send new order
-export const createNewOrders = (shopCartItems, token) => async dispatch => {
+export const createNewOrders = shopCartItems => async dispatch => {
   try {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': token
       }
     }
   
@@ -70,7 +58,6 @@ export const createNewOrders = (shopCartItems, token) => async dispatch => {
     }
   
     const res = await axios.post('/api/orders', body, config);
-    console.log(res);
 
     dispatch({
       type: CREATE_NEW_ORDER,
@@ -83,7 +70,13 @@ export const createNewOrders = (shopCartItems, token) => async dispatch => {
       payload: error
     });
   }
+}
 
+//toggle shopcartview on/off:
+export const toggleShopCart = () => dispatch => {
+  dispatch({
+    type: TOGGLE_SHOPCART
+  });
 }
 
 

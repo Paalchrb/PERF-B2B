@@ -6,12 +6,14 @@ import {
   CREATE_NEW_ORDER,
   NEW_ORDER_ERROR,
   LOGOUT,
+  TOGGLE_SHOPCART
 } from '../actions/constants';
 
 const initialState = {
   shopCartItems: [],
   orders: [],
   orderCreated: false,
+  showCart: false,
   loading: true,
   error: {}
 };
@@ -67,6 +69,12 @@ export default function(state=initialState, action) {
         ...state,
         shopCartItems: updatedCartItems,
         loading: false
+      }
+    case TOGGLE_SHOPCART:
+      return {
+        ...state,
+        loading: false,
+        showCart: !state.showCart
       }
     case ITEM_QUANTITY_ERROR:
       return {

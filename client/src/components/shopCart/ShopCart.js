@@ -2,28 +2,36 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { updateCartItemQuantity, createNewOrders } from '../../actions/shopCart';
+import { 
+  updateCartItemQuantity, 
+  createNewOrders, 
+  toggleShopCart 
+} from '../../actions/shopCart';
 import { shopCartSelector } from '../../utils/selectors';
-import Toolbar from '../layout/Toolbar';
+
 
 const ShopCart = ({
-  auth: {
-    token,
-  },
   shopCart: {
     shopCartItems,
     loading,
-    orderCreated
+    orderCreated,
+    showCart
   },
   updateCartItemQuantity,
-  createNewOrders
+  createNewOrders,
+  toggleShopCart
+
 }) => {
-  const handleClick = event => {
+  const handleSubmitClick = event => {
     event.preventDefault();
     if(shopCartItems.length > 0) {
-      createNewOrders(shopCartItems, token );
+      createNewOrders(shopCartItems);
     }
   };
+
+  const handleToggleClick = () => {
+    toggleShopCart();
+  }
 
   const handleChange = (event, id) => {
     updateCartItemQuantity(event.target.value, id);
@@ -34,7 +42,6 @@ const ShopCart = ({
     <div className="cart-company-container"
       key={index}
     >
-      {/* <div className="cart-company-toggle"><i className="fas fa-chevron-down" id="cart-close-button"></i></div> */}
       <div className="cart-company"><h5>{object.sellerName}</h5></div>
       <div className="cart-tags">
         <div>Ant</div>
@@ -81,59 +88,67 @@ const ShopCart = ({
   </div>
   ));
 
+  if (orderCreated && !loading) {
+    return (
+      <div className='content-area'>
+      <p>Bestilling bekreftet</p>
+      <Link to='#!'>Se ordre her</Link>
+    </div>
+    );
+  }
+ 
   return (
     <Fragment>
-      <Toolbar/>
-      <div className='content-area'>
-      {(orderCreated && !loading) ? (
-        <Fragment>
-          <p>Bestilling bekreftet</p>
-          <Link to='#!'>Se ordre her</Link>
-        </Fragment>
-      ) : (
-        <Fragment>
+      { showCart ? (
           <div className="cart">
-          <i className="fas fa-times" id="cart-close-button"></i>
-            <div className="cart-header"><h3 id="cart-title">Handlekurv</h3></div>
+          <i className="fas fa-times" id="cart-close-button" onClick={() => handleToggleClick()}></i>
+            <div className="cart-header">
+              <h3 id="cart-title">Handlekurv</h3>
+            </div>
             <div className='cart-body'>
               {shopCartItems.length > 0 ? shopItemsMarkup : <p>Ingen varer i handlekurv</p>}
             </div>
             
             <div className="cart-subtotal">
-              <div className="cart-subtotal-tag">Subtotal</div>
-              <div className="cart-subtotal-sum">{
-                shopCartObjects.reduce((acc, object) => {
+              <div className="cart-subtotal-tag">
+                Subtotal
+              </div>
+              <div className="cart-subtotal-sum">
+                {shopCartObjects.reduce((acc, object) => {
                   return acc + object.products.reduce((acc, product) => {
                     return acc + product.productPrice * +product.quantity
-
                   }, 0)
-                }, 0)
-              },-</div>
-
+                }, 0)},-
+              </div>
             </div>
-            <div className="cart-info"><p>Alle priser eks mva</p></div>
+            <div className="cart-info">
+              <p>Alle priser eks mva</p>
+            </div>
             
             <div className="cart-footer">
-            <button id="cart-order-button"
-              onClick={event => handleClick(event)}>
-              Send bestilling
-            </button>
-              </div>
-
+              <button 
+                id="cart-order-button"
+                onClick={event => handleSubmitClick(event)}
+              >
+                Send bestilling
+              </button>
+            </div>
           </div>
-          
+      ) : (
+        <Fragment>
         </Fragment>
-      )}
-       </div>
+      )  
+    }
     </Fragment>
   )
-};
+}
 
 ShopCart.propTypes = {
   auth: PropTypes.object.isRequired,
   shopCart: PropTypes.object.isRequired,
   createNewOrders: PropTypes.func.isRequired,
   updateCartItemQuantity: PropTypes.func.isRequired,
+  toggleShopCart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -143,7 +158,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   createNewOrders,
-  updateCartItemQuantity
+  updateCartItemQuantity,
+  toggleShopCart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopCart);

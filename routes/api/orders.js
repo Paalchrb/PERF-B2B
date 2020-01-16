@@ -35,11 +35,11 @@ router.post(
     const formatedShopCartData = formatShopCartItems(shopCartItems);
     
     try {
-      const orderIds = await Promise.all(
-        formatedShopCartData.map(async order => {
-          return createOrder(order, req.user.id, req.user.companyId);
-        })
-      );
+      let orderIds = []
+      for (let order of formatedShopCartData) {
+        const orderId = await createOrder(order, req.user.id, req.user.companyId);
+        orderIds.push(orderId);
+      }
       
       return res
         .status(201)

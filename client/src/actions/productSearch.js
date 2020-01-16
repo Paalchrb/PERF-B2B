@@ -1,6 +1,8 @@
 import axios from 'axios';
-
-import { GET_ALL_PRODUCTS, PRODUCT_ERROR } from './constants';
+import { 
+  GET_ALL_PRODUCTS, 
+  PRODUCT_ERROR 
+} from './constants';
 
 //Get all products
 export const getAllProducts = () => async dispatch => {
@@ -15,7 +17,7 @@ export const getAllProducts = () => async dispatch => {
   } catch (error) {
     dispatch({
       type: PRODUCT_ERROR,
-      payload: error
+      payload: error.response.data.errors
     });
   }
 };
