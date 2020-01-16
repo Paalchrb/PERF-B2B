@@ -56,6 +56,7 @@ const createOrder = async (cartOrder, userId, buyerCompanyId) => {
     const buyer = await Company.findById(buyerCompanyId);
     const seller = await Company.findById(order.companyId);
     
+    
     const order = new Order({   
       orderLine: [
         ...cartOrder.products

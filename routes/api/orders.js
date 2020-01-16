@@ -30,12 +30,14 @@ router.post(
 
     //Format inputdata to usefull format
     const { shopCartItems } = req.body;
+    console.log(shopCartItems)
     const formatedShopCartData = formatShopCartItems(shopCartItems);
+    console.log(formatedShopCartData)
     
     try {
       const orderIds = await Promise.all(
         formatedShopCartData.map(async order => {
-          await createOrder(order, req.user.id, req.user.companyId);
+          return createOrder(order, req.user.id, req.user.companyId);
         })
       );
 
