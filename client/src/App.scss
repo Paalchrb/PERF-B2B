@@ -553,7 +553,7 @@ b {
   grid-template-rows: auto;
   
   grid-template-areas:
-  "logo title ."
+  "title title title"
   "about about about"
   "icons icons icons";
   .company-title {
@@ -753,7 +753,7 @@ b {
   .recent-order-table-row-headers {
     display: grid;
     padding: 12px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 40px 150px 200px 200px 150px;
   
     margin-bottom: 0px;
     font-weight: bold;
@@ -763,11 +763,15 @@ b {
   .recent-order-table-row {
     display: grid;
     padding: 12px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 40px 150px 200px 200px 150px;
 
-    border-top: 1px $lightest solid;
+    border-top: 1px $light solid;
     margin-bottom: 0px;
     cursor: pointer;
+    a {
+      text-decoration: none;
+      color: black;
+    }
   }
 }
 
@@ -1265,6 +1269,29 @@ input[type=number]::-webkit-outer-spin-button {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
+// Alert
+
+.alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  text-align: center;
+  color: brown;
+  height: 20px;
+  border-radius: 0 0 $radius $radius;
+  padding: 10px 0;
+  margin-top: 0px;
+  i {
+    margin-right: 10px;
+  }
+}
+
+.green {
+  color: white;
+  background: rgb(35, 187, 35);
+
+}
 
 
 @media (max-width: 1400px) {

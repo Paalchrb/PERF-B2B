@@ -4,7 +4,6 @@ const DashboardCompanyInfo = ({
   company,
 }) => ( company && (
   <div className='company-section'>
-    <i className="fas fa-flask company-logo" id=""></i>
     <div className='company-title'>
       <Fragment>
         <h1>{company.companyName}</h1>
