@@ -42,7 +42,6 @@ const Toolbar = ({toggleToolbar, toolbar: { toolbar } }) => {
       )}
 
       </Fragment>
-  
   );
 };
 

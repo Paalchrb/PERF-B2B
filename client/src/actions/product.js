@@ -1,13 +1,12 @@
 import axios from 'axios';
 import {
-  GET_SINGLE_PRODUCT
+  GET_SINGLE_PRODUCT,
+  SINGLE_PRODUCT_ERROR
 } from '../actions/constants';
-
 
 //Get product by id
 export let getProductById = (productId) => async dispatch => {
   try {
-
     let res = await axios(`/api/products/${productId}`); 
 
     dispatch({
@@ -15,13 +14,9 @@ export let getProductById = (productId) => async dispatch => {
       payload: res.data
     });
   } catch (error) {
-    console.log('There was an an error retrieving your product');
-    // dispatch({
-    //   type: ORDER_ERROR,
-    //   payload: { 
-    //     msg: error.response.statusText, 
-    //     status: error.response.status 
-    //   }
-    // });
+    dispatch({
+      type: SINGLE_PRODUCT_ERROR,
+      payload: error.response.data.errors
+    });
   }
 };
