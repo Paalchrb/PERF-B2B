@@ -2,8 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addItemToCart } from '../../actions/shopCart';
-import { getProductById } from '../../actions/product';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const DashboardFavoriteProducts = ({
   products, 
@@ -33,7 +32,10 @@ const DashboardFavoriteProducts = ({
     
       <div key={product._id} className='product-card grow'>
         <div className="product-image-container">
+          <Link to={`/products/${product._id}`}>
           <img className="product-card-image" src={product.productImage} alt='Product illustration' />
+          </Link>
+          
         </div>
   
       <div className="product-card-info">

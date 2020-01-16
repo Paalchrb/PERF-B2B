@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAllProducts } from '../../actions/productSearch';
@@ -27,7 +28,9 @@ const ProductSearch = ({ auth: { isAuthenticated, loading }, products, getAllPro
   .map(product => (
     <div key={product._id} className='product-card grow'>
       <div className="product-image-container">
-        <img className="product-card-image" src={product.productImage} alt='Product illustration'/>
+        <Link to={`/products/${product._id}`}>
+          <img className="product-card-image" src={product.productImage} alt='Product illustration'/>
+        </Link>
       </div>
 
       <div className="product-card-info">
