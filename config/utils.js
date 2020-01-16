@@ -2,7 +2,7 @@ const Order = require('../models/Order');
 const User = require('../models/User');
 const Company = require('../models/Company');
 
-
+//Format shopCartItems to appropriate format to create order with order API
 const formatShopCartItems = shopCartItems => {
   const shopCartObjects = [];
   shopCartItems.forEach(shopCartItem => {
@@ -50,13 +50,16 @@ const formatShopCartItems = shopCartItems => {
   return shopCartObjects;
 };
 
-
+/**
+ * Accept shopCartOrder array, user id and buyer company id as input.
+ * Creates all orders and save to database, then return an array of order Ids
+ * corresponding to the orders created
+ **/
 const createOrder = async (cartOrder, userId, buyerCompanyId) => {
   try {
     const contactPerson = await User.findById(userId);
     const buyer = await Company.findById(buyerCompanyId);
     const seller = await Company.findById(cartOrder.companyId);
-    console.log(buyer._id, seller._id)
     
     const order = new Order({   
       orderLines: [
@@ -103,8 +106,8 @@ const createOrder = async (cartOrder, userId, buyerCompanyId) => {
     }
     
     //avoid duplicate products in recent products:
-    if(!buyer.recentProducts.includes(cartOrder.productId)) {
-      buyer.recentProducts.unshift(cartOrder.productId);
+    if(!buyer.recentProducts.includes(cartOrder.products.productId)) {
+      buyer.recentProducts.unshift(cartOrder.products.productId);
       if (buyer.recentProducts.length > 4) {
         buyer.recentProducts = buyer.recentProducts.slice(5);
       }
@@ -116,7 +119,7 @@ const createOrder = async (cartOrder, userId, buyerCompanyId) => {
 
     return order._id
   } catch(error) {
-    console.log(error);
+    console.error(error);
   }
 }
 

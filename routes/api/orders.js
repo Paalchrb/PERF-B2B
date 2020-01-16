@@ -40,11 +40,6 @@ router.post(
         const orderId = await createOrder(order, req.user.id, req.user.companyId);
         orderIds.push(orderId);
       }
-/*       const orderIds = await Promise.all(
-        formatedShopCartData.map(async order => {
-          return createOrder(order, req.user.id, req.user.companyId);
-        })
-      ); */
       
       return res
         .status(201)

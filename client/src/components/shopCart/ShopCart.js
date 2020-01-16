@@ -7,9 +7,6 @@ import { shopCartSelector } from '../../utils/selectors';
 import Toolbar from '../layout/Toolbar';
 
 const ShopCart = ({
-  auth: {
-    token,
-  },
   shopCart: {
     shopCartItems,
     loading,
@@ -21,7 +18,7 @@ const ShopCart = ({
   const handleClick = event => {
     event.preventDefault();
     if(shopCartItems.length > 0) {
-      createNewOrders(shopCartItems, token );
+      createNewOrders(shopCartItems);
     }
   };
 
