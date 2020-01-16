@@ -6,7 +6,7 @@ const LandingPage = () => {
     <Fragment>
       <div className='landing-page-container'>
       <div className="landing-page-header-container">
-        <img src={whiteLogo} alt="woman in factory"></img>
+        <img src={whiteLogo} alt="logo"></img>
 
 
         <div>
