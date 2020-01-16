@@ -93,9 +93,15 @@ const ShopCart = ({
 
   if (orderCreated && !loading) {
     return (
-      <div className='content-area'>
-      <p>Bestilling bekreftet</p>
-      <Link to='#!'>Se ordre her</Link>
+      <div className="cart-confirmed">
+        <i className="fas fa-times" id="cart-close-button" onClick={() => handleToggleClick()}></i>
+         <i className="fas fa-check-circle" id="confirm-icon"></i>
+      <div className="order-confirmed">Bestilling sendt</div>
+      <div className="confirmed-orders">
+        <div className="confirmed-order"><Link to='#!'>Se ordre her</Link></div>
+        <div className="confirmed-order"><Link to='#!'>Se ordre her</Link></div>
+        
+        </div>
     </div>
     );
   }

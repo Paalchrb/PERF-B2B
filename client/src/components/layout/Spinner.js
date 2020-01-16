@@ -3,10 +3,11 @@ import spinner from '../../assets/spinner.gif';
 
 export default () => (
   <Fragment>
-    <img
+    {/* <img
       src={spinner}
       style={{ width: '200px', margin: 'auto', display: 'block' }}
       alt='Loading...'
-    />
+    /> */}
+    <p>Loading...</p>
   </Fragment>
 );

@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import whiteLogo from '../../assets/logo-white.png'
+import { Link } from 'react-router-dom';
 const LandingPage = () => {
   return (
     
@@ -10,7 +11,7 @@ const LandingPage = () => {
 
 
         <div>
-          <button className="lp-button">Prøv løsningen</button>
+          <Link to="/login"><button className="lp-button">Logg inn</button></Link>
           <button className="lp-button">Registrer</button>
 
         </div>
