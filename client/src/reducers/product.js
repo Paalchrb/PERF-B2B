@@ -5,7 +5,7 @@ import {
 const initialState = {
   selectedProduct: null,
   loading: true,
-	error: {}
+	error: null
 };
 
 export default function(state = initialState, action) {
