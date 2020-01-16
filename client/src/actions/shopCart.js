@@ -5,7 +5,8 @@ import {
   UPDATE_ITEM_QUANTITY,
   CREATE_NEW_ORDER,
   NEW_ORDER_ERROR,
-  TOGGLE_SHOPCART
+  TOGGLE_SHOPCART,
+  REMOVE_CREATE_ORDER
 } from '../actions/constants';
 
 // Add item to cart:
@@ -63,6 +64,8 @@ export const createNewOrders = shopCartItems => async dispatch => {
       type: CREATE_NEW_ORDER,
       payload: res.data
     })
+
+    setTimeout(() => dispatch({ type: REMOVE_CREATE_ORDER }), 5000);
   } catch(error) {
     console.error(error);
     dispatch({
