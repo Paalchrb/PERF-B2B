@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { toggleToolbar } from '../../actions/toolbar';
 
 
-const Toolbar = ({togleToolbar, toolbar: { toolbar } }) => {
+const Toolbar = ({toggleToolbar, toolbar: { toolbar } }) => {
   const handleClick = event => {
     event.preventDefault();
     toggleToolbar();

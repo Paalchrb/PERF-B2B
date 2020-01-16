@@ -3,9 +3,9 @@ import {
   ADD_TO_CART_ERROR,
   ADD_TO_CART,
   UPDATE_ITEM_QUANTITY,
-  ITEM_QUANTITY_ERROR,
   CREATE_NEW_ORDER,
-  NEW_ORDER_ERROR
+  NEW_ORDER_ERROR,
+  TOGGLE_SHOPCART
 } from '../actions/constants';
 
 // Add item to cart:
@@ -70,7 +70,13 @@ export const createNewOrders = shopCartItems => async dispatch => {
       payload: error
     });
   }
+}
 
+//toggle shopcartview on/off:
+export const toggleShopCart = () => dispatch => {
+  dispatch({
+    type: TOGGLE_SHOPCART
+  });
 }
 
 
