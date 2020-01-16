@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAllProducts } from '../../actions/productSearch';
 import { addItemToCart } from '../../actions/shopCart';
 import Toolbar from '../layout/Toolbar';
-import { setAlert } from '../../actions/alert';
-import Alert from '../layout/Alert';
+import ProductCard from '../products/ProductCard';
 
-const ProductSearch = ({ auth: { isAuthenticated, loading }, alerts, products, getAllProducts, searchField, addItemToCart, setAlert }) => {
+const ProductSearch = ({ auth: { isAuthenticated, loading }, products, getAllProducts, searchField, addItemToCart }) => {
   useEffect(() => {
     getAllProducts();
   }, [getAllProducts]);
@@ -15,7 +15,6 @@ const ProductSearch = ({ auth: { isAuthenticated, loading }, alerts, products, g
   const handleClick = id => {
     if (isAuthenticated) {
       addItemToCart(id);
-      setAlert('Lagt til i handlevogn', 'success', id);
     }
   };
 
@@ -27,30 +26,9 @@ const ProductSearch = ({ auth: { isAuthenticated, loading }, alerts, products, g
       product.productDescription.toLowerCase().includes(searchField.toLowerCase())
     )
   })
-  .map(product => (
-    <div key={product._id} className='product-card grow'>
-      <div className="product-image-container">
-        <img className="product-card-image" src={product.productImage} alt='Product illustration'/>
-      </div>
-
-      <div className="product-card-info">
-        <div className="product-card-text">
-          <h4>{product.productName}</h4>
-          <h6>{product.productSubhead}</h6>
-        </div>
-        
-        <div className="product-card-price-container">
-          <div className="product-card-price">
-            {product.productPrice},-
-          </div>
-          
-        </div>
-        
-          <button className="product-order-button" onClick={() => handleClick(product._id)}><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
-          {alerts.map(({ productId }) => productId).includes(product._id) && <Alert />}
-      </div>
-      </div>
-    ));
+  .map((product, index) => (
+    <ProductCard key={index} product={product} handleAddToCart={() => handleClick(product._id)} />
+  ));
 
   return (
     <div>
@@ -82,23 +60,19 @@ ProductSearch.propTypes = {
   products: PropTypes.array.isRequired,
   searchField: PropTypes.string.isRequired,
   auth: PropTypes.object.isRequired,
-  alerts: PropTypes.array.isRequired,
   getAllProducts: PropTypes.func.isRequired,
-  addItemToCart: PropTypes.func.isRequired,
-  setAlert: PropTypes.func.isRequired
+  addItemToCart: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   products: state.productSearch.products,
   searchField: state.navbar.searchField,
-  auth: state.auth,
-  alerts: state.alert
+  auth: state.auth
 });
 
 const mapDispatchToProps = {
   getAllProducts,
-  addItemToCart,
-  setAlert
+  addItemToCart
 };
 
 export default connect(

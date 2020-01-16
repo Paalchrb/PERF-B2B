@@ -5,53 +5,55 @@ import { getProductById } from '../../actions/product';
 import { format } from 'date-fns';
 import Toolbar from '../layout/Toolbar';
 
-const SinglePageProductView = ({ auth: { token, isAuthenticated }, product: { selectedProduct, loading }, getProductById, match  }) => {
+const SinglePageProductView = ({ auth: { token, isAuthenticated }, product: { selectedProduct, loading, error }, getProductById, match  }) => {
   const productId = match.params.productId;
 
   useEffect(() => {
     (async function() {
-      await getProductById(token, productId);
+      await getProductById(productId);
     })();
-  }, [getProductById, token, isAuthenticated, productId]);
+  }, [getProductById, isAuthenticated, productId]);
 
-  let productMarkup = [];
+  if (error) {
+    return <div>Oops, noe gikk galt</div>
+  }
 
-  if (selectedProduct && !loading) {
+  if (loading) {
+    return <div>Laster product</div>
+  }
 
-    productMarkup = selectedProduct.product.map(product => {
-      return (
-        <div key={product._id}>
-          <div>Navn: {product.productName}</div>
-          <div>Produkt-id: {product.productId}</div>
-          <div>Pris: {product.productPrice}</div>
-          <div>Mva: {product.productVat}</div>
-          <div>Netto: {product.productLineNetTotal}</div>
+  if (!selectedProduct) {
+    return <div>Fant ikke produkt</div>
+  }
+
+  const productMarkup = (
+    <div key={selectedProduct._id}>
+      {/* {isAuthenticated && <button>Edit</button>} */}
+        <div>Navn: {selectedProduct.productName}</div>
+        <div className="product-image-container">
+          <img className="product-card-image" src={selectedProduct.productImage} alt='Product illustration'></img>
         </div>
-      )
-    });
-  };
+        <div className="product-card-info">
+          <div>Produktinformasjon: {selectedProduct.productDescription}</div>
+          <div>Produkt-id: {selectedProduct._id.replace(/[^0-9\.]+/g, "")}</div>
+          <div>Pris: {selectedProduct.productPrice}</div>
+          <div>Mva: {selectedProduct.productVat}</div>
+          <div>Netto pris: {selectedProduct.productPrice * (1+ selectedProduct.productVat)}</div>
+          </div>
+        </div>
+        
+  )
 
-  
   return (
     <div>
-      {selectedProduct && !loading && isAuthenticated ? (
-  
-     
-          <Fragment>
-      <Toolbar />
-      <div className='content-area'> 
-        <h3>Produkt</h3>
-        <div>{productMarkup}</div>
-      </div>
-    </Fragment>) : (
+      {isAuthenticated && <Toolbar />}
       <div className='content-area'> 
       <h3>Produkt</h3>
       <div>{productMarkup}</div>
-    </div>
-    )}
       </div>
+    </div>
    )
-};
+}
 
 SinglePageProductView.propTypes = {
   auth: PropTypes.object.isRequired,
