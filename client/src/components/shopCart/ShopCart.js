@@ -69,7 +69,6 @@ const ShopCart = ({
           </div>
         ))
       }
-      {console.log(object.products)}
       
       <div className="cart-company-total">
         <div className="cart-company-total-tag">Total</div>
