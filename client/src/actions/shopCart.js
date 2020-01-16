@@ -3,9 +3,10 @@ import {
   ADD_TO_CART_ERROR,
   ADD_TO_CART,
   UPDATE_ITEM_QUANTITY,
-  ITEM_QUANTITY_ERROR,
   CREATE_NEW_ORDER,
-  NEW_ORDER_ERROR
+  NEW_ORDER_ERROR,
+  TOGGLE_SHOPCART,
+  REMOVE_CREATE_ORDER
 } from '../actions/constants';
 
 // Add item to cart:
@@ -63,6 +64,8 @@ export const createNewOrders = shopCartItems => async dispatch => {
       type: CREATE_NEW_ORDER,
       payload: res.data
     })
+
+    setTimeout(() => dispatch({ type: REMOVE_CREATE_ORDER }), 5000);
   } catch(error) {
     console.error(error);
     dispatch({
@@ -70,7 +73,13 @@ export const createNewOrders = shopCartItems => async dispatch => {
       payload: error
     });
   }
+}
 
+//toggle shopcartview on/off:
+export const toggleShopCart = () => dispatch => {
+  dispatch({
+    type: TOGGLE_SHOPCART
+  });
 }
 
 

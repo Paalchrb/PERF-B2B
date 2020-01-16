@@ -1,8 +1,8 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getProductById } from '../../actions/product';
-import { format } from 'date-fns';
+
 import Toolbar from '../layout/Toolbar';
 
 const SinglePageProductView = ({ auth: { token, isAuthenticated }, product: { selectedProduct, loading, error }, getProductById, match  }) => {
@@ -37,7 +37,7 @@ const SinglePageProductView = ({ auth: { token, isAuthenticated }, product: { se
           <div>
           <h4>Produktinformasjon: {selectedProduct.productDescription}</h4>
           </div>
-          <div>Produkt-id: {selectedProduct._id.replace(/[^0-9\.]+/g, "")}</div>
+          <div>Produkt-id: {selectedProduct._id.replace(/[^0-9.]+/g, "")}</div>
           <div>Pris: {selectedProduct.productPrice}</div>
           <div>Mva: {selectedProduct.productVat}</div>
           <div>Netto pris: {selectedProduct.productPrice * (1+ selectedProduct.productVat)}</div>

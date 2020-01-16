@@ -33,6 +33,7 @@ const App = () => {
   <Provider store={store}>
     <Router>
       <Navbar />
+      <ShopCart />
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route path='/login' component={Login} />

@@ -60,10 +60,8 @@ const Login = ({ login, isAuthenticated }) => {
             Don't have an account? <Link to='/register'>Sign Up</Link>
           </p>
           <Alert />
-      </div>
-
-      </div>
-      
+        </div>
+      </div>  
     </Fragment>
   );
 };
