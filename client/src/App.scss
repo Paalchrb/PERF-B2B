@@ -371,16 +371,18 @@ textarea {
 // START OF SCSS
 
 $font:    Helvetica, sans-serif;
-$black: #000;
-$darkest: #222;
-$darker: #333;
-$dark: #444;
-$light: #ccc;
-$lighter: #ddd;
-$lightest: #eee;
+$black: rgb(0, 0, 0);
+$darkest: rgb(34, 34, 34);
+$darker: rgb(56, 56, 56);
+$dark: rgb(133, 133, 133);
+$medium: rgb(180, 180, 180);
+$light: rgb(230, 230, 230);
+$lighter: rgb(247, 247, 247);
+$lightest: rgb(255, 255, 255);
 $white: #fff;
-$accent: #00b7ff;
-$darkaccent: #0081eb;
+$accent: #ffc400;
+$darkaccent: #F9D04B;
+$blue: rgb(99, 110, 112);
 $cart-width: 500px;
 $toolbar-width: 200px;
 $navbar-height: 90px;
@@ -537,6 +539,7 @@ b {
   padding: 3vw;
   margin: $navbar-height auto;
   margin-left: $toolbar-width;
+  margin-right: $toolbar-width;
   box-sizing: border-box;
   .company-section {
     background: $white;
@@ -559,6 +562,7 @@ b {
     .about-container {
       line-height: 1.4em;
       grid-area: about;
+      margin-top: 0.8em;
     }
     .company-logo {
       grid-area: logo;
@@ -647,18 +651,19 @@ b {
   box-shadow: 
   0px 0px 8px 0px rgba(0, 0, 0, 0.1);
 }
-.grow { transition: all .1s ease-in-out; }
-.grow:hover { transform: scale(1.05); }
+.grow { transition: all .03s ease-in-out; }
+.grow:hover { transform: scale(1.04); }
 
 .product-order-button {
   width: 100%;
   position: relative;
   bottom: 0;
   border-radius: 0 0 $radius $radius;
-  background-color: $lightest;
-  color: #777;
+  background-color: $blue;
+  color: $white;
   &:hover {
-    background-color: $lighter;
+    background-color: rgb(255, 196, 0);
+    color: $darker;
 
   }
   #icon-order-button {
@@ -724,9 +729,10 @@ b {
   margin-bottom: 10vh;
   h3 {
     margin-bottom: 1.2em;
-    color: $darker;
+    color: $blue;
     font-weight: 900;
     font-size: 20px;
+    text-transform: uppercase;
     
   }
 }
@@ -763,7 +769,7 @@ b {
 }
 
 .navbar {
-  background-color: $darkest;
+  background: linear-gradient($darker, $darkest);
   color: $white;
   position: fixed;
   top: 0;
@@ -848,7 +854,7 @@ b {
 }
 
 .toolbar {
-  background-color: $lightest;
+  background-color: $darker;
   color: $darker;
   position: fixed;
   left: 0;
@@ -894,8 +900,8 @@ b {
 }
 
 .toolbar-small {
-  background-color: $lightest;
-  color: $darker;
+  background-color: $darker;
+  color: $lightest;
   position: fixed;
   left: 0;
   top: $navbar-height;
@@ -974,14 +980,16 @@ b {
   border-radius: 0px;
   height: 100px;
   font-size: 20px;
+  color: $black;
 }
 
 #icon {
-  color: $dark;
+  color: $light;
   font-size: 25px;
   cursor: pointer;
   &:hover {
-    color: $light;
+    color: $white;
+
   }
   &:active {
     color: $accent;
@@ -1151,7 +1159,6 @@ input[type=number]::-webkit-outer-spin-button {
 .order-contact {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  margin-top: 10vh;
 }
 
 .order-seller {
@@ -1182,6 +1189,18 @@ input[type=number]::-webkit-outer-spin-button {
 
 #order-icons {
   margin-right: 10px;
+}
+
+.single-order-total {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: right;
+  padding: 20px 2vw;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  box-sizing: border-box;
+  
 }
 
 

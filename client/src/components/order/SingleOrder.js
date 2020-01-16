@@ -51,6 +51,19 @@ const SingleOrder = ({ auth: { isAuthenticated }, order: { selectedOrder, loadin
         </div>
         <div>{orderLineMarkup}</div>
 
+        <div className="single-order-total">
+          {/* {
+            selectedOrder.orderLineTotal.reduce((acc, orderLines) => {
+              return acc + 
+            }, 0)
+          },-
+
+          } */}
+
+          <div className="cart-subtotal-tag">Subtotal</div>
+          <div className="cart-subtotal-sum">9999,-</div>
+        </div>
+
         <div className="order-contact">
         <div className="order-seller">
           <h3 id="order-heading">Selger</h3>
@@ -82,6 +95,7 @@ const SingleOrder = ({ auth: { isAuthenticated }, order: { selectedOrder, loadin
 
 
         </div>
+
         </div>
         
       </div>
