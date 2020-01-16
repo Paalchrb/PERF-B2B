@@ -34,7 +34,6 @@ const App = () => {
     <Router>
       <Navbar />
       <ShopCart />
-      <Alert />
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route path='/login' component={Login} />

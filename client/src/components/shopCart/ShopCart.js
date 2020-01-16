@@ -11,6 +11,9 @@ import { shopCartSelector } from '../../utils/selectors';
 
 
 const ShopCart = ({
+  auth: {
+    isAuthenticated
+  },
   shopCart: {
     shopCartItems,
     loading,
@@ -99,7 +102,7 @@ const ShopCart = ({
  
   return (
     <Fragment>
-      { showCart ? (
+      { showCart && isAuthenticated ? (
           <div className="cart">
           <i className="fas fa-times" id="cart-close-button" onClick={() => handleToggleClick()}></i>
             <div className="cart-header">
