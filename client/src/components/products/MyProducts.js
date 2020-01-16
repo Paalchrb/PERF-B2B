@@ -20,10 +20,10 @@ const MyProducts = ({ auth:{ token }, products, getProductsByCompanyId, searchFi
       </div>
 
       <div className="product-card-info">
-       <div className="product-card-text">
-        <h4>{product.productName}</h4>
-        <h6>{product.productSubhead}</h6>
-       </div>
+        <div className="product-card-text">
+          <h4>{product.productName}</h4>
+          <h6>{product.productSubhead}</h6>
+        </div>
         
         <div className="product-card-price-container">
           <div className="product-card-price">
