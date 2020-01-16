@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import {
   GET_COMPANY,
   COMPANY_ERROR,
@@ -12,15 +11,9 @@ import {
 } from './constants';
 
 //get user company
-export const getCurrentCompany = (token) => async dispatch => {
+export const getCurrentCompany = () => async dispatch => {
   try {
-    let config = {
-      headers: {
-        'x-auth-token': token,
-      }
-    }
-    
-    const company = await axios.get('/api/companies/me', config);
+    const company = await axios.get('/api/companies/me');
  
     dispatch({
       type: GET_COMPANY,
@@ -29,20 +22,15 @@ export const getCurrentCompany = (token) => async dispatch => {
   } catch (error) {
     dispatch({
       type: COMPANY_ERROR,
-      payload: error
+      payload: error.response.data.errors
     });
   }
 };
 
 //get company recent products
-export const getRecentProducts = (token) => async dispatch => {
+export const getRecentProducts = () => async dispatch => {
   try {
-    let config = {
-      headers: {
-        'x-auth-token': token,
-      }
-    }
-    const recentProducts = await axios.get('api/products/recent', config);
+    const recentProducts = await axios.get('api/products/recent');
 
     dispatch({
       type: GET_RECENT_PRODUCTS,
@@ -51,21 +39,15 @@ export const getRecentProducts = (token) => async dispatch => {
   } catch (error) {
     dispatch({
       type: RECENT_PRODUCTS_ERROR,
-      payload: error
+      payload: error.response.data.errors
     });
   }
 };
 
 //get company favorite products
-export const getFavoriteProducts = (token) => async dispatch => {
+export const getFavoriteProducts = () => async dispatch => {
   try {
-    let config = {
-      headers: {
-        'x-auth-token': token,
-      }
-    }
-    
-    const favoriteProducts = await axios.get('api/products/favorites', config);
+    const favoriteProducts = await axios.get('api/products/favorites');
 
     dispatch({
       type: GET_FAV_PRODUCTS,
@@ -74,23 +56,15 @@ export const getFavoriteProducts = (token) => async dispatch => {
   } catch (error) {
     dispatch({
       type: FAV_PRODUCTS_ERROR,
-      payload: {
-        msg: 'Unable to load favorite products'
-      }
+      payload: error.response.data.errors
     });
   }
 };
 
 //get company recent orders
-export const getRecentOrders = (token) => async dispatch => {
+export const getRecentOrders = () => async dispatch => {
   try {
-    let config = {
-      headers: {
-        'x-auth-token': token,
-      }
-    }
-    
-    const getRecentOrders = await axios.get('api/orders/procurement/recent', config);
+    const getRecentOrders = await axios.get('api/orders/procurement/recent');
 
     dispatch({
       type: GET_RECENT_ORDERS,
@@ -99,7 +73,7 @@ export const getRecentOrders = (token) => async dispatch => {
   } catch (error) {
     dispatch({
       type: RECENT_ORDERS_ERROR,
-      payload: error
+      payload: error.response.data.errors
     });
   }
 };

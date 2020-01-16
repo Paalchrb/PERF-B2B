@@ -6,12 +6,12 @@ import { getAllOrders } from '../../actions/order';
 import { format } from 'date-fns';
 import Toolbar from '../layout/Toolbar';
 
-const Orders = ({ auth: { token, isAuthenticated }, order: { orders, loading }, getAllOrders, history }) => {
+const Orders = ({ auth: { isAuthenticated }, order: { orders, loading }, getAllOrders, history }) => {
   useEffect(() => {
     (async function() {
-      await getAllOrders(token);
+      await getAllOrders();
     })();
-  }, [getAllOrders, token, isAuthenticated]);
+  }, [getAllOrders, isAuthenticated]);
 
 
   const handleClick = id => {

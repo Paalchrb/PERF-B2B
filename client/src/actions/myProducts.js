@@ -1,18 +1,10 @@
 import axios from 'axios';
-
 import { GET_COMPANY_PRODUCTS, COMPANY_PRODUCTS_ERROR } from './constants';
 
 //Get products by company ID
-export const getProductsByCompanyId = (token) => async dispatch => {
-
-
+export const getProductsByCompanyId = () => async dispatch => {
   try {
-    const config = {
-      headers: {
-        "x-auth-token": token
-      }
-    }
-    const companyProducts = await axios.get('/api/products/me', config);
+    const companyProducts = await axios.get('/api/products/me');
 
     dispatch({
       type: GET_COMPANY_PRODUCTS,
@@ -22,7 +14,7 @@ export const getProductsByCompanyId = (token) => async dispatch => {
   } catch (error) {
     dispatch({
       type: COMPANY_PRODUCTS_ERROR,
-      payload: error
+      payload: error.response.data.errors
     });
   }
 };

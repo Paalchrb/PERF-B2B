@@ -6,6 +6,8 @@ const { formatShopCartItems, createOrder } = require('../../config/utils');
 //MongoDB models
 const Order = require('../../models/Order');
 const Company = require('../../models/Company');
+const util = require('util');
+
 
 
 // @route   POST api/orders
@@ -30,9 +32,7 @@ router.post(
 
     //Format inputdata to usefull format
     const { shopCartItems } = req.body;
-    console.log(shopCartItems)
     const formatedShopCartData = formatShopCartItems(shopCartItems);
-    console.log(formatedShopCartData)
     
     try {
       const orderIds = await Promise.all(
@@ -40,8 +40,6 @@ router.post(
           return createOrder(order, req.user.id, req.user.companyId);
         })
       );
-
-      console.log(orderIds);
       
       return res
         .status(201)
@@ -74,7 +72,9 @@ router.get(
       } else {
         return res
           .status(400)
-          .json({ msg: 'No orders found' });
+          .json({ 
+            errors: [{ msg: 'Ingen ordre' }] 
+        });
       };
     } catch (error) {
       console.error(error.message);

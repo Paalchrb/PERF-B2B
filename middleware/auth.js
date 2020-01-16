@@ -12,7 +12,6 @@
  * 
  * To apply middleware pass it as second argument in your API route
  ****************************************************************************/
-
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
@@ -40,7 +39,7 @@ module.exports = async function(req, res, next) {
         next();
       }
     });
-  } catch (err) {
+  } catch (error) {
     console.error('something wrong with auth middleware')
     return res
       .status(500)

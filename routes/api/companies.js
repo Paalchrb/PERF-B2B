@@ -6,6 +6,7 @@ const { check, validationResult } = require('express-validator');
 const Company = require('../../models/Company');
 
 
+
 // @route   POST api/companies
 // @desc    Register company
 // @access  Public
@@ -63,7 +64,9 @@ router.post(
       if (company) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Company already exists' }] });
+          .json({ 
+            errors: [{ msg: 'Bedrift eksisterer allerede' }] 
+          });
       }
 
       company = new Company({
@@ -96,6 +99,7 @@ router.post(
 );
 
 
+
 // @route   GET api/companies
 // @desc    Get all companies
 // @access  Public
@@ -104,6 +108,14 @@ router.get(
   async (req, res) => {
     try {
       const companies = await Company.find();
+
+      if (!companies) {
+        return res
+          .status(400)
+          .json({ 
+            errors: [{ msg: 'Ingen bedrifter funnet...' }] 
+          });
+      }
   
       return res
         .status(200)
@@ -118,6 +130,7 @@ router.get(
 )
 
 
+
 // @route    GET api/companies/me
 // @desc     Get company by auth token
 // @access   Private
@@ -128,7 +141,9 @@ router.get('/me', auth, async (req, res) => {
     if (!company) {
       return res
         .status(400)
-        .json({ msg: 'Company not found' });
+        .json({ 
+          errors: [{ msg: 'Bedrift ikke funnet...' }] 
+        });
     }
 
     return res
@@ -141,7 +156,6 @@ router.get('/me', auth, async (req, res) => {
       .send('Server Error');
   }
 });
-
 
 
 
@@ -170,25 +184,31 @@ router.post(
     
     try {
       const company = await Company.findById(req.user.companyId);
+
+      if (!company) {
+        return res
+          .status(400)
+          .json({ 
+            errors: [{ msg: 'Bedrift ikke funnet. Kunne ikke legge til i favoritter' }] 
+          });
+      }
       
       company.favoriteProducts.unshift(productId);
       
       company.save();
       
       return res
-      .status(201)
-      .json(company.favoriteProducts);
+        status(201)
+        .json(company.favoriteProducts);
     } catch (error) {
       console.error(error.message);
       return res
-      .status(500)
-      .send('Server Error');
+        .status(500)
+        .send('Server Error');
     }
   }  
 );
-  
-  
-// Strecth @TODO: route to unfavorite item **
+
   
 
 // @route    GET api/companies/:companyId
@@ -203,7 +223,9 @@ router.get(
       if (!company) {
         return res
           .status(400)
-          .json({ msg: 'Company not found' });
+          .json({ 
+            errors: [{ msg: 'Bedrift ikke funnet...' }] 
+          });
       }
 
       return res

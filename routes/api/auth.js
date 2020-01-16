@@ -9,12 +9,21 @@ const { check, validationResult } = require('express-validator');
 const User = require('../../models/User');
 
 
+
 // @route    GET api/auth
 // @desc     Check if authenticated
 // @access   Private
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ 
+          errors: [{ msg: 'Kan ikke validere bruker' }] 
+        });
+    }
     return res
       .status(200)
       .json(user);
@@ -25,6 +34,7 @@ router.get('/', auth, async (req, res) => {
       .send('Server Error');
   }
 });
+
 
 
 // @route    POST api/auth
@@ -54,7 +64,7 @@ router.post(
       if (!user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Invalid Credentials' }] });
+          .json({ errors: [{ msg: 'Ugyldig brukernavn eller passord' }] });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
@@ -62,7 +72,7 @@ router.post(
       if (!isMatch) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Invalid Credentials' }] });
+          .json({ errors: [{ msg: 'Ugyldig brukernavn eller passord' }] });
       }
 
       const payload = {

@@ -28,7 +28,7 @@ export default function(state=initialState, action) {
           ...state.shopCartItems.slice(0, index),
         {
           ...state.shopCartItems[index],
-          quantity: +payload.quantity + 1
+          quantity:  +state.shopCartItems[index].quantity + 1
         },
         ...state.shopCartItems.slice(index + 1)
         ]

@@ -88,6 +88,14 @@ router.get(
     try {
       const products = await Product.find();
 
+      if (products.length === 0) {
+        return res
+          .status(404)
+          .json({ 
+            errors: [{ msg: 'Ingen produkter funnet...' }] 
+          });
+      }
+
       return res
         .status(200)
         .json(products);
@@ -114,20 +122,29 @@ router.get(
       const favIds = company.favoriteProducts;
       
       const favProducts = await Product.find( { _id : { $in : favIds } } );
+
+      if (favProducts.length === 0) {
+        return res
+          .status(404)
+          .json({ 
+            errors: [{ msg: 'Ingen produkter funnet...' }] 
+          });
+      }
       
       return res
-      .status(200)
-      .json(favProducts)
+        .status(200)
+        .json(favProducts)
     } catch (error) {
       console.error(error.message);
       return res
-      .status(500)
-      .send('Server Error');
+        .status(500)
+        .send('Server Error');
     }
   }
 );
   
   
+
 // @route   GET api/products/recent
 // @desc    Get recently bought products
 // @access  Private
@@ -140,29 +157,44 @@ router.get(
       const recentIds = company.recentProducts;
       
       const recProducts = await Product.find( { _id : { $in : recentIds } } );
+
+      if (recProducts.length === 0) {
+        return res
+          .status(404)
+          .json({ 
+            errors: [{ msg: 'Ingen produkter funnet...' }] 
+          });
+      }
       
       return res
-      .status(200)
-      .json(recProducts)
+        .status(200)
+        .json(recProducts)
     } catch (error) {
       console.error(error.message);
       return res
-      .status(500)
-      .send('Server Error');
+        .status(500)
+        .send('Server Error');
     }
   }
 );
 
 // @route   GET api/products/me
-// @desc    Get one companys products
+// @desc    Get current company's products
 // @access  Private
 router.get(
   '/me',
   auth,
   async (req, res) => {
     try {
-      console.log(req.user.companyId);
       const myProducts = await Product.find({ 'companyId': req.user.companyId });
+
+      if (myProducts.length === 0) {
+        return res
+          .status(404)
+          .json({ 
+            errors: [{ msg: 'Du har ikke lagt til noen produkter...' }]
+          });
+      }
       return res
         .status(200)
         .json(myProducts);
@@ -185,11 +217,12 @@ router.get(
       try {
         const product = await Product.findById(req.params.productId);
         
-        // Check for ObjectId format and post
         if(!product) {
           return res
             .status(404)
-            .json({ msg: 'Product not found' });
+            .json({ 
+              errors: [{ msg: 'Produkt ikke funnet' }] 
+            });
         }
   
         return res
@@ -200,8 +233,8 @@ router.get(
         return res
           .status(500)
           .send('Server Error');
-      }
-  })
-;
+    }
+  }
+);
     
 module.exports = router;

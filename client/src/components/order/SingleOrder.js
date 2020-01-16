@@ -5,14 +5,14 @@ import { getOrderById } from '../../actions/order';
 import { format } from 'date-fns';
 import Toolbar from '../layout/Toolbar';
 
-const SingleOrder = ({ auth: { token, isAuthenticated }, order: { selectedOrder, loading }, getOrderById, match  }) => {
+const SingleOrder = ({ auth: { isAuthenticated }, order: { selectedOrder, loading }, getOrderById, match  }) => {
   const orderId = match.params.orderId;
 
   useEffect(() => {
     (async function() {
-      await getOrderById(token, orderId);
+      await getOrderById(orderId);
     })();
-  }, [getOrderById, token, isAuthenticated, orderId]);
+  }, [getOrderById, isAuthenticated, orderId]);
 
   let orderDateFormatted = '';
   let orderLineMarkup = [];

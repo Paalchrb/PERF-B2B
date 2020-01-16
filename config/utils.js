@@ -2,6 +2,7 @@ const Order = require('../models/Order');
 const User = require('../models/User');
 const Company = require('../models/Company');
 
+
 const formatShopCartItems = shopCartItems => {
   const shopCartObjects = [];
   shopCartItems.forEach(shopCartItem => {
@@ -21,7 +22,7 @@ const formatShopCartItems = shopCartItems => {
     
     if (existingIndex !== -1) {
       shopCartObjects[existingIndex].products.push({
-        _id,
+        productId: _id,
         productName,
         productPrice,
         productVat,
@@ -34,7 +35,7 @@ const formatShopCartItems = shopCartItems => {
         companyId,
         products: [
           {
-            _id,
+            productId: _id,
             productName,
             productPrice,
             productVat,
@@ -54,11 +55,11 @@ const createOrder = async (cartOrder, userId, buyerCompanyId) => {
   try {
     const contactPerson = await User.findById(userId);
     const buyer = await Company.findById(buyerCompanyId);
-    const seller = await Company.findById(order.companyId);
-    
+    const seller = await Company.findById(cartOrder.companyId);
+    console.log(cartOrder.products)
     
     const order = new Order({   
-      orderLine: [
+      orderLines: [
         ...cartOrder.products
       ],
       buyer: {
@@ -90,7 +91,7 @@ const createOrder = async (cartOrder, userId, buyerCompanyId) => {
         userPhone: contactPerson.userContact.userPhone,
       }
     });
-  
+
     seller.recentOrders.unshift(order._id);
     if (seller.recentOrders.length > 4) {
       seller.recentOrders = seller.recentOrders.slice(5);
@@ -102,20 +103,21 @@ const createOrder = async (cartOrder, userId, buyerCompanyId) => {
     }
     
     //avoid duplicate products in recent products:
-    if(!buyer.recentProducts.includes(productId)) {
-      buyer.recentProducts.unshift(productId);
+    if(!buyer.recentProducts.includes(cartOrder.productId)) {
+      buyer.recentProducts.unshift(cartOrder.productId);
       if (buyer.recentProducts.length > 4) {
         buyer.recentProducts = buyer.recentProducts.slice(5);
       }
     }
-    console.log(order)
-  /*   await order.save();
+    console.log(order);
+
+    await order.save();
     await seller.save();
-    await buyer.save() */
+    await buyer.save(); 
 
     return order._id
   } catch(error) {
-
+    console.log(error);
   }
 }
 

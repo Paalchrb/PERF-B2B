@@ -1,70 +1,41 @@
 import axios from 'axios';
-
 import {
   GET_ALL_ORDERS,
   GET_SINGLE_ORDER,
   ORDER_ERROR
 } from '../actions/constants';
 
-
-//Get all user orders
-export const getAllOrders = (token) => async dispatch => {
+//Get all orders from current company
+export const getAllOrders = () => async dispatch => {
   try {
-    let config = {
-      headers: {
-        'x-auth-token': token
-      }
-    }
-    
-    const res = await axios('/api/orders/me', config); 
+    const res = await axios.get('/api/orders/me'); 
  
     dispatch({
       type: GET_ALL_ORDERS,
       payload: res.data
     });
   } catch (error) {
-    console.log('There an an error retrieving your order');
-    // dispatch({
-    //   type: ORDER_ERROR,
-    //   payload: { 
-    //     msg: error.response.statusText, 
-    //     status: error.response.status 
-    //   }
-    // });
+    dispatch({
+      type: ORDER_ERROR,
+      payload: error.response.data.errors
+     });
   }
 };
 
 //Get user order by id
-export const getOrderById = (token, orderId) => async dispatch => {
+export const getOrderById = (orderId) => async dispatch => {
   try {
-    let config = {
-      headers: {
-        'x-auth-token': token
-      }
-    }
-    
-    const res = await axios(`/api/orders/${orderId}`, config); 
+    const res = await axios(`/api/orders/${orderId}`); 
 
     dispatch({
       type: GET_SINGLE_ORDER,
       payload: res.data
     });
   } catch (error) {
-    console.log('There an an error retrieving your order');
-    // dispatch({
-    //   type: ORDER_ERROR,
-    //   payload: { 
-    //     msg: error.response.statusText, 
-    //     status: error.response.status 
-    //   }
-    // });
+    dispatch({
+      type: ORDER_ERROR,
+      payload: error.response.data.errors
+     });
   }
 };
 
-//Toggles Single Order-view in Orders-view
-// export const setCurrentOrder = (orderId) => dispatch => {
-//   dispatch({
-//     type: SET_CURRENT_ORDER,
-//     payload: orderId
-//   });
-// }
