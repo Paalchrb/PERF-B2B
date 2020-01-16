@@ -70,6 +70,7 @@ export const createNewOrders = (shopCartItems, token) => async dispatch => {
     }
   
     const res = await axios.post('/api/orders', body, config);
+    console.log(res);
 
     dispatch({
       type: CREATE_NEW_ORDER,

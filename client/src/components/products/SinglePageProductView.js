@@ -29,12 +29,14 @@ const SinglePageProductView = ({ auth: { token, isAuthenticated }, product: { se
   const productMarkup = (
     <div key={selectedProduct._id}>
       {/* {isAuthenticated && <button>Edit</button>} */}
-        <div>Navn: {selectedProduct.productName}</div>
+        <h2>Navn: {selectedProduct.productName}</h2>
         <div className="product-image-container">
           <img className="product-card-image" src={selectedProduct.productImage} alt='Product illustration'></img>
         </div>
         <div className="product-card-info">
-          <div>Produktinformasjon: {selectedProduct.productDescription}</div>
+          <div>
+          <h4>Produktinformasjon: {selectedProduct.productDescription}</h4>
+          </div>
           <div>Produkt-id: {selectedProduct._id.replace(/[^0-9\.]+/g, "")}</div>
           <div>Pris: {selectedProduct.productPrice}</div>
           <div>Mva: {selectedProduct.productVat}</div>

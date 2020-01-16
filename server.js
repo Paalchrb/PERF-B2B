@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'production') {
   // Set static folder(public folder)
   app.use(express.static('client/build'));
 
-  // Loads the static index.html file on all request not goint to our defined apis
+  // Loads the static index.html file on all request not going to our defined apis
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });

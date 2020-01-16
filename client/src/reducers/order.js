@@ -1,9 +1,7 @@
 import {
-
   GET_ALL_ORDERS,
   GET_SINGLE_ORDER,
   ORDER_ERROR,
-  GET_ORDER,
   LOGOUT
 
 } from '../actions/constants';

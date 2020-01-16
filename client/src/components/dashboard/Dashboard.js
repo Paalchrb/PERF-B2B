@@ -31,12 +31,12 @@ const Dashboard = ({
 }) => {
   useEffect(() => {
     (async function() {
-      await getCurrentCompany(token);
-      await getRecentProducts(token);
-      await getFavoriteProducts(token);
-      await getRecentOrders(token);
+      await getCurrentCompany();
+      await getRecentProducts();
+      await getFavoriteProducts();
+      await getRecentOrders();
     })();
-  }, [getCurrentCompany, getRecentProducts, getFavoriteProducts, getRecentOrders, token]);
+  }, [getCurrentCompany, getRecentProducts, getFavoriteProducts, getRecentOrders]);
   
   if(!isAuthenticated) {
     return (

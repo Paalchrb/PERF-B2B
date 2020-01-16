@@ -1,3 +1,7 @@
+/** 
+ * Takes shopCart.shopCartItems state as a parameter and returns the same data content in an object with
+ * appropriate strucutre to render ShopCart component:
+ * **/
 export const shopCartSelector = shopCartItems => {
   const shopCartObjects = [];
   shopCartItems.forEach(shopCartItem => {

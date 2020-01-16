@@ -52,13 +52,17 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'User already exists' }] });
+          .json({ 
+            errors: [{ msg: 'Bruker eksisterer allerede' }] 
+          });
       }
 
       if (password !== password2) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Passwords do not match' }] });
+          .json({ 
+            errors: [{ msg: 'Passord må være identiske' }] 
+          });
       }
 
       user = new User({
@@ -103,7 +107,9 @@ router.get(
       if (!user) {
         return res
           .status(404)
-          .json({ errors: [{ msg: 'User not found' }] });
+          .json({ 
+            errors: [{ msg: 'Bruker ikke funnet' }] 
+          });
       }
 
       return res
