@@ -802,9 +802,10 @@ b {
       font-size: 18px;
       padding: 0;
       margin-left: 16px;
-      background-color: white;
+      background-color: $white;
       border: 0;
       width: 100%;
+
     }
     
       
@@ -1019,8 +1020,7 @@ b {
 }
 
 .cart-subtotal {
-  text-align: right;
-  border-top: 3px $light solid;
+  text-align: center;
   padding: 20px 2vw;
   box-sizing: border-box;
 }
@@ -1028,8 +1028,9 @@ b {
 .cart-subtotal-tag {
   display: inline-block;
   margin-right: 20px;
-  color: $light;
-  font-size: 26px;
+  color: $dark;
+  font-weight: bold;
+  font-size: 20px;
 
 }
 
@@ -1121,6 +1122,75 @@ input[type=number]::-webkit-outer-spin-button {
 
 // }
   
+
+
+// Single Order View
+.single-order-container {
+  background: $white;
+  padding: 5vw;
+  border-radius: $radius;
+  line-height: 1.5em;
+  
+
+}
+.order-line-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 10px 0;
+
+}
+
+.order-line-tags {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  font-weight: bold;
+  border-bottom: 1px solid $black;
+  padding: 10px 0;
+}
+
+.order-contact {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  margin-top: 10vh;
+}
+
+.order-seller {
+  border: 1px $lighter solid;
+  padding: 30px;
+  border-radius: $radius;
+  margin-right: 2vw;
+
+}
+
+.order-buyer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: 1px $lighter solid;
+  padding: 30px;
+  border-radius: $radius;
+  margin-right: 2vw;
+
+}
+
+.order-date {
+  margin-bottom: 20px;
+}
+
+#order-heading {
+  margin-bottom: 0.6em;
+}
+
+#order-icons {
+  margin-right: 10px;
+}
+
+
+// Order overview
+
+.order-overview-line {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
 
 
 
