@@ -42,10 +42,11 @@ const ProductSearch = ({ auth: { isAuthenticated, loading }, products, getAllPro
           </div>
           
         </div>
+        </div>
         
           <button className="product-order-button" onClick={() => handleClick(product._id)}><i className="fas fa-shopping-cart" id="icon-order-button"></i>Bestill</button>
         
-      </div>
+      
       </div>
     ));
 

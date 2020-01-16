@@ -31,36 +31,54 @@ const ShopCart = ({
 
   const shopCartObjects = shopCartSelector(shopCartItems);
   const shopItemsMarkup = shopCartObjects.map((object, index) => (
-    <div 
+    <div className="cart-company-container"
       key={index}
     >
-      <h3>{object.sellerName}</h3>
+      {/* <div className="cart-company-toggle"><i className="fas fa-chevron-down" id="cart-close-button"></i></div> */}
+      <div className="cart-company"><h5>{object.sellerName}</h5></div>
+      <div className="cart-tags">
+        <div>Ant</div>
+        <div>Produkt</div>
+        <div>MVA</div>
+        <div>Total (eks. mva)</div>
+      </div>
       {
         object.products.map(product => (
           <div
             key={product.productId}
+            className="product-line"
           >
-            <h4>
-              Navn:  {product.productName}
-            </h4>
-            <label htmlFor='quantity'>
-              Quantity:
+            
               <input 
+                className="cart-quantity"
                 name='quantity'
                 type = 'number'
                 value={product.quantity}
                 onChange = {event => handleChange(event, product.productId)}
               />
-            </label>
-            <p>
-              Enhetspris:  {product.productPrice}
-            </p>
-            <p>
-              Total: {product.productPrice * +product.quantity}
-            </p>
+            <div className="cart-product-name">
+              <p>{product.productName}</p>
+            </div>
+            
+            <div className="cart-product-vat">
+              <p>{product.productVat * 100}%</p>
+            </div>
+            <div className="cart-product-total">
+              {product.productPrice * +product.quantity},-
+            </div>
           </div>
         ))
       }
+      {console.log(object.products)}
+      
+      <div className="cart-company-total">
+        <div className="cart-company-total-tag">Total</div>
+    <div className="cart-company-total-sum">{
+      object.products.reduce((acc, product) => {
+        return acc + product.productPrice * +product.quantity
+      }, 0)
+    },-</div>
+      </div>
   </div>
   ));
 
@@ -75,15 +93,36 @@ const ShopCart = ({
         </Fragment>
       ) : (
         <Fragment>
-          <h3>Handlekurv</h3>
-          <div className='product-container'>
-            {shopCartItems.length > 0 ? shopItemsMarkup : <p>Ingen varer i handlekurv</p>}
+          <div className="cart">
+          <i className="fas fa-times" id="cart-close-button"></i>
+            <div className="cart-header"><h3 id="cart-title">Handlekurv</h3></div>
+            <div className='cart-body'>
+              {shopCartItems.length > 0 ? shopItemsMarkup : <p>Ingen varer i handlekurv</p>}
+            </div>
+            
+            <div className="cart-subtotal">
+              <div className="cart-subtotal-tag">Subtotal</div>
+              <div className="cart-subtotal-sum">{
+                shopCartObjects.reduce((acc, object) => {
+                  return acc + object.products.reduce((acc, product) => {
+                    return acc + product.productPrice * +product.quantity
+
+                  }, 0)
+                }, 0)
+              },-</div>
+
+            </div>
+            <div className="cart-info"><p>Alle priser eks mva</p></div>
+            
+            <div className="cart-footer">
+            <button id="cart-order-button"
+              onClick={event => handleClick(event)}>
+              Send bestilling
+            </button>
+              </div>
+
           </div>
-          <button
-            onClick={event => handleClick(event)}
-          >
-            Send bestilling
-          </button>
+          
         </Fragment>
       )}
        </div>
