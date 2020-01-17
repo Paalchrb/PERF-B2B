@@ -22,7 +22,7 @@ const Toolbar = ({toggleToolbar, toolbar: { toolbar } }) => {
         <Link to='/dashboard'><i className="fas fa-desktop grow" id="icon"><div className="icon-text">Dashbord</div></i></Link>
         <Link to='/products'><i className="fas fa-search grow" id="icon"><div className="icon-text">Finn produkt</div></i></Link>
         <Link to='/myproducts'><i className="fas fa-th grow" id="icon"><div className="icon-text">Mine produkter</div></i></Link>
-        <Link to='/orders'><i className="fas fa-list grow" id="icon"><div className="icon-text">Mine ordre</div></i></Link>
+        <i className="fas fa-list grow" id="icon"><div className="icon-text">Mine ordre</div></i>
         
         </div>
       </nav>
@@ -35,7 +35,7 @@ const Toolbar = ({toggleToolbar, toolbar: { toolbar } }) => {
         <Link to='/dashboard'><i className="fas fa-desktop grow" id="icon"><div className="icon-text"></div></i></Link>
         <Link to='/products'><i className="fas fa-search grow" id="icon"><div className="icon-text"></div></i></Link>
         <Link to='/myproducts'><i className="fas fa-th grow" id="icon"></i></Link>
-        <Link to='/orders'><i className="fas fa-list grow" id="icon"></i></Link>
+        <i className="fas fa-list grow" id="icon"></i>
         
         </div>
       </nav>

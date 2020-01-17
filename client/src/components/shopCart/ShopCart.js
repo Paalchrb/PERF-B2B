@@ -5,9 +5,11 @@ import PropTypes from 'prop-types';
 import { 
   updateCartItemQuantity, 
   createNewOrders, 
-  toggleShopCart 
+  toggleShopCart,
+  setLoading
 } from '../../actions/shopCart';
 import { shopCartSelector } from '../../utils/selectors';
+import Spinner from '../layout/Spinner';
 
 
 const ShopCart = ({
@@ -18,15 +20,17 @@ const ShopCart = ({
     shopCartItems,
     loading,
     orderCreated,
-    showCart
+    showCart,
+    orders
   },
   updateCartItemQuantity,
   createNewOrders,
-  toggleShopCart
-
+  toggleShopCart,
+  setLoading
 }) => {
-  const handleSubmitClick = event => {
+  const handleSubmitClick = async event => {
     event.preventDefault();
+    setLoading();
     if(shopCartItems.length > 0) {
       createNewOrders(shopCartItems);
     }
@@ -91,24 +95,41 @@ const ShopCart = ({
   </div>
   ));
 
-  if (orderCreated && !loading) {
+  if(!showCart) {
+    return <Fragment></Fragment>
+  }
+
+  if (orderCreated) {
     return (
-      <div className="cart-confirmed">
-        <i className="fas fa-times" id="cart-close-button" onClick={() => handleToggleClick()}></i>
-         <i className="fas fa-check-circle" id="confirm-icon"></i>
-      <div className="order-confirmed">Bestilling sendt</div>
-      <div className="confirmed-orders">
-        <div className="confirmed-order"><Link to='#!'>Se ordre her</Link></div>
-        <div className="confirmed-order"><Link to='#!'>Se ordre her</Link></div>
-        
-        </div>
-    </div>
+      <Fragment>
+        {!loading ? (
+          <div className="cart-confirmed">
+            <i className="fas fa-times" id="cart-close-button" onClick={() => handleToggleClick()}></i>
+            <i className="fas fa-check-circle" id="confirm-icon"></i>
+            <div className="order-confirmed">Bestilling sendt</div>
+            <div className="confirmed-orders">
+              {
+                orders[0].map((orderId, index) => (
+                  <div className="confirmed-order">
+                    <Link to={`/orders/${orderId}`}>Se ordre {index} her</Link>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        ) : (
+          <div className="cart">
+            <Spinner />
+          </div>
+        )
+      }
+      </Fragment>
     );
   }
  
   return (
     <Fragment>
-      { showCart && isAuthenticated ? (
+      { !loading && isAuthenticated ? (
           <div className="cart">
           <i className="fas fa-times" id="cart-close-button" onClick={() => handleToggleClick()}></i>
             <div className="cart-header">
@@ -144,8 +165,9 @@ const ShopCart = ({
             </div>
           </div>
       ) : (
-        <Fragment>
-        </Fragment>
+        <div className="cart">
+         <Spinner />
+        </div>
       )  
     }
     </Fragment>
@@ -158,6 +180,7 @@ ShopCart.propTypes = {
   createNewOrders: PropTypes.func.isRequired,
   updateCartItemQuantity: PropTypes.func.isRequired,
   toggleShopCart: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -168,7 +191,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   createNewOrders,
   updateCartItemQuantity,
-  toggleShopCart
+  toggleShopCart,
+  setLoading
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopCart);
