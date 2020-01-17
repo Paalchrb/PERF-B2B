@@ -5,6 +5,7 @@ import { getAllProducts } from '../../actions/productSearch';
 import { addItemToCart } from '../../actions/shopCart';
 import Toolbar from '../layout/Toolbar';
 import ProductCard from '../products/ProductCard';
+import Spinner from '../layout/Spinner';
 
 const ProductSearch = ({ auth: { isAuthenticated, loading }, products, getAllProducts, searchField, addItemToCart }) => {
   useEffect(() => {
@@ -31,7 +32,7 @@ const ProductSearch = ({ auth: { isAuthenticated, loading }, products, getAllPro
 
   return (
     <div>
-      { !loading && (
+      { !loading ? (
         <Fragment>
           { isAuthenticated ? (
             <Fragment>
@@ -50,6 +51,10 @@ const ProductSearch = ({ auth: { isAuthenticated, loading }, products, getAllPro
         </div>
           )}
         </Fragment>
+      ) : (
+        <div className='content-area'>
+          <Spinner />
+        </div>
       )}
     </div>
   )
