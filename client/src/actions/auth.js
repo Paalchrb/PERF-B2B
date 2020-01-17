@@ -6,7 +6,8 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
+  SET_LOADER
 } from './constants';
 
 //Load user
@@ -64,3 +65,8 @@ export const login = (email, password) => async dispatch => {
 export const logout = () => dispatch => {
   dispatch({ type: LOGOUT });
 };
+
+// set loading
+export const setLoader = () => dispatch => {
+  dispatch({ type: SET_LOADER });
+}

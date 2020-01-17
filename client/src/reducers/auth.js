@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, USER_LOADED, AUTH_ERROR } from '../actions/constants';
+import { LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, USER_LOADED, AUTH_ERROR, SET_LOADER } from '../actions/constants';
 
 const initialState = {
   token: localStorage.getItem('token'),
@@ -36,6 +36,11 @@ export default function(state = initialState, action) {
         isAuthenticated: false, 
         loading: false
       };
+    case SET_LOADER:
+      return {
+        ...state,
+        loading: true
+      }
     default:
       return state;
   }
