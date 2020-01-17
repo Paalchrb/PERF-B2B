@@ -110,7 +110,7 @@ const ShopCart = ({
             <div className="confirmed-orders">
               {
                 orders[0].map((orderId, index) => (
-                  <div className="confirmed-order">
+                  <div className="confirmed-order" key={index}>
                     <Link to={`/orders/${orderId}`}>Se ordre {index + 1} her</Link>
                   </div>
                 ))

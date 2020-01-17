@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getOrderById } from '../../actions/order';
 import { format } from 'date-fns';
 import Toolbar from '../layout/Toolbar';
+import Spinner from '../layout/Spinner';
 
 const SingleOrder = ({ auth: { isAuthenticated }, order: { selectedOrder, loading }, getOrderById, match  }) => {
   const orderId = match.params.orderId;
@@ -103,7 +104,11 @@ const SingleOrder = ({ auth: { isAuthenticated }, order: { selectedOrder, loadin
         
       </div>
     </Fragment>
-    ) : ( <p>Loading...</p> )
+    ) : (
+      <div className='content-area'>
+        <Spinner />
+      </div>
+    )
   );
 }
 
