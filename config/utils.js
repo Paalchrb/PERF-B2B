@@ -95,12 +95,12 @@ const createOrder = async (cartOrder, userId, buyerCompanyId) => {
       }
     });
 
-    seller.recentOrders.unshift(order._id);
+    seller.recentOrders.push(order._id);
     if (seller.recentOrders.length > 4) {
       seller.recentOrders = seller.recentOrders.slice(0, 5);
     }
   
-    buyer.recentOrders.unshift(order._id);
+    buyer.recentOrders.push(order._id);
     if (buyer.recentOrders.length > 4) {
       buyer.recentOrders = buyer.recentOrders.slice(0, 5);
     }
