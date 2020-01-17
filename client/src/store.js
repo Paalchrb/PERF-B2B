@@ -3,10 +3,10 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 
-//because all initial state will be in the reducers
+//all initial state will be in the reducers
 const initialState = {};
 
-//put all required middleware in the array:
+//all required middleware here
 const middleware = [thunk];
 
 const store = createStore(

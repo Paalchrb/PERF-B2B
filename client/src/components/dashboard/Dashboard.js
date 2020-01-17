@@ -20,7 +20,6 @@ import {
 const Dashboard = ({
   auth: {
     user,
-    token,
     isAuthenticated
   },
   dashboard,
@@ -40,16 +39,18 @@ const Dashboard = ({
   
   if(!isAuthenticated) {
     return (
-      <Fragment>
+      <div className='content-area'>
         <Spinner />
-      </Fragment>
+      </div>
     )
   }
 
   return (
     <div>
       {dashboard === null || dashboard.loading ? (
-        <Spinner />
+        <div className='content-area'>
+          <Spinner />
+        </div>
       ) : (
         <Fragment>
           <Toolbar/>

@@ -29,7 +29,7 @@ const App = () => {
     store.dispatch(loadUser());
   }, []); 
 
-  return (
+return (
   <Provider store={store}>
     <Router>
       <Navbar />

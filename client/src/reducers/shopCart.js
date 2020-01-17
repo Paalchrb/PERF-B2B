@@ -7,7 +7,8 @@ import {
   NEW_ORDER_ERROR,
   LOGOUT,
   TOGGLE_SHOPCART,
-  REMOVE_CREATE_ORDER
+  REMOVE_CREATE_ORDER,
+  SET_LOADING
 } from '../actions/constants';
 
 const initialState = {
@@ -50,7 +51,6 @@ export default function(state=initialState, action) {
       return {
         ...state,
         loading: false,
-        shopCartItems: [],
         error: payload
       }
     case UPDATE_ITEM_QUANTITY:
@@ -89,6 +89,11 @@ export default function(state=initialState, action) {
         ...state,
         error: payload,
         loading: false
+      }
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: true
       }
     case CREATE_NEW_ORDER:
       return {

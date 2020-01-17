@@ -6,7 +6,8 @@ import {
   CREATE_NEW_ORDER,
   NEW_ORDER_ERROR,
   TOGGLE_SHOPCART,
-  REMOVE_CREATE_ORDER
+  REMOVE_CREATE_ORDER,
+  SET_LOADING
 } from '../actions/constants';
 
 // Add item to cart:
@@ -39,7 +40,7 @@ export const updateCartItemQuantity = (quantity, productId) => dispatch => {
       productId,
       quantity
     };
-    return dispatch({
+    dispatch({
       type: UPDATE_ITEM_QUANTITY,
       payload
     });
@@ -65,7 +66,8 @@ export const createNewOrders = shopCartItems => async dispatch => {
       payload: res.data
     })
 
-    setTimeout(() => dispatch({ type: REMOVE_CREATE_ORDER }), 5000);
+    setTimeout(() => dispatch({ type: REMOVE_CREATE_ORDER }), 5000000);
+    return res.data;
   } catch(error) {
     console.error(error);
     dispatch({
@@ -80,6 +82,13 @@ export const toggleShopCart = () => dispatch => {
   dispatch({
     type: TOGGLE_SHOPCART
   });
+}
+
+//set loading:
+export const setLoading = () => dispatch => {
+  dispatch({
+    type: SET_LOADING
+  })
 }
 
 

@@ -28,7 +28,7 @@ const SingleOrder = ({ auth: { isAuthenticated }, order: { selectedOrder, loadin
           <div>{orderLine.quantity}</div>
           <div>{orderLine.productPrice}</div>
           <div>{orderLine.productVat * 100}%</div>
-          <div>{orderLine.orderLineNetTotal}</div>
+          <div>{orderLine.orderLineTotal}</div>
         </div>
       )
     });
@@ -48,6 +48,7 @@ const SingleOrder = ({ auth: { isAuthenticated }, order: { selectedOrder, loadin
           <div>Antall</div>
           <div>Pris (eks MVA)</div>
           <div>MVA</div>
+          <div>Ordrelinje sum</div>
         </div>
         <div>{orderLineMarkup}</div>
 
@@ -60,8 +61,10 @@ const SingleOrder = ({ auth: { isAuthenticated }, order: { selectedOrder, loadin
 
           } */}
 
-          <div className="cart-subtotal-tag">Subtotal</div>
-          <div className="cart-subtotal-sum">9999,-</div>
+         {/*  <div className="cart-subtotal-tag">Subtotal</div>
+          <div className="cart-subtotal-sum">{selectedOrder.orderLines.reduce((acc, line) => {
+            return acc + line.productPrice * +line.quantity;
+          }),0},-</div> */}
         </div>
 
         <div className="order-contact">
