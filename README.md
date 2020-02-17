@@ -6,3 +6,5 @@ npm install
 
 to start server and devserver:
 npm run dev 
+
+A continued version of the app can be fount in CONTINUED-PERF-B2B
