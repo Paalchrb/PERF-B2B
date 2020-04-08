@@ -29,7 +29,7 @@ export const addItemToCart = (productId, quantity = 1) => async dispatch => {
   } catch (error) {
     dispatch({
       type: ADD_TO_CART_ERROR,
-      payload: error
+     
     });
   }
 };
